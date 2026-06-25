@@ -86,6 +86,39 @@
     }
     .nav-admin-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
 
+    /* ─── LANG SWITCHER ─── */
+    .lang-switcher {
+      position: relative; display: flex; align-items: center;
+    }
+    .lang-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white); font-size: 13px; font-weight: 600;
+      padding: 7px 12px; border-radius: 8px; cursor: pointer;
+      transition: all .2s; white-space: nowrap;
+    }
+    .lang-btn:hover { background: rgba(255,255,255,0.14); }
+    .lang-btn svg { opacity: 0.6; }
+    .lang-dropdown {
+      position: absolute; top: calc(100% + 8px); right: 0;
+      background: var(--navy); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px; padding: 6px; min-width: 160px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      display: none; z-index: 100;
+    }
+    .lang-dropdown.open { display: block; animation: slideUp .2s ease; }
+    .lang-opt {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 8px; cursor: pointer;
+      color: rgba(255,255,255,0.7); font-size: 13px; font-weight: 500;
+      transition: all .15s;
+    }
+    .lang-opt:hover { background: rgba(255,255,255,0.08); color: var(--white); }
+    .lang-opt.active { background: rgba(200,164,94,0.15); color: var(--gold); font-weight: 700; }
+    .lang-flag { font-size: 18px; }
+    .lang-name { flex: 1; }
+    .lang-code { font-size: 11px; opacity: 0.5; }
+
     .hamburger {
       display: none; flex-direction: column; gap: 5px;
       cursor: pointer; padding: 8px;
@@ -936,15 +969,27 @@
   </a>
 
   <div class="nav-links" id="navLinks">
-    <a class="nav-link" href="#how" onclick="closeNav()">How It Works</a>
-    <a class="nav-link" href="#" onclick="showPage('register');closeNav()">Register</a>
-    <a class="nav-link" href="#" onclick="showPage('build');closeNav()">Build</a>
-    <a class="nav-link" href="#" onclick="showPage('finance');closeNav()">Finance</a>
-    <a class="nav-link" href="#appointment" onclick="closeNav()">Book</a>
-    <a class="nav-link nav-cta" href="#" onclick="showPage('register');closeNav()">Register Now</a>
+    <a class="nav-link" href="#how" onclick="closeNav()" data-i18n="nav.how">How It Works</a>
+    <a class="nav-link" href="#" onclick="showPage('register');closeNav()" data-i18n="nav.register">Register</a>
+    <a class="nav-link" href="#" onclick="showPage('build');closeNav()" data-i18n="nav.build">Build</a>
+    <a class="nav-link" href="#" onclick="showPage('finance');closeNav()" data-i18n="nav.finance">Finance</a>
+    <a class="nav-link" href="#appointment" onclick="closeNav()" data-i18n="nav.book">Book</a>
+    <a class="nav-link nav-cta" href="#" onclick="showPage('register');closeNav()" data-i18n="nav.cta">Register Now</a>
   </div>
 
-  <div class="nav-admin-btn" onclick="toggleAdmin()">⚙ Admin</div>
+  <div class="lang-switcher" id="langSwitcher">
+    <button class="lang-btn" onclick="toggleLangMenu()" id="langBtn">
+      🇬🇧 EN
+      <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+    </button>
+    <div class="lang-dropdown" id="langDropdown">
+      <div class="lang-opt active" onclick="setLang('en')" id="opt-en"><span class="lang-flag">🇬🇧</span><span class="lang-name">English</span><span class="lang-code">EN</span></div>
+      <div class="lang-opt" onclick="setLang('bm')" id="opt-bm"><span class="lang-flag">🇲🇾</span><span class="lang-name">Bahasa Malaysia</span><span class="lang-code">BM</span></div>
+      <div class="lang-opt" onclick="setLang('zh')" id="opt-zh"><span class="lang-flag">🇨🇳</span><span class="lang-name">中文</span><span class="lang-code">ZH</span></div>
+      <div class="lang-opt" onclick="setLang('ta')" id="opt-ta"><span class="lang-flag">🇮🇳</span><span class="lang-name">தமிழ்</span><span class="lang-code">TA</span></div>
+    </div>
+  </div>
+  <div class="nav-admin-btn" data-i18n="nav.admin" onclick="toggleAdmin()">⚙ Admin</div>
   <div class="hamburger" onclick="toggleNav()" id="hamburger">
     <span></span><span></span><span></span>
   </div>
@@ -961,61 +1006,61 @@
     <div>
       <div class="hero-badge">
         <div class="hero-badge-dot"></div>
-        Official Cooperative Housing Platform
+        <span data-i18n="hero.badge">Official Cooperative Housing Platform</span>
       </div>
       <h1 class="hero-h1">
-        From Land Ownership<br>to Your <span>Dream Home</span>
+        <span data-i18n="hero.h1a">From Land Ownership</span><br><span data-i18n="hero.h1b">to Your </span><span style="color:var(--gold)" data-i18n="hero.h1c">Dream Home.</span>
       </h1>
-      <p class="hero-p">
+      <p class="hero-p" data-i18n="hero.p">
         The official One-Stop Centre for cooperative members to build their homes safely through trusted partners. Register, build, and finance — all in one place.
       </p>
       <div class="hero-btns">
-        <a class="btn-primary" href="#" onclick="showPage('register')">
+        <a class="btn-primary" href="#" onclick="showPage('register')" data-i18n="hero.btn1">
           🏡 Register My Project
         </a>
-        <a class="btn-ghost" href="#" onclick="showPage('build')">
+        <a class="btn-ghost" href="#" onclick="showPage('build')" data-i18n="hero.btn2">
           🏠 Explore Packages
         </a>
       </div>
       <div class="hero-stats">
         <div>
           <div class="hero-stat-n">500+</div>
-          <div class="hero-stat-l">Members Registered</div>
+          <div class="hero-stat-l" data-i18n="hero.stat1">Members Registered</div>
         </div>
         <div>
           <div class="hero-stat-n">3</div>
-          <div class="hero-stat-l">Clear Steps</div>
+          <div class="hero-stat-l" data-i18n="hero.stat2">Clear Steps</div>
         </div>
         <div>
           <div class="hero-stat-n">12+</div>
-          <div class="hero-stat-l">Trusted Partners</div>
+          <div class="hero-stat-l" data-i18n="hero.stat3">Trusted Partners</div>
         </div>
       </div>
     </div>
     <div class="hero-visual">
       <div class="hero-card">
-        <div class="hero-card-header">Your Journey</div>
+        <div class="hero-card-header" data-i18n="hero.card">Your Journey</div>
         <div class="step-row">
           <div class="step-num s1">01</div>
           <div class="step-row-text">
-            <h4>Register</h4>
-            <p>Submit your land & project details</p>
+            <h4 data-i18n="hero.step1h">Register</h4>
+            <p data-i18n="hero.step1p">Submit your land & project details</p>
           </div>
           <div class="step-arrow">→</div>
         </div>
         <div class="step-row">
           <div class="step-num s2">02</div>
           <div class="step-row-text">
-            <h4>Build</h4>
-            <p>Choose package & contractor</p>
+            <h4 data-i18n="hero.step2h">Build</h4>
+            <p data-i18n="hero.step2p">Choose package & contractor</p>
           </div>
           <div class="step-arrow">→</div>
         </div>
         <div class="step-row">
           <div class="step-num s3">03</div>
           <div class="step-row-text">
-            <h4>Finance</h4>
-            <p>Apply for your home financing</p>
+            <h4 data-i18n="hero.step3h">Finance</h4>
+            <p data-i18n="hero.step3p">Apply for your home financing</p>
           </div>
           <div class="step-arrow">→</div>
         </div>
@@ -1028,49 +1073,49 @@
 <section id="how">
   <div class="container">
     <div class="section-head">
-      <div class="section-tag">Simple Process</div>
-      <h2 class="section-h2">Three Steps.<br><span>One Platform.</span></h2>
-      <p class="section-sub">We've simplified the entire home-building journey into three clear, guided steps so every cooperative member can succeed.</p>
+      <div class="section-tag" data-i18n="how.tag">Simple Process</div>
+      <h2 class="section-h2"><span data-i18n="how.h2a">Three Steps.</span><br><span data-i18n="how.h2b" style="color:var(--gold)">One Platform.</span></h2>
+      <p class="section-sub" data-i18n="how.sub">We've simplified the entire home-building journey into three clear, guided steps so every cooperative member can succeed.</p>
     </div>
 
     <div class="steps-row">
       <div class="step-card">
-        <div class="step-num-badge">STEP 01</div>
+        <div class="step-num-badge" data-i18n="how.s1.badge">STEP 01</div>
         <div class="step-icon i1">🏡</div>
-        <h3>Register</h3>
-        <p>Submit your land details and development request through our secure member portal.</p>
+        <h3 data-i18n="how.s1.h">Register</h3>
+        <p data-i18n="how.s1.p">Submit your land details and development request through our secure member portal.</p>
         <ul class="step-checks">
-          <li><div class="step-check-icon">✓</div> Member Verification</li>
-          <li><div class="step-check-icon">✓</div> Lot Information</li>
-          <li><div class="step-check-icon">✓</div> Development Request</li>
+          <li><div class="step-check-icon">✓</div> <span data-i18n="how.s1.c1">Member Verification</span></li>
+          <li><div class="step-check-icon">✓</div> <span data-i18n="how.s1.c2">Lot Information</span></li>
+          <li><div class="step-check-icon">✓</div> <span data-i18n="how.s1.c3">Development Request</span></li>
         </ul>
       </div>
 
       <div class="step-arrow-h">→</div>
 
       <div class="step-card">
-        <div class="step-num-badge">STEP 02</div>
+        <div class="step-num-badge" data-i18n="how.s2.badge">STEP 02</div>
         <div class="step-icon i2">🏠</div>
-        <h3>Build</h3>
-        <p>Browse curated house designs and connect with our panel of approved, vetted contractors.</p>
+        <h3 data-i18n="how.s2.h">Build</h3>
+        <p data-i18n="how.s2.p">Browse curated house designs and connect with our panel of approved, vetted contractors.</p>
         <ul class="step-checks">
-          <li><div class="step-check-icon">✓</div> House Designs</li>
-          <li><div class="step-check-icon">✓</div> Compare Packages</li>
-          <li><div class="step-check-icon">✓</div> Approved Contractors</li>
+          <li><div class="step-check-icon">✓</div> <span data-i18n="how.s2.c1">House Designs</span></li>
+          <li><div class="step-check-icon">✓</div> <span data-i18n="how.s2.c2">Compare Packages</span></li>
+          <li><div class="step-check-icon">✓</div> <span data-i18n="how.s2.c3">Approved Contractors</span></li>
         </ul>
       </div>
 
       <div class="step-arrow-h">→</div>
 
       <div class="step-card">
-        <div class="step-num-badge">STEP 03</div>
+        <div class="step-num-badge" data-i18n="how.s3.badge">STEP 03</div>
         <div class="step-icon i3">💰</div>
-        <h3>Finance</h3>
-        <p>Access exclusive financing options and smart tools to plan your investment with confidence.</p>
+        <h3 data-i18n="how.s3.h">Finance</h3>
+        <p data-i18n="how.s3.p">Access exclusive financing options and smart tools to plan your investment with confidence.</p>
         <ul class="step-checks">
-          <li><div class="step-check-icon">✓</div> Financing Partners</li>
-          <li><div class="step-check-icon">✓</div> Eligibility Checker</li>
-          <li><div class="step-check-icon">✓</div> Apply Through Cooperative</li>
+          <li><div class="step-check-icon">✓</div> <span data-i18n="how.s3.c1">Financing Partners</span></li>
+          <li><div class="step-check-icon">✓</div> <span data-i18n="how.s3.c2">Eligibility Checker</span></li>
+          <li><div class="step-check-icon">✓</div> <span data-i18n="how.s3.c3">Apply Through Cooperative</span></li>
         </ul>
       </div>
     </div>
@@ -1083,87 +1128,87 @@
 <section id="register" class="page">
   <div class="container">
     <div class="section-head">
-      <div class="section-tag">Step 01</div>
-      <h2 class="section-h2">Register Your <span>Development Project</span></h2>
-      <p class="section-sub">Fill in your details below and our team will review your application within 2 working days.</p>
+      <div class="section-tag" data-i18n="reg.tag">Step 01</div>
+      <h2 class="section-h2"><span data-i18n="reg.h2">Register Your Development Project</span></h2>
+      <p class="section-sub" data-i18n="reg.sub">Fill in your details below and our team will review your application within 2 working days.</p>
     </div>
 
     <div class="register-grid">
       <div class="form-card">
-        <div class="form-title">🏡 Project Registration</div>
-        <div class="form-sub">All fields marked <span>*</span> are required</div>
+        <div class="form-title" data-i18n="reg.form.title">🏡 Project Registration</div>
+        <div class="form-sub" data-i18n="reg.form.sub">All fields marked * are required</div>
 
         <div class="form-row">
           <div class="field">
-            <label>Member Name <span>*</span></label>
-            <input type="text" placeholder="Full name as per IC" id="regName">
+            <label><span data-i18n="reg.f.name">Member Name</span> <span style="color:var(--gold)">*</span></label>
+            <input type="text" data-i18n-ph="reg.f.name.ph" placeholder="Full name as per IC" id="regName">
           </div>
           <div class="field">
-            <label>Membership Number <span>*</span></label>
-            <input type="text" placeholder="e.g. KOP-2024-001" id="regMember">
+            <label><span data-i18n="reg.f.memno">Membership Number</span> <span style="color:var(--gold)">*</span></label>
+            <input type="text" data-i18n-ph="reg.f.memno.ph" placeholder="e.g. KOP-2024-001" id="regMember">
           </div>
         </div>
 
         <div class="form-row">
           <div class="field">
-            <label>Lot Number <span>*</span></label>
-            <input type="text" placeholder="e.g. PTD 12345" id="regLot">
+            <label><span data-i18n="reg.f.lot">Lot Number</span> <span style="color:var(--gold)">*</span></label>
+            <input type="text" data-i18n-ph="reg.f.lot.ph" placeholder="e.g. PTD 12345" id="regLot">
           </div>
           <div class="field">
-            <label>Phone Number <span>*</span></label>
-            <input type="tel" placeholder="+60 12-345 6789" id="regPhone">
+            <label><span data-i18n="reg.f.phone">Phone Number</span> <span style="color:var(--gold)">*</span></label>
+            <input type="tel" data-i18n-ph="reg.f.phone.ph" placeholder="+60 12-345 6789" id="regPhone">
           </div>
         </div>
 
         <div class="field">
-          <label>Email Address <span>*</span></label>
-          <input type="email" placeholder="your@email.com" id="regEmail">
+          <label><span data-i18n="reg.f.email">Email Address</span> <span style="color:var(--gold)">*</span></label>
+          <input type="email" data-i18n-ph="reg.f.email.ph" placeholder="your@email.com" id="regEmail">
         </div>
 
         <div class="field">
-          <label>Land Location <span>*</span></label>
-          <input type="text" placeholder="e.g. Mukim Senai, Johor" id="regLocation">
+          <label><span data-i18n="reg.f.location">Land Location</span> <span style="color:var(--gold)">*</span></label>
+          <input type="text" data-i18n-ph="reg.f.location.ph" placeholder="e.g. Mukim Senai, Johor" id="regLocation">
         </div>
 
         <div class="field">
-          <label>Additional Notes</label>
-          <textarea placeholder="Any special requirements or additional information..."></textarea>
+          <label data-i18n="reg.f.notes">Additional Notes</label>
+          <textarea data-i18n-ph="reg.f.notes.ph" placeholder="Any special requirements or additional information..."></textarea>
         </div>
 
         <div class="field">
-          <label>Land Title Document <span style="color:var(--gray); font-weight:400">(Optional)</span></label>
+          <label><span data-i18n="reg.f.doc">Land Title Document</span> <span style="color:var(--gray); font-weight:400" data-i18n="reg.f.doc.opt">(Optional)</span></label>
           <div class="upload-area" onclick="document.getElementById('fileInput').click()">
             <div class="upload-icon">📄</div>
-            <div class="upload-text"><b>Click to upload</b> or drag & drop</div>
-            <div class="upload-text mt8" style="font-size:12px">PDF, JPG, PNG up to 10MB</div>
+            <div class="upload-text"><b data-i18n="reg.upload.click">Click to upload</b><span data-i18n="reg.upload.drop"> or drag & drop</span></div>
+            <div class="upload-text mt8" style="font-size:12px" data-i18n="reg.upload.type">PDF, JPG, PNG up to 10MB</div>
           </div>
           <input type="file" id="fileInput" style="display:none" accept=".pdf,.jpg,.png">
         </div>
 
-        <button class="form-btn gold" onclick="submitReg()">
+        <button class="form-btn gold" onclick="submitReg()" data-i18n="reg.btn">
           Continue to Build Phase →
         </button>
       </div>
 
       <div class="register-aside">
         <div class="info-card">
-          <h3>What Happens Next?</h3>
+          <h3 data-i18n="reg.aside.h">What Happens Next?</h3>
           <ul class="info-list">
             <li>
               <span class="info-list-icon">✅</span>
-              <div><strong>Application Review</strong><br>Our team verifies your membership and land details within 2 working days.</div>
+              <div><strong data-i18n="reg.aside.1h">Application Review</strong><br><span data-i18n="reg.aside.1p">Our team verifies your membership and land details within 2 working days.</span></div>
             </li>
             <li>
               <span class="info-list-icon">📞</span>
-              <div><strong>Consultation Call</strong><br>A dedicated officer will contact you to discuss your development plans.</div>
+              <div><strong data-i18n="reg.aside.2h">Consultation Call</strong><br><span data-i18n="reg.aside.2p">A dedicated officer will contact you to discuss your development plans.</span></div>
             </li>
             <li>
               <span class="info-list-icon">🏠</span>
-              <div><strong>Package Matching</strong><br>We'll recommend the best house packages suited to your land and budget.</div>
+              <div><strong data-i18n="reg.aside.3h">Package Matching</strong><br><span data-i18n="reg.aside.3p">We'll recommend the best house packages suited to your land and budget.</span></div>
             </li>
             <li>
               <span class="info-list-icon">📋</span>
-              <div><strong>Full Coordination</strong><br>KODC coordinates the contractor, architect, and financing on your behalf.</div>
+              <div><strong data-i18n="reg.aside.4h">Full Coordination</strong><br><span data-i18n="reg.aside.4p">KODC coordinates the contractor, architect, and financing on your behalf.</span></div>
             </li>
           </ul>
         </div>
@@ -1172,14 +1217,14 @@
           <div class="ai-card-top">
             <div class="ai-avatar">🤖</div>
             <div>
-              <h4>Koperasi Assistant</h4>
-              <p>AI-powered support • Online 24/7</p>
+              <h4 data-i18n="reg.ai.h">Koperasi Assistant</h4>
+              <p data-i18n="reg.ai.p">AI-powered support • Online 24/7</p>
             </div>
           </div>
-          <div class="ai-message">
+          <div class="ai-message" data-i18n="reg.ai.msg">
             "Hi! I'm your Koperasi Digital Assistant. Need help filling in your registration? I can guide you through every field."
           </div>
-          <button class="ai-btn" onclick="openAI()">💬 Chat with Assistant</button>
+          <button class="ai-btn" onclick="openAI()" data-i18n="reg.ai.btn">💬 Chat with Assistant</button>
         </div>
       </div>
     </div>
@@ -1190,70 +1235,67 @@
 <section id="build" class="page">
   <div class="container">
     <div class="section-head">
-      <div class="section-tag">Step 02</div>
-      <h2 class="section-h2">Choose Your <span>House Package</span></h2>
-      <p class="section-sub">Select from our curated range of quality-assured house designs, each backed by our panel of approved contractors.</p>
+      <div class="section-tag" data-i18n="build.tag">Step 02</div>
+      <h2 class="section-h2"><span data-i18n="build.h2">Choose Your House Package</span></h2>
+      <p class="section-sub" data-i18n="build.sub">Select from our curated range of quality-assured house designs, each backed by our panel of approved contractors.</p>
     </div>
 
     <div class="packages-grid">
-      <!-- Package 1 -->
       <div class="pkg-card">
         <div class="pkg-image p1">🏠</div>
         <div class="pkg-body">
-          <div class="pkg-type">Starter Series</div>
-          <div class="pkg-name">Modern Home A</div>
-          <div class="pkg-beds">🛏 2 Bedrooms &nbsp;·&nbsp; 🛁 1 Bathroom</div>
-          <div class="pkg-price">RM 180,000 <span>onwards</span></div>
-          <div class="pkg-size">📐 800 sq ft built-up</div>
+          <div class="pkg-type" data-i18n="build.p1.type">Starter Series</div>
+          <div class="pkg-name" data-i18n="build.p1.name">Modern Home A</div>
+          <div class="pkg-beds" data-i18n="build.p1.beds">🛏 2 Bedrooms &nbsp;·&nbsp; 🛁 1 Bathroom</div>
+          <div class="pkg-price">RM 180,000 <span data-i18n="pkg.onwards">onwards</span></div>
+          <div class="pkg-size" data-i18n="build.p1.size">📐 800 sq ft built-up</div>
           <ul class="pkg-features">
-            <li>Single-storey design</li>
-            <li>Open plan living & dining</li>
-            <li>Modern kitchen layout</li>
-            <li>Covered car porch</li>
-            <li>12-month defect liability</li>
+            <li data-i18n="build.p1.f1">Single-storey design</li>
+            <li data-i18n="build.p1.f2">Open plan living & dining</li>
+            <li data-i18n="build.p1.f3">Modern kitchen layout</li>
+            <li data-i18n="build.p1.f4">Covered car porch</li>
+            <li data-i18n="build.p1.f5">12-month defect liability</li>
           </ul>
-          <button class="pkg-btn" onclick="pkgSelect('Modern Home A')">View Details</button>
+          <button class="pkg-btn" onclick="pkgSelect('Modern Home A')" data-i18n="build.p1.btn">View Details</button>
         </div>
       </div>
 
-      <!-- Package 2 -->
       <div class="pkg-card featured">
-        <div class="pkg-badge">⭐ Most Popular</div>
+        <div class="pkg-badge" data-i18n="build.p2.badge">⭐ Most Popular</div>
         <div class="pkg-image p2">🏡</div>
         <div class="pkg-body">
-          <div class="pkg-type">Family Series</div>
-          <div class="pkg-name">Family Home B</div>
-          <div class="pkg-beds">🛏 3 Bedrooms &nbsp;·&nbsp; 🛁 2 Bathrooms</div>
-          <div class="pkg-price">RM 280,000 <span>onwards</span></div>
-          <div class="pkg-size">📐 1,200 sq ft built-up</div>
+          <div class="pkg-type" data-i18n="build.p2.type">Family Series</div>
+          <div class="pkg-name" data-i18n="build.p2.name">Family Home B</div>
+          <div class="pkg-beds" data-i18n="build.p2.beds">🛏 3 Bedrooms &nbsp;·&nbsp; 🛁 2 Bathrooms</div>
+          <div class="pkg-price">RM 280,000 <span data-i18n="pkg.onwards">onwards</span></div>
+          <div class="pkg-size" data-i18n="build.p2.size">📐 1,200 sq ft built-up</div>
           <ul class="pkg-features">
-            <li>Single or double-storey</li>
-            <li>Master bedroom with en-suite</li>
-            <li>Spacious family hall</li>
-            <li>2 car porch</li>
-            <li>18-month defect liability</li>
+            <li data-i18n="build.p2.f1">Single or double-storey</li>
+            <li data-i18n="build.p2.f2">Master bedroom with en-suite</li>
+            <li data-i18n="build.p2.f3">Spacious family hall</li>
+            <li data-i18n="build.p2.f4">2 car porch</li>
+            <li data-i18n="build.p2.f5">18-month defect liability</li>
           </ul>
-          <button class="pkg-btn" onclick="pkgSelect('Family Home B')">View Details</button>
+          <button class="pkg-btn" onclick="pkgSelect('Family Home B')" data-i18n="build.p2.btn">View Details</button>
         </div>
       </div>
 
-      <!-- Package 3 -->
       <div class="pkg-card">
         <div class="pkg-image p3">🏰</div>
         <div class="pkg-body">
-          <div class="pkg-type">Premium Series</div>
-          <div class="pkg-name">Premium Home C</div>
-          <div class="pkg-beds">🛏 4 Bedrooms &nbsp;·&nbsp; 🛁 3 Bathrooms</div>
-          <div class="pkg-price">RM 420,000 <span>onwards</span></div>
-          <div class="pkg-size">📐 1,800 sq ft built-up</div>
+          <div class="pkg-type" data-i18n="build.p3.type">Premium Series</div>
+          <div class="pkg-name" data-i18n="build.p3.name">Premium Home C</div>
+          <div class="pkg-beds" data-i18n="build.p3.beds">🛏 4 Bedrooms &nbsp;·&nbsp; 🛁 3 Bathrooms</div>
+          <div class="pkg-price">RM 420,000 <span data-i18n="pkg.onwards">onwards</span></div>
+          <div class="pkg-size" data-i18n="build.p3.size">📐 1,800 sq ft built-up</div>
           <ul class="pkg-features">
-            <li>Double-storey with utility room</li>
-            <li>Full premium finishes</li>
-            <li>Large balcony & terrace</li>
-            <li>3 car porch + gate</li>
-            <li>24-month defect liability</li>
+            <li data-i18n="build.p3.f1">Double-storey with utility room</li>
+            <li data-i18n="build.p3.f2">Full premium finishes</li>
+            <li data-i18n="build.p3.f3">Large balcony & terrace</li>
+            <li data-i18n="build.p3.f4">3 car porch + gate</li>
+            <li data-i18n="build.p3.f5">24-month defect liability</li>
           </ul>
-          <button class="pkg-btn" onclick="pkgSelect('Premium Home C')">View Details</button>
+          <button class="pkg-btn" onclick="pkgSelect('Premium Home C')" data-i18n="build.p3.btn">View Details</button>
         </div>
       </div>
     </div>
@@ -1261,52 +1303,52 @@
     <div class="section-divider"></div>
 
     <div class="section-head">
-      <div class="section-tag">Trusted Partners</div>
-      <h2 class="section-h2">Approved <span>Contractors</span></h2>
-      <p class="section-sub">All contractors are vetted, licensed, and approved by KODC. Your project is protected.</p>
+      <div class="section-tag" data-i18n="build.c.tag">Trusted Partners</div>
+      <h2 class="section-h2"><span data-i18n="build.c.h2">Approved Contractors</span></h2>
+      <p class="section-sub" data-i18n="build.c.sub">All contractors are vetted, licensed, and approved by KODC. Your project is protected.</p>
     </div>
 
     <div class="contractors-grid">
       <div class="contractor-card">
         <div class="contractor-avatar c1">👷</div>
         <div class="contractor-name">Bina Maju Sdn Bhd</div>
-        <div class="contractor-tag">Premium Builder</div>
+        <div class="contractor-tag" data-i18n="build.c1.tag">Premium Builder</div>
         <div class="stars">★★★★★</div>
-        <div class="contractor-exp">25 Years Experience · 340 Projects Completed</div>
+        <div class="contractor-exp" data-i18n="build.c1.exp">25 Years Experience · 340 Projects Completed</div>
         <div class="contractor-badges">
           <span class="badge-pill">CIDB Grade G5</span>
           <span class="badge-pill">ISO Certified</span>
           <span class="badge-pill">Award Winning</span>
         </div>
-        <button class="contractor-btn" onclick="showModal('Bina Maju Sdn Bhd has been selected. Our team will contact you shortly.')">View Profile</button>
+        <button class="contractor-btn" data-i18n="build.c1.btn" onclick="showModal('Bina Maju Sdn Bhd has been selected. Our team will contact you shortly.')">View Profile</button>
       </div>
 
       <div class="contractor-card">
         <div class="contractor-avatar c2">🏗</div>
         <div class="contractor-name">Teguh Jaya Builder</div>
-        <div class="contractor-tag">Affordable Package</div>
+        <div class="contractor-tag" data-i18n="build.c2.tag">Affordable Package</div>
         <div class="stars">★★★★★</div>
-        <div class="contractor-exp">15 Years Experience · 210 Projects Completed</div>
+        <div class="contractor-exp" data-i18n="build.c2.exp">15 Years Experience · 210 Projects Completed</div>
         <div class="contractor-badges">
           <span class="badge-pill">CIDB Grade G4</span>
           <span class="badge-pill">Budget Friendly</span>
           <span class="badge-pill">Fast Delivery</span>
         </div>
-        <button class="contractor-btn" onclick="showModal('Teguh Jaya Builder has been selected. Our team will contact you shortly.')">View Profile</button>
+        <button class="contractor-btn" data-i18n="build.c2.btn" onclick="showModal('Teguh Jaya Builder has been selected. Our team will contact you shortly.')">View Profile</button>
       </div>
 
       <div class="contractor-card">
         <div class="contractor-avatar c3">🔨</div>
         <div class="contractor-name">Harmoni Construction</div>
-        <div class="contractor-tag">Quality Specialist</div>
+        <div class="contractor-tag" data-i18n="build.c3.tag">Quality Specialist</div>
         <div class="stars">★★★★★</div>
-        <div class="contractor-exp">20 Years Experience · 290 Projects Completed</div>
+        <div class="contractor-exp" data-i18n="build.c3.exp">20 Years Experience · 290 Projects Completed</div>
         <div class="contractor-badges">
           <span class="badge-pill">CIDB Grade G5</span>
           <span class="badge-pill">Green Build</span>
           <span class="badge-pill">Luxury Finish</span>
         </div>
-        <button class="contractor-btn" onclick="showModal('Harmoni Construction has been selected. Our team will contact you shortly.')">View Profile</button>
+        <button class="contractor-btn" data-i18n="build.c3.btn" onclick="showModal('Harmoni Construction has been selected. Our team will contact you shortly.')">View Profile</button>
       </div>
     </div>
   </div>
@@ -1316,141 +1358,132 @@
 <section id="finance" class="page">
   <div class="container">
     <div class="section-head">
-      <div class="section-tag">Step 03</div>
-      <h2 class="section-h2">Choose Your <span>Financing Partner</span></h2>
-      <p class="section-sub">Exclusive financing options negotiated through the cooperative for better rates and easier eligibility.</p>
+      <div class="section-tag" data-i18n="fin.tag">Step 03</div>
+      <h2 class="section-h2"><span data-i18n="fin.h2">Choose Your Financing Partner</span></h2>
+      <p class="section-sub" data-i18n="fin.sub">Exclusive financing options negotiated through the cooperative for better rates and easier eligibility.</p>
     </div>
 
     <div class="finance-grid">
       <div class="finance-card">
         <div class="finance-logo f1">🏦</div>
-        <div class="finance-name">Bank Kerjasama Rakyat</div>
-        <div class="finance-type">Conventional Home Financing</div>
-        <div class="finance-rate">4.20% <span>per annum</span></div>
-        <div class="finance-desc">Competitive fixed-rate home financing with up to 90% margin of financing. Suitable for first-time buyers with flexible repayment up to 35 years.</div>
+        <div class="finance-name" data-i18n="fin.f1.name">Bank Kerjasama Rakyat</div>
+        <div class="finance-type" data-i18n="fin.f1.type">Conventional Home Financing</div>
+        <div class="finance-rate">4.20% <span data-i18n="fin.per_annum">per annum</span></div>
+        <div class="finance-desc" data-i18n="fin.f1.desc">Competitive fixed-rate home financing with up to 90% margin of financing. Suitable for first-time buyers with flexible repayment up to 35 years.</div>
         <div class="finance-pills">
           <span class="finance-pill">Up to 90% Margin</span>
           <span class="finance-pill">35 Year Tenure</span>
           <span class="finance-pill">Fixed Rate</span>
         </div>
-        <button class="finance-btn" onclick="showPage('finance')">Learn More</button>
+        <button class="finance-btn" data-i18n="fin.f1.btn" onclick="showPage('finance')">Learn More</button>
       </div>
 
       <div class="finance-card">
         <div class="finance-logo f2">☪️</div>
-        <div class="finance-name">Amanah Islamic Finance</div>
-        <div class="finance-type">Islamic Home Financing (Tawarruq)</div>
-        <div class="finance-rate">4.05% <span>per annum</span></div>
-        <div class="finance-desc">Shariah-compliant home financing structured under the Tawarruq concept. Low profit rate with government guarantee for cooperative members.</div>
+        <div class="finance-name" data-i18n="fin.f2.name">Amanah Islamic Finance</div>
+        <div class="finance-type" data-i18n="fin.f2.type">Islamic Home Financing (Tawarruq)</div>
+        <div class="finance-rate">4.05% <span data-i18n="fin.per_annum">per annum</span></div>
+        <div class="finance-desc" data-i18n="fin.f2.desc">Shariah-compliant home financing structured under the Tawarruq concept. Low profit rate with government guarantee for cooperative members.</div>
         <div class="finance-pills">
           <span class="finance-pill">Shariah Compliant</span>
           <span class="finance-pill">Gov. Guarantee</span>
           <span class="finance-pill">Low Rate</span>
         </div>
-        <button class="finance-btn" onclick="showPage('finance')">Learn More</button>
+        <button class="finance-btn" data-i18n="fin.f2.btn" onclick="showPage('finance')">Learn More</button>
       </div>
 
       <div class="finance-card">
         <div class="finance-logo f3">🏛</div>
-        <div class="finance-name">Skim Perumahan Kerajaan</div>
-        <div class="finance-type">Government Housing Scheme</div>
-        <div class="finance-rate">3.50% <span>per annum</span></div>
-        <div class="finance-desc">Special government housing scheme exclusively for eligible cooperative members. Lowest rates available with additional rebates for civil servants.</div>
+        <div class="finance-name" data-i18n="fin.f3.name">Skim Perumahan Kerajaan</div>
+        <div class="finance-type" data-i18n="fin.f3.type">Government Housing Scheme</div>
+        <div class="finance-rate">3.50% <span data-i18n="fin.per_annum">per annum</span></div>
+        <div class="finance-desc" data-i18n="fin.f3.desc">Special government housing scheme exclusively for eligible cooperative members. Lowest rates available with additional rebates for civil servants.</div>
         <div class="finance-pills">
           <span class="finance-pill">Government Scheme</span>
           <span class="finance-pill">Lowest Rate</span>
           <span class="finance-pill">Civil Servant Rebate</span>
         </div>
-        <button class="finance-btn" onclick="showPage('finance')">Learn More</button>
+        <button class="finance-btn" data-i18n="fin.f3.btn" onclick="showPage('finance')">Learn More</button>
       </div>
     </div>
 
     <div class="section-head">
-      <div class="section-tag">Smart Property Tools</div>
-      <h2 class="section-h2">Plan Your <span>Investment</span></h2>
-      <p class="section-sub">Use our calculators to estimate your eligibility, monthly payments, and total budget before you commit.</p>
+      <div class="section-tag" data-i18n="fin.tools.tag">Smart Property Tools</div>
+      <h2 class="section-h2"><span data-i18n="fin.tools.h2">Plan Your Investment</span></h2>
+      <p class="section-sub" data-i18n="fin.tools.sub">Use our calculators to estimate your eligibility, monthly payments, and total budget before you commit.</p>
     </div>
 
     <div class="calc-grid">
-      <!-- Calculator 1: Eligibility -->
       <div class="calc-card">
         <div class="calc-icon">📊</div>
-        <div class="calc-title">Loan Eligibility Checker</div>
-        <div class="calc-sub">Estimate your maximum loan amount</div>
-
+        <div class="calc-title" data-i18n="fin.c1.title">Loan Eligibility Checker</div>
+        <div class="calc-sub" data-i18n="fin.c1.sub">Estimate your maximum loan amount</div>
         <div class="calc-field">
-          <label>Monthly Gross Salary (RM)</label>
+          <label data-i18n="fin.c1.l1">Monthly Gross Salary (RM)</label>
           <input type="number" id="c1salary" placeholder="e.g. 5,000" oninput="calcEligibility()">
         </div>
         <div class="calc-field">
-          <label>Total Monthly Commitments (RM)</label>
+          <label data-i18n="fin.c1.l2">Total Monthly Commitments (RM)</label>
           <input type="number" id="c1commit" placeholder="e.g. 800" oninput="calcEligibility()">
         </div>
         <div class="calc-field">
-          <label>Loan Tenure (Years)</label>
+          <label data-i18n="fin.c1.l3">Loan Tenure (Years)</label>
           <input type="number" id="c1tenure" placeholder="e.g. 30" min="5" max="35" oninput="calcEligibility()">
         </div>
-
         <div class="calc-divider"></div>
         <div class="calc-result">
-          <div class="calc-result-label">Estimated Max Financing</div>
+          <div class="calc-result-label" data-i18n="fin.c1.result">Estimated Max Financing</div>
           <div class="calc-result-value highlight" id="r1">RM —</div>
         </div>
-        <button class="calc-btn" onclick="calcEligibility()">Calculate Now</button>
+        <button class="calc-btn" data-i18n="fin.c1.btn" onclick="calcEligibility()">Calculate Now</button>
       </div>
 
-      <!-- Calculator 2: Monthly Instalment -->
       <div class="calc-card">
         <div class="calc-icon">🏠</div>
-        <div class="calc-title">Monthly Instalment</div>
-        <div class="calc-sub">See your estimated monthly repayment</div>
-
+        <div class="calc-title" data-i18n="fin.c2.title">Monthly Instalment</div>
+        <div class="calc-sub" data-i18n="fin.c2.sub">See your estimated monthly repayment</div>
         <div class="calc-field">
-          <label>Property Price (RM)</label>
+          <label data-i18n="fin.c2.l1">Property Price (RM)</label>
           <input type="number" id="c2price" placeholder="e.g. 280,000" oninput="calcInstalment()">
         </div>
         <div class="calc-field">
-          <label>Down Payment (%)</label>
+          <label data-i18n="fin.c2.l2">Down Payment (%)</label>
           <input type="number" id="c2down" placeholder="e.g. 10" min="0" max="50" oninput="calcInstalment()">
         </div>
         <div class="calc-field">
-          <label>Interest Rate (% p.a.)</label>
+          <label data-i18n="fin.c2.l3">Interest Rate (% p.a.)</label>
           <input type="number" id="c2rate" placeholder="e.g. 4.2" step="0.1" oninput="calcInstalment()">
         </div>
-
         <div class="calc-divider"></div>
         <div class="calc-result">
-          <div class="calc-result-label">Estimated Monthly Payment</div>
+          <div class="calc-result-label" data-i18n="fin.c2.result">Estimated Monthly Payment</div>
           <div class="calc-result-value highlight" id="r2">RM —</div>
         </div>
-        <button class="calc-btn" onclick="calcInstalment()">Calculate Now</button>
+        <button class="calc-btn" data-i18n="fin.c2.btn" onclick="calcInstalment()">Calculate Now</button>
       </div>
 
-      <!-- Calculator 3: Budget Planner -->
       <div class="calc-card">
         <div class="calc-icon">📋</div>
-        <div class="calc-title">Construction Budget Planner</div>
-        <div class="calc-sub">Plan your total project cost</div>
-
+        <div class="calc-title" data-i18n="fin.c3.title">Construction Budget Planner</div>
+        <div class="calc-sub" data-i18n="fin.c3.sub">Plan your total project cost</div>
         <div class="calc-field">
-          <label>House Package Price (RM)</label>
+          <label data-i18n="fin.c3.l1">House Package Price (RM)</label>
           <input type="number" id="c3house" placeholder="e.g. 280,000" oninput="calcBudget()">
         </div>
         <div class="calc-field">
-          <label>Extra Works Budget (RM)</label>
+          <label data-i18n="fin.c3.l2">Extra Works Budget (RM)</label>
           <input type="number" id="c3extra" placeholder="e.g. 20,000" oninput="calcBudget()">
         </div>
         <div class="calc-field">
-          <label>Furniture & Fittings (RM)</label>
+          <label data-i18n="fin.c3.l3">Furniture & Fittings (RM)</label>
           <input type="number" id="c3furn" placeholder="e.g. 30,000" oninput="calcBudget()">
         </div>
-
         <div class="calc-divider"></div>
         <div class="calc-result">
-          <div class="calc-result-label">Estimated Total Budget</div>
+          <div class="calc-result-label" data-i18n="fin.c3.result">Estimated Total Budget</div>
           <div class="calc-result-value highlight" id="r3">RM —</div>
         </div>
-        <button class="calc-btn" onclick="calcBudget()">Calculate Now</button>
+        <button class="calc-btn" data-i18n="fin.c3.btn" onclick="calcBudget()">Calculate Now</button>
       </div>
     </div>
   </div>
@@ -1460,21 +1493,21 @@
 <section id="journey">
   <div class="container">
     <div class="section-head">
-      <div class="section-tag">Member Journey</div>
-      <h2 class="section-h2">Your Complete <span>Path to Homeownership</span></h2>
-      <p class="section-sub">From the moment you land on our platform to the day construction begins — we guide you every step of the way.</p>
+      <div class="section-tag" data-i18n="jrn.tag">Member Journey</div>
+      <h2 class="section-h2"><span data-i18n="jrn.h2">Your Complete Path to Homeownership</span></h2>
+      <p class="section-sub" data-i18n="jrn.sub">From the moment you land on our platform to the day construction begins — we guide you every step of the way.</p>
     </div>
     <div class="journey-track">
-      <div class="journey-item"><div class="journey-dot">🌐</div><div class="journey-text"><h4>Land on Platform</h4><p>Discover KODC through your cooperative or online search</p></div></div>
-      <div class="journey-item"><div class="journey-dot">📝</div><div class="journey-text"><h4>Register Project</h4><p>Submit your land and development details securely</p></div></div>
-      <div class="journey-item"><div class="journey-dot">🏠</div><div class="journey-text"><h4>Explore Packages</h4><p>Browse house designs and compare options</p></div></div>
-      <div class="journey-item"><div class="journey-dot">👷</div><div class="journey-text"><h4>Choose Contractor</h4><p>Select from our panel of approved, trusted builders</p></div></div>
-      <div class="journey-item"><div class="journey-dot">🧮</div><div class="journey-text"><h4>Use Smart Tools</h4><p>Check eligibility and plan your budget with confidence</p></div></div>
-      <div class="journey-item"><div class="journey-dot">🏦</div><div class="journey-text"><h4>Choose Financing</h4><p>Apply through your cooperative for exclusive rates</p></div></div>
-      <div class="journey-item"><div class="journey-dot">📅</div><div class="journey-text"><h4>Book Consultation</h4><p>Meet our team to finalise your plans</p></div></div>
-      <div class="journey-item"><div class="journey-dot">📋</div><div class="journey-text"><h4>Cooperative Reviews</h4><p>Your application is reviewed and approved</p></div></div>
-      <div class="journey-item"><div class="journey-dot">🤝</div><div class="journey-text"><h4>Partners Engaged</h4><p>Contractor and financing partner are formally contacted</p></div></div>
-      <div class="journey-item"><div class="journey-dot">🏗</div><div class="journey-text"><h4>Construction Begins</h4><p>Your dream home is now being built!</p></div></div>
+      <div class="journey-item"><div class="journey-dot">🌐</div><div class="journey-text"><h4 data-i18n="jrn.1h">Land on Platform</h4><p data-i18n="jrn.1p">Discover KODC through your cooperative or online search</p></div></div>
+      <div class="journey-item"><div class="journey-dot">📝</div><div class="journey-text"><h4 data-i18n="jrn.2h">Register Project</h4><p data-i18n="jrn.2p">Submit your land and development details securely</p></div></div>
+      <div class="journey-item"><div class="journey-dot">🏠</div><div class="journey-text"><h4 data-i18n="jrn.3h">Explore Packages</h4><p data-i18n="jrn.3p">Browse house designs and compare options</p></div></div>
+      <div class="journey-item"><div class="journey-dot">👷</div><div class="journey-text"><h4 data-i18n="jrn.4h">Choose Contractor</h4><p data-i18n="jrn.4p">Select from our panel of approved, trusted builders</p></div></div>
+      <div class="journey-item"><div class="journey-dot">🧮</div><div class="journey-text"><h4 data-i18n="jrn.5h">Use Smart Tools</h4><p data-i18n="jrn.5p">Check eligibility and plan your budget with confidence</p></div></div>
+      <div class="journey-item"><div class="journey-dot">🏦</div><div class="journey-text"><h4 data-i18n="jrn.6h">Choose Financing</h4><p data-i18n="jrn.6p">Apply through your cooperative for exclusive rates</p></div></div>
+      <div class="journey-item"><div class="journey-dot">📅</div><div class="journey-text"><h4 data-i18n="jrn.7h">Book Consultation</h4><p data-i18n="jrn.7p">Meet our team to finalise your plans</p></div></div>
+      <div class="journey-item"><div class="journey-dot">📋</div><div class="journey-text"><h4 data-i18n="jrn.8h">Cooperative Reviews</h4><p data-i18n="jrn.8p">Your application is reviewed and approved</p></div></div>
+      <div class="journey-item"><div class="journey-dot">🤝</div><div class="journey-text"><h4 data-i18n="jrn.9h">Partners Engaged</h4><p data-i18n="jrn.9p">Contractor and financing partner are formally contacted</p></div></div>
+      <div class="journey-item"><div class="journey-dot">🏗</div><div class="journey-text"><h4 data-i18n="jrn.10h">Construction Begins</h4><p data-i18n="jrn.10p">Your dream home is now being built!</p></div></div>
     </div>
   </div>
 </section>
@@ -1483,108 +1516,104 @@
 <section id="appointment" style="padding:100px 24px">
   <div class="appt-grid container">
     <div class="appt-left">
-      <div class="section-tag" style="color:var(--gold)">Consultation</div>
-      <h2>Book a <span>Free Consultation</span></h2>
-      <p>Speak to one of our housing officers. Whether it's about your land, a house package, or financing — we're here to help.</p>
+      <div class="section-tag" style="color:var(--gold)" data-i18n="appt.tag">Consultation</div>
+      <h2><span data-i18n="appt.h2">Book a Free Consultation</span></h2>
+      <p data-i18n="appt.p">Speak to one of our housing officers. Whether it's about your land, a house package, or financing — we're here to help.</p>
 
       <div class="appt-info-rows">
         <div class="appt-info-row">
           <div class="appt-info-icon">📍</div>
           <div class="appt-info-text">
-            <h4>KODC Main Office</h4>
-            <p>Menara Koperasi, Kuala Lumpur<br>Mon – Fri, 8:30am – 5:00pm</p>
+            <h4 data-i18n="appt.i1h">KODC Main Office</h4>
+            <p data-i18n="appt.i1p">Menara Koperasi, Kuala Lumpur<br>Mon – Fri, 8:30am – 5:00pm</p>
           </div>
         </div>
         <div class="appt-info-row">
           <div class="appt-info-icon">📞</div>
           <div class="appt-info-text">
-            <h4>Hotline</h4>
+            <h4 data-i18n="appt.i2h">Hotline</h4>
             <p>03-1234 5678 (Office Hours)<br>WhatsApp: 010-000 0000</p>
           </div>
         </div>
         <div class="appt-info-row">
           <div class="appt-info-icon">📧</div>
           <div class="appt-info-text">
-            <h4>Email Enquiry</h4>
+            <h4 data-i18n="appt.i3h">Email Enquiry</h4>
             <p>enquiry@kodc.my</p>
           </div>
         </div>
         <div class="appt-info-row">
           <div class="appt-info-icon">🤖</div>
           <div class="appt-info-text">
-            <h4>AI Assistant</h4>
-            <p>Available 24/7 via the chat button</p>
+            <h4 data-i18n="appt.i4h">AI Assistant</h4>
+            <p data-i18n="appt.i4p">Available 24/7 via the chat button</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="appt-form">
-      <div class="form-title">📅 Book Consultation</div>
-      <div class="form-sub">We'll confirm within 24 hours</div>
+      <div class="form-title" data-i18n="appt.form.title">📅 Book Consultation</div>
+      <div class="form-sub" data-i18n="appt.form.sub">We'll confirm within 24 hours</div>
 
       <div class="form-row" style="margin-top:24px">
         <div class="field">
-          <label>Full Name</label>
-          <input type="text" placeholder="Your name" id="apptName">
+          <label data-i18n="appt.f.name">Full Name</label>
+          <input type="text" data-i18n-ph="appt.f.name.ph" placeholder="Your name" id="apptName">
         </div>
         <div class="field">
-          <label>Phone Number</label>
+          <label data-i18n="appt.f.phone">Phone Number</label>
           <input type="tel" placeholder="+60 12-345 6789" id="apptPhone">
         </div>
       </div>
 
       <div class="field">
-        <label>Email</label>
+        <label data-i18n="appt.f.email">Email</label>
         <input type="email" placeholder="your@email.com" id="apptEmail">
       </div>
 
       <div class="form-row">
         <div class="field">
-          <label>Preferred Date</label>
+          <label data-i18n="appt.f.date">Preferred Date</label>
           <input type="date" id="apptDate">
         </div>
         <div class="field">
-          <label>Preferred Time</label>
+          <label data-i18n="appt.f.time">Preferred Time</label>
           <select id="apptTime">
-            <option value="">Select time</option>
-            <option>9:00 AM</option>
-            <option>10:00 AM</option>
-            <option>11:00 AM</option>
-            <option>2:00 PM</option>
-            <option>3:00 PM</option>
-            <option>4:00 PM</option>
+            <option value="" data-i18n="appt.f.time.ph">Select time</option>
+            <option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option>
+            <option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option>
           </select>
         </div>
       </div>
 
       <div class="field">
-        <label>Purpose of Consultation</label>
+        <label data-i18n="appt.f.purpose">Purpose of Consultation</label>
         <div class="radio-group">
           <label class="radio-item" onclick="selectRadio(this)">
             <input type="radio" name="purpose" value="house">
             <div class="radio-dot"></div>
-            <span class="radio-label">🏠 House Package Discussion</span>
+            <span class="radio-label" data-i18n="appt.r1">🏠 House Package Discussion</span>
           </label>
           <label class="radio-item" onclick="selectRadio(this)">
             <input type="radio" name="purpose" value="contractor">
             <div class="radio-dot"></div>
-            <span class="radio-label">👷 Contractor Meeting</span>
+            <span class="radio-label" data-i18n="appt.r2">👷 Contractor Meeting</span>
           </label>
           <label class="radio-item" onclick="selectRadio(this)">
             <input type="radio" name="purpose" value="finance">
             <div class="radio-dot"></div>
-            <span class="radio-label">💰 Financing Consultation</span>
+            <span class="radio-label" data-i18n="appt.r3">💰 Financing Consultation</span>
           </label>
           <label class="radio-item" onclick="selectRadio(this)">
             <input type="radio" name="purpose" value="general">
             <div class="radio-dot"></div>
-            <span class="radio-label">💬 General Enquiry</span>
+            <span class="radio-label" data-i18n="appt.r4">💬 General Enquiry</span>
           </label>
         </div>
       </div>
 
-      <button class="form-btn gold" style="margin-top:20px" onclick="submitAppt()">
+      <button class="form-btn gold" style="margin-top:20px" onclick="submitAppt()" data-i18n="appt.btn">
         Confirm Appointment ✓
       </button>
     </div>
@@ -1627,7 +1656,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2025 KODC — Koperasi One-Stop Development Centre. All rights reserved.</div>
+    <div class="footer-copy" data-i18n="footer.copy">© 2025 KODC — Koperasi One-Stop Development Centre. All rights reserved.</div>
     <div class="footer-links">
       <a href="#">Privacy</a>
       <a href="#">Terms</a>
@@ -1761,15 +1790,15 @@
       <div class="ai-panel-title">
         <div class="ai-panel-avatar">🤖</div>
         <div>
-          <div class="ai-panel-name">Koperasi Assistant</div>
+          <div class="ai-panel-name" data-i18n="ai.name">Koperasi Assistant</div>
           <div class="ai-panel-status">
-            <div class="ai-online"></div> Online • Ready to help
+            <div class="ai-online"></div> <span data-i18n="ai.status">Online • Ready to help</span>
           </div>
         </div>
       </div>
     </div>
     <div class="ai-chat-area">
-      <div class="ai-bubble">
+      <div class="ai-bubble" data-i18n-html="ai.msg">
         👋 Hi! Welcome to the <strong>Koperasi One-Stop Centre</strong>.<br><br>
         I can help you with:<br>
         • Registering your project<br>
@@ -1779,21 +1808,21 @@
       </div>
     </div>
     <div class="ai-quick-btns">
-      <button class="ai-quick-btn" onclick="showPage('register');closeAI()">
+      <button class="ai-quick-btn" onclick="showPage('register');closeAI()" data-i18n="ai.q1">
         <span class="ai-quick-btn-icon">🏠</span> Register My Project
       </button>
-      <button class="ai-quick-btn" onclick="showPage('build');closeAI()">
+      <button class="ai-quick-btn" onclick="showPage('build');closeAI()" data-i18n="ai.q2">
         <span class="ai-quick-btn-icon">🏗</span> Explore House Packages
       </button>
-      <button class="ai-quick-btn" onclick="showPage('finance');closeAI()">
+      <button class="ai-quick-btn" onclick="showPage('finance');closeAI()" data-i18n="ai.q3">
         <span class="ai-quick-btn-icon">💰</span> Financing Options
       </button>
-      <button class="ai-quick-btn" onclick="document.getElementById('appointment').scrollIntoView({behavior:'smooth'});closeAI()">
+      <button class="ai-quick-btn" onclick="document.getElementById('appointment').scrollIntoView({behavior:'smooth'});closeAI()" data-i18n="ai.q4">
         <span class="ai-quick-btn-icon">📅</span> Book an Appointment
       </button>
     </div>
     <div class="ai-input-row">
-      <input class="ai-input" placeholder="Type your question..." id="aiInput" onkeyup="aiKeyup(event)">
+      <input class="ai-input" data-i18n-ph="ai.ph" placeholder="Type your question..." id="aiInput" onkeyup="aiKeyup(event)">
       <button class="ai-send" onclick="sendAI()">➤</button>
     </div>
   </div>
@@ -2014,9 +2043,100 @@
 
   function aiKeyup(e) { if(e.key === 'Enter') sendAI(); }
 
+  // ─ LANG SWITCHER ─
+  const T = {
+    en: {
+      'nav.how':'How It Works','nav.register':'Register','nav.build':'Build','nav.finance':'Finance','nav.book':'Book','nav.cta':'Register Now','nav.admin':'⚙ Admin',
+      'hero.badge':'Official Cooperative Housing Platform','hero.h1a':'From Land Ownership','hero.h1b':'to Your ','hero.h1c':'Dream Home.','hero.p':'The official One-Stop Centre for cooperative members to build their homes safely through trusted partners. Register, build, and finance — all in one place.','hero.btn1':'🏡 Register My Project','hero.btn2':'🏠 Explore Packages','hero.stat1':'Members Registered','hero.stat2':'Clear Steps','hero.stat3':'Trusted Partners','hero.card':'Your Journey','hero.step1h':'Register','hero.step1p':'Submit your land & project details','hero.step2h':'Build','hero.step2p':'Choose package & contractor','hero.step3h':'Finance','hero.step3p':'Apply for your home financing',
+      'how.tag':'Simple Process','how.h2a':'Three Steps.','how.h2b':'One Platform.','how.sub':"We've simplified the entire home-building journey into three clear, guided steps so every cooperative member can succeed.",'how.s1.badge':'STEP 01','how.s1.h':'Register','how.s1.p':'Submit your land details and development request through our secure member portal.','how.s1.c1':'Member Verification','how.s1.c2':'Lot Information','how.s1.c3':'Development Request','how.s2.badge':'STEP 02','how.s2.h':'Build','how.s2.p':'Browse curated house designs and connect with our panel of approved, vetted contractors.','how.s2.c1':'House Designs','how.s2.c2':'Compare Packages','how.s2.c3':'Approved Contractors','how.s3.badge':'STEP 03','how.s3.h':'Finance','how.s3.p':'Access exclusive financing options and smart tools to plan your investment with confidence.','how.s3.c1':'Financing Partners','how.s3.c2':'Eligibility Checker','how.s3.c3':'Apply Through Cooperative',
+      'reg.tag':'Step 01','reg.h2':'Register Your Development Project','reg.sub':'Fill in your details below and our team will review your application within 2 working days.','reg.form.title':'🏡 Project Registration','reg.form.sub':'All fields marked * are required','reg.f.name':'Member Name','reg.f.name.ph':'Full name as per IC','reg.f.memno':'Membership Number','reg.f.memno.ph':'e.g. KOP-2024-001','reg.f.lot':'Lot Number','reg.f.lot.ph':'e.g. PTD 12345','reg.f.phone':'Phone Number','reg.f.phone.ph':'+60 12-345 6789','reg.f.email':'Email Address','reg.f.email.ph':'your@email.com','reg.f.location':'Land Location','reg.f.location.ph':'e.g. Mukim Senai, Johor','reg.f.notes':'Additional Notes','reg.f.notes.ph':'Any special requirements...','reg.f.doc':'Land Title Document','reg.f.doc.opt':'(Optional)','reg.upload.click':'Click to upload','reg.upload.drop':' or drag & drop','reg.upload.type':'PDF, JPG, PNG up to 10MB','reg.btn':'Continue to Build Phase →','reg.aside.h':'What Happens Next?','reg.aside.1h':'Application Review','reg.aside.1p':'Our team verifies your membership and land details within 2 working days.','reg.aside.2h':'Consultation Call','reg.aside.2p':'A dedicated officer will contact you to discuss your development plans.','reg.aside.3h':'Package Matching','reg.aside.3p':"We'll recommend the best house packages suited to your land and budget.",'reg.aside.4h':'Full Coordination','reg.aside.4p':'KODC coordinates the contractor, architect, and financing on your behalf.','reg.ai.h':'Koperasi Assistant','reg.ai.p':'AI-powered support • Online 24/7','reg.ai.msg':"Hi! I'm your Koperasi Digital Assistant. Need help filling in your registration? I can guide you through every field.",'reg.ai.btn':'💬 Chat with Assistant',
+      'build.tag':'Step 02','build.h2':'Choose Your House Package','build.sub':'Select from our curated range of quality-assured house designs, each backed by our panel of approved contractors.','build.p1.type':'Starter Series','build.p1.name':'Modern Home A','build.p1.beds':'🛏 2 Bedrooms · 🛁 1 Bathroom','build.p1.size':'📐 800 sq ft built-up','build.p1.f1':'Single-storey design','build.p1.f2':'Open plan living & dining','build.p1.f3':'Modern kitchen layout','build.p1.f4':'Covered car porch','build.p1.f5':'12-month defect liability','build.p1.btn':'View Details','build.p2.badge':'⭐ Most Popular','build.p2.type':'Family Series','build.p2.name':'Family Home B','build.p2.beds':'🛏 3 Bedrooms · 🛁 2 Bathrooms','build.p2.size':'📐 1,200 sq ft built-up','build.p2.f1':'Single or double-storey','build.p2.f2':'Master bedroom with en-suite','build.p2.f3':'Spacious family hall','build.p2.f4':'2 car porch','build.p2.f5':'18-month defect liability','build.p2.btn':'View Details','build.p3.type':'Premium Series','build.p3.name':'Premium Home C','build.p3.beds':'🛏 4 Bedrooms · 🛁 3 Bathrooms','build.p3.size':'📐 1,800 sq ft built-up','build.p3.f1':'Double-storey with utility room','build.p3.f2':'Full premium finishes','build.p3.f3':'Large balcony & terrace','build.p3.f4':'3 car porch + gate','build.p3.f5':'24-month defect liability','build.p3.btn':'View Details','build.c.tag':'Trusted Partners','build.c.h2':'Approved Contractors','build.c.sub':'All contractors are vetted, licensed, and approved by KODC. Your project is protected.','build.c1.tag':'Premium Builder','build.c1.exp':'25 Years Experience · 340 Projects Completed','build.c1.btn':'View Profile','build.c2.tag':'Affordable Package','build.c2.exp':'15 Years Experience · 210 Projects Completed','build.c2.btn':'View Profile','build.c3.tag':'Quality Specialist','build.c3.exp':'20 Years Experience · 290 Projects Completed','build.c3.btn':'View Profile','pkg.onwards':'onwards',
+      'fin.tag':'Step 03','fin.h2':'Choose Your Financing Partner','fin.sub':'Exclusive financing options negotiated through the cooperative for better rates and easier eligibility.','fin.f1.name':'Bank Kerjasama Rakyat','fin.f1.type':'Conventional Home Financing','fin.f1.desc':'Competitive fixed-rate home financing with up to 90% margin of financing. Suitable for first-time buyers with flexible repayment up to 35 years.','fin.f1.btn':'Learn More','fin.f2.name':'Amanah Islamic Finance','fin.f2.type':'Islamic Home Financing (Tawarruq)','fin.f2.desc':'Shariah-compliant home financing structured under the Tawarruq concept. Low profit rate with government guarantee for cooperative members.','fin.f2.btn':'Learn More','fin.f3.name':'Skim Perumahan Kerajaan','fin.f3.type':'Government Housing Scheme','fin.f3.desc':'Special government housing scheme exclusively for eligible cooperative members. Lowest rates available with additional rebates for civil servants.','fin.f3.btn':'Learn More','fin.per_annum':'per annum','fin.tools.tag':'Smart Property Tools','fin.tools.h2':'Plan Your Investment','fin.tools.sub':'Use our calculators to estimate your eligibility, monthly payments, and total budget before you commit.','fin.c1.title':'Loan Eligibility Checker','fin.c1.sub':'Estimate your maximum loan amount','fin.c1.l1':'Monthly Gross Salary (RM)','fin.c1.l2':'Total Monthly Commitments (RM)','fin.c1.l3':'Loan Tenure (Years)','fin.c1.result':'Estimated Max Financing','fin.c1.btn':'Calculate Now','fin.c2.title':'Monthly Instalment','fin.c2.sub':'See your estimated monthly repayment','fin.c2.l1':'Property Price (RM)','fin.c2.l2':'Down Payment (%)','fin.c2.l3':'Interest Rate (% p.a.)','fin.c2.result':'Estimated Monthly Payment','fin.c2.btn':'Calculate Now','fin.c3.title':'Construction Budget Planner','fin.c3.sub':'Plan your total project cost','fin.c3.l1':'House Package Price (RM)','fin.c3.l2':'Extra Works Budget (RM)','fin.c3.l3':'Furniture & Fittings (RM)','fin.c3.result':'Estimated Total Budget','fin.c3.btn':'Calculate Now',
+      'jrn.tag':'Member Journey','jrn.h2':'Your Complete Path to Homeownership','jrn.sub':'From the moment you land on our platform to the day construction begins — we guide you every step of the way.','jrn.1h':'Land on Platform','jrn.1p':'Discover KODC through your cooperative or online search','jrn.2h':'Register Project','jrn.2p':'Submit your land and development details securely','jrn.3h':'Explore Packages','jrn.3p':'Browse house designs and compare options','jrn.4h':'Choose Contractor','jrn.4p':'Select from our panel of approved, trusted builders','jrn.5h':'Use Smart Tools','jrn.5p':'Check eligibility and plan your budget with confidence','jrn.6h':'Choose Financing','jrn.6p':'Apply through your cooperative for exclusive rates','jrn.7h':'Book Consultation','jrn.7p':'Meet our team to finalise your plans','jrn.8h':'Cooperative Reviews','jrn.8p':'Your application is reviewed and approved','jrn.9h':'Partners Engaged','jrn.9p':'Contractor and financing partner are formally contacted','jrn.10h':'Construction Begins','jrn.10p':'Your dream home is now being built!',
+      'appt.tag':'Consultation','appt.h2':'Book a Free Consultation','appt.p':"Speak to one of our housing officers. Whether it's about your land, a house package, or financing — we're here to help.",'appt.i1h':'KODC Main Office','appt.i1p':'Menara Koperasi, Kuala Lumpur<br>Mon – Fri, 8:30am – 5:00pm','appt.i2h':'Hotline','appt.i3h':'Email Enquiry','appt.i4h':'AI Assistant','appt.i4p':'Available 24/7 via the chat button','appt.form.title':'📅 Book Consultation','appt.form.sub':"We'll confirm within 24 hours",'appt.f.name':'Full Name','appt.f.name.ph':'Your name','appt.f.phone':'Phone Number','appt.f.email':'Email','appt.f.date':'Preferred Date','appt.f.time':'Preferred Time','appt.f.time.ph':'Select time','appt.f.purpose':'Purpose of Consultation','appt.r1':'🏠 House Package Discussion','appt.r2':'👷 Contractor Meeting','appt.r3':'💰 Financing Consultation','appt.r4':'💬 General Enquiry','appt.btn':'Confirm Appointment ✓',
+      'ai.name':'Koperasi Assistant','ai.status':'Online • Ready to help','ai.msg':'👋 Hi! Welcome to the <strong>Koperasi One-Stop Centre</strong>.<br><br>I can help you with:<br>• Registering your project<br>• Recommending a house package<br>• Explaining financing options<br>• Booking an appointment','ai.q1':'🏠 Register My Project','ai.q2':'🏗 Explore House Packages','ai.q3':'💰 Financing Options','ai.q4':'📅 Book an Appointment','ai.ph':'Type your question...',
+      'footer.copy':'© 2025 KODC — Koperasi One-Stop Development Centre. All rights reserved.'
+    },
+    bm: {
+      'nav.how':'Cara Kerja','nav.register':'Daftar','nav.build':'Bina','nav.finance':'Kewangan','nav.book':'Tempah','nav.cta':'Daftar Sekarang','nav.admin':'⚙ Admin',
+      'hero.badge':'Platform Perumahan Koperasi Rasmi','hero.h1a':'Dari Pemilikan Tanah','hero.h1b':'ke ','hero.h1c':'Rumah Impian Anda.','hero.p':'Pusat One-Stop rasmi untuk ahli koperasi membina rumah mereka dengan selamat melalui rakan kongsi yang dipercayai. Daftar, bina dan biayai — semua di satu tempat.','hero.btn1':'🏡 Daftar Projek Saya','hero.btn2':'🏠 Terokai Pakej','hero.stat1':'Ahli Berdaftar','hero.stat2':'Langkah Jelas','hero.stat3':'Rakan Dipercayai','hero.card':'Perjalanan Anda','hero.step1h':'Daftar','hero.step1p':'Hantar butiran tanah & projek anda','hero.step2h':'Bina','hero.step2p':'Pilih pakej & kontraktor','hero.step3h':'Kewangan','hero.step3p':'Mohon pembiayaan rumah anda',
+      'how.tag':'Proses Mudah','how.h2a':'Tiga Langkah.','how.h2b':'Satu Platform.','how.sub':'Kami telah memudahkan keseluruhan perjalanan pembinaan rumah kepada tiga langkah yang jelas supaya setiap ahli koperasi berjaya.','how.s1.badge':'LANGKAH 01','how.s1.h':'Daftar','how.s1.p':'Hantar butiran tanah dan permintaan pembangunan anda melalui portal ahli yang selamat.','how.s1.c1':'Pengesahan Ahli','how.s1.c2':'Maklumat Lot','how.s1.c3':'Permohonan Pembangunan','how.s2.badge':'LANGKAH 02','how.s2.h':'Bina','how.s2.p':'Layari reka bentuk rumah yang dikurasi dan berhubung dengan panel kontraktor yang diluluskan.','how.s2.c1':'Reka Bentuk Rumah','how.s2.c2':'Bandingkan Pakej','how.s2.c3':'Kontraktor Diluluskan','how.s3.badge':'LANGKAH 03','how.s3.h':'Kewangan','how.s3.p':'Akses pilihan pembiayaan eksklusif dan alat pintar untuk merancang pelaburan anda.','how.s3.c1':'Rakan Pembiayaan','how.s3.c2':'Semakan Kelayakan','how.s3.c3':'Mohon Melalui Koperasi',
+      'reg.tag':'Langkah 01','reg.h2':'Daftar Projek Pembangunan Anda','reg.sub':'Isi butiran anda di bawah dan pasukan kami akan menyemak permohonan anda dalam masa 2 hari bekerja.','reg.form.title':'🏡 Pendaftaran Projek','reg.form.sub':'Semua medan bertanda * adalah wajib','reg.f.name':'Nama Ahli','reg.f.name.ph':'Nama penuh seperti dalam IC','reg.f.memno':'Nombor Keahlian','reg.f.memno.ph':'cth. KOP-2024-001','reg.f.lot':'Nombor Lot','reg.f.lot.ph':'cth. PTD 12345','reg.f.phone':'Nombor Telefon','reg.f.phone.ph':'+60 12-345 6789','reg.f.email':'Alamat E-mel','reg.f.email.ph':'anda@emel.com','reg.f.location':'Lokasi Tanah','reg.f.location.ph':'cth. Mukim Senai, Johor','reg.f.notes':'Nota Tambahan','reg.f.notes.ph':'Sebarang keperluan khas...','reg.f.doc':'Dokumen Geran Tanah','reg.f.doc.opt':'(Pilihan)','reg.upload.click':'Klik untuk muat naik','reg.upload.drop':' atau seret & lepas','reg.upload.type':'PDF, JPG, PNG sehingga 10MB','reg.btn':'Teruskan ke Fasa Bina →','reg.aside.h':'Apa Yang Berlaku Seterusnya?','reg.aside.1h':'Semakan Permohonan','reg.aside.1p':'Pasukan kami mengesahkan keahlian dan butiran tanah anda dalam masa 2 hari bekerja.','reg.aside.2h':'Panggilan Rundingan','reg.aside.2p':'Pegawai khusus akan menghubungi anda untuk membincangkan rancangan pembangunan anda.','reg.aside.3h':'Padanan Pakej','reg.aside.3p':'Kami akan mencadangkan pakej rumah terbaik yang sesuai dengan tanah dan bajet anda.','reg.aside.4h':'Penyelarasan Penuh','reg.aside.4p':'KODC menyelaraskan kontraktor, arkitek, dan pembiayaan bagi pihak anda.','reg.ai.h':'Pembantu Koperasi','reg.ai.p':'Sokongan AI • Dalam talian 24/7','reg.ai.msg':'Hai! Saya Pembantu Digital Koperasi anda. Perlukan bantuan mengisi pendaftaran? Saya boleh membimbing anda melalui setiap medan.','reg.ai.btn':'💬 Berbual dengan Pembantu',
+      'build.tag':'Langkah 02','build.h2':'Pilih Pakej Rumah Anda','build.sub':'Pilih dari julat reka bentuk rumah berkualiti kami, setiap satu disokong oleh panel kontraktor yang diluluskan.','build.p1.type':'Siri Permulaan','build.p1.name':'Rumah Moden A','build.p1.beds':'🛏 2 Bilik Tidur · 🛁 1 Bilik Mandi','build.p1.size':'📐 800 kaki persegi','build.p1.f1':'Reka bentuk satu tingkat','build.p1.f2':'Ruang tamu & makan terbuka','build.p1.f3':'Susun atur dapur moden','build.p1.f4':'Porch kereta berlindung','build.p1.f5':'Liabiliti kecacatan 12 bulan','build.p1.btn':'Lihat Butiran','build.p2.badge':'⭐ Paling Popular','build.p2.type':'Siri Keluarga','build.p2.name':'Rumah Keluarga B','build.p2.beds':'🛏 3 Bilik Tidur · 🛁 2 Bilik Mandi','build.p2.size':'📐 1,200 kaki persegi','build.p2.f1':'Satu atau dua tingkat','build.p2.f2':'Bilik utama dengan bilik mandi peribadi','build.p2.f3':'Ruang keluarga luas','build.p2.f4':'2 porch kereta','build.p2.f5':'Liabiliti kecacatan 18 bulan','build.p2.btn':'Lihat Butiran','build.p3.type':'Siri Premium','build.p3.name':'Rumah Premium C','build.p3.beds':'🛏 4 Bilik Tidur · 🛁 3 Bilik Mandi','build.p3.size':'📐 1,800 kaki persegi','build.p3.f1':'Dua tingkat dengan bilik utiliti','build.p3.f2':'Kemasan premium penuh','build.p3.f3':'Balkoni & teres besar','build.p3.f4':'3 porch kereta + pagar','build.p3.f5':'Liabiliti kecacatan 24 bulan','build.p3.btn':'Lihat Butiran','build.c.tag':'Rakan Dipercayai','build.c.h2':'Kontraktor Diluluskan','build.c.sub':'Semua kontraktor telah disemak, berlesen, dan diluluskan oleh KODC. Projek anda dilindungi.','build.c1.tag':'Pembina Premium','build.c1.exp':'25 Tahun Pengalaman · 340 Projek Siap','build.c1.btn':'Lihat Profil','build.c2.tag':'Pakej Mampu Milik','build.c2.exp':'15 Tahun Pengalaman · 210 Projek Siap','build.c2.btn':'Lihat Profil','build.c3.tag':'Pakar Kualiti','build.c3.exp':'20 Tahun Pengalaman · 290 Projek Siap','build.c3.btn':'Lihat Profil','pkg.onwards':'ke atas',
+      'fin.tag':'Langkah 03','fin.h2':'Pilih Rakan Pembiayaan Anda','fin.sub':'Pilihan pembiayaan eksklusif yang dirundingkan melalui koperasi untuk kadar yang lebih baik.','fin.f1.name':'Bank Kerjasama Rakyat','fin.f1.type':'Pembiayaan Rumah Konvensional','fin.f1.desc':'Pembiayaan rumah kadar tetap kompetitif sehingga 90% margin pembiayaan. Sesuai untuk pembeli kali pertama sehingga 35 tahun.','fin.f1.btn':'Ketahui Lebih Lanjut','fin.f2.name':'Amanah Islamic Finance','fin.f2.type':'Pembiayaan Rumah Islam (Tawarruq)','fin.f2.desc':'Pembiayaan rumah patuh Syariah berstruktur di bawah konsep Tawarruq. Kadar untung rendah dengan jaminan kerajaan.','fin.f2.btn':'Ketahui Lebih Lanjut','fin.f3.name':'Skim Perumahan Kerajaan','fin.f3.type':'Skim Perumahan Kerajaan','fin.f3.desc':'Skim perumahan kerajaan khas untuk ahli koperasi yang layak. Kadar terendah dengan rebat tambahan untuk penjawat awam.','fin.f3.btn':'Ketahui Lebih Lanjut','fin.per_annum':'setahun','fin.tools.tag':'Alat Hartanah Pintar','fin.tools.h2':'Rancang Pelaburan Anda','fin.tools.sub':'Gunakan kalkulator kami untuk menganggar kelayakan, bayaran bulanan, dan jumlah bajet anda.','fin.c1.title':'Semakan Kelayakan Pinjaman','fin.c1.sub':'Anggar jumlah pinjaman maksimum anda','fin.c1.l1':'Gaji Kasar Bulanan (RM)','fin.c1.l2':'Jumlah Komitmen Bulanan (RM)','fin.c1.l3':'Tempoh Pinjaman (Tahun)','fin.c1.result':'Anggaran Pembiayaan Maksimum','fin.c1.btn':'Kira Sekarang','fin.c2.title':'Ansuran Bulanan','fin.c2.sub':'Lihat anggaran bayaran balik bulanan anda','fin.c2.l1':'Harga Hartanah (RM)','fin.c2.l2':'Bayaran Pendahuluan (%)','fin.c2.l3':'Kadar Faedah (% setahun)','fin.c2.result':'Anggaran Bayaran Bulanan','fin.c2.btn':'Kira Sekarang','fin.c3.title':'Perancang Bajet Pembinaan','fin.c3.sub':'Rancang jumlah kos projek anda','fin.c3.l1':'Harga Pakej Rumah (RM)','fin.c3.l2':'Bajet Kerja Tambahan (RM)','fin.c3.l3':'Perabot & Kelengkapan (RM)','fin.c3.result':'Anggaran Jumlah Bajet','fin.c3.btn':'Kira Sekarang',
+      'jrn.tag':'Perjalanan Ahli','jrn.h2':'Laluan Lengkap Anda ke Pemilikan Rumah','jrn.sub':'Dari saat anda mendarat di platform kami hingga hari pembinaan bermula — kami membimbing anda setiap langkah.','jrn.1h':'Tiba di Platform','jrn.1p':'Temui KODC melalui koperasi atau carian dalam talian','jrn.2h':'Daftar Projek','jrn.2p':'Hantar butiran tanah dan pembangunan anda dengan selamat','jrn.3h':'Terokai Pakej','jrn.3p':'Layari reka bentuk rumah dan bandingkan pilihan','jrn.4h':'Pilih Kontraktor','jrn.4p':'Pilih dari panel pembina kami yang diluluskan','jrn.5h':'Guna Alat Pintar','jrn.5p':'Semak kelayakan dan rancang bajet anda','jrn.6h':'Pilih Pembiayaan','jrn.6p':'Mohon melalui koperasi untuk kadar eksklusif','jrn.7h':'Tempah Rundingan','jrn.7p':'Bertemu pasukan kami untuk memuktamadkan rancangan','jrn.8h':'Semakan Koperasi','jrn.8p':'Permohonan anda disemak dan diluluskan','jrn.9h':'Rakan Dihubungi','jrn.9p':'Kontraktor dan rakan pembiayaan dihubungi secara rasmi','jrn.10h':'Pembinaan Bermula','jrn.10p':'Rumah impian anda kini sedang dibina!',
+      'appt.tag':'Rundingan','appt.h2':'Tempah Rundingan Percuma','appt.p':'Bercakap dengan pegawai perumahan kami mengenai tanah, pakej rumah, atau pembiayaan — kami sedia membantu.','appt.i1h':'Pejabat Utama KODC','appt.i1p':'Menara Koperasi, Kuala Lumpur<br>Isnin – Jumaat, 8:30pg – 5:00ptg','appt.i2h':'Talian Hotline','appt.i3h':'Pertanyaan E-mel','appt.i4h':'Pembantu AI','appt.i4p':'Tersedia 24/7 melalui butang sembang','appt.form.title':'📅 Tempah Rundingan','appt.form.sub':'Kami akan sahkan dalam masa 24 jam','appt.f.name':'Nama Penuh','appt.f.name.ph':'Nama anda','appt.f.phone':'Nombor Telefon','appt.f.email':'E-mel','appt.f.date':'Tarikh Pilihan','appt.f.time':'Masa Pilihan','appt.f.time.ph':'Pilih masa','appt.f.purpose':'Tujuan Rundingan','appt.r1':'🏠 Perbincangan Pakej Rumah','appt.r2':'👷 Mesyuarat Kontraktor','appt.r3':'💰 Rundingan Pembiayaan','appt.r4':'💬 Pertanyaan Umum','appt.btn':'Sahkan Temujanji ✓',
+      'ai.name':'Pembantu Koperasi','ai.status':'Dalam Talian • Sedia membantu','ai.msg':'👋 Hai! Selamat datang ke <strong>Pusat One-Stop Koperasi</strong>.<br><br>Saya boleh membantu anda dengan:<br>• Mendaftar projek anda<br>• Mencadangkan pakej rumah<br>• Menerangkan pilihan pembiayaan<br>• Menempah temujanji','ai.q1':'🏠 Daftar Projek Saya','ai.q2':'🏗 Terokai Pakej Rumah','ai.q3':'💰 Pilihan Pembiayaan','ai.q4':'📅 Tempah Temujanji','ai.ph':'Taip soalan anda...',
+      'footer.copy':'© 2025 KODC — Pusat Pembangunan One-Stop Koperasi. Hak cipta terpelihara.'
+    },
+    zh: {
+      'nav.how':'运作方式','nav.register':'注册','nav.build':'建造','nav.finance':'融资','nav.book':'预约','nav.cta':'立即注册','nav.admin':'⚙ 管理',
+      'hero.badge':'官方合作社住房平台','hero.h1a':'从土地所有权','hero.h1b':'到您的','hero.h1c':'梦想家园。','hero.p':'合作社成员通过可信赖合作伙伴安全建造家园的官方一站式中心。注册、建造和融资——尽在一处。','hero.btn1':'🏡 注册我的项目','hero.btn2':'🏠 探索套餐','hero.stat1':'已注册会员','hero.stat2':'清晰步骤','hero.stat3':'可信合作伙伴','hero.card':'您的旅程','hero.step1h':'注册','hero.step1p':'提交您的土地和项目详情','hero.step2h':'建造','hero.step2p':'选择套餐和承包商','hero.step3h':'融资','hero.step3p':'申请您的住房贷款',
+      'how.tag':'简单流程','how.h2a':'三个步骤。','how.h2b':'一个平台。','how.sub':'我们将整个建房旅程简化为三个清晰的引导步骤，让每位合作社成员都能成功。','how.s1.badge':'步骤 01','how.s1.h':'注册','how.s1.p':'通过我们安全的会员门户提交您的土地详情和开发申请。','how.s1.c1':'会员验证','how.s1.c2':'地段信息','how.s1.c3':'开发申请','how.s2.badge':'步骤 02','how.s2.h':'建造','how.s2.p':'浏览精心策划的房屋设计，并与经过审核的承包商小组联系。','how.s2.c1':'房屋设计','how.s2.c2':'比较套餐','how.s2.c3':'已批准承包商','how.s3.badge':'步骤 03','how.s3.h':'融资','how.s3.p':'获取独家融资选项和智能工具，自信地规划您的投资。','how.s3.c1':'融资合作伙伴','how.s3.c2':'资格检查','how.s3.c3':'通过合作社申请',
+      'reg.tag':'步骤 01','reg.h2':'注册您的开发项目','reg.sub':'请填写以下详情，我们的团队将在2个工作日内审核您的申请。','reg.form.title':'🏡 项目注册','reg.form.sub':'标有 * 的字段为必填项','reg.f.name':'会员姓名','reg.f.name.ph':'与身份证相同的全名','reg.f.memno':'会员编号','reg.f.memno.ph':'例：KOP-2024-001','reg.f.lot':'地段编号','reg.f.lot.ph':'例：PTD 12345','reg.f.phone':'电话号码','reg.f.phone.ph':'+60 12-345 6789','reg.f.email':'电子邮件','reg.f.email.ph':'your@email.com','reg.f.location':'土地位置','reg.f.location.ph':'例：Mukim Senai，柔佛','reg.f.notes':'附加备注','reg.f.notes.ph':'任何特殊要求...','reg.f.doc':'地契文件','reg.f.doc.opt':'（可选）','reg.upload.click':'点击上传','reg.upload.drop':' 或拖放文件','reg.upload.type':'PDF、JPG、PNG，最大 10MB','reg.btn':'继续到建造阶段 →','reg.aside.h':'接下来会发生什么？','reg.aside.1h':'申请审核','reg.aside.1p':'我们的团队将在2个工作日内核实您的会员资格和土地详情。','reg.aside.2h':'咨询电话','reg.aside.2p':'专属官员将联系您讨论您的开发计划。','reg.aside.3h':'套餐匹配','reg.aside.3p':'我们将为您推荐最适合您土地和预算的房屋套餐。','reg.aside.4h':'全面协调','reg.aside.4p':'KODC将代表您协调承包商、建筑师和融资方。','reg.ai.h':'合作社助手','reg.ai.p':'AI智能支持 • 全天候在线','reg.ai.msg':'您好！我是您的合作社数字助手。需要帮助填写注册表格吗？我可以引导您完成每个字段。','reg.ai.btn':'💬 与助手聊天',
+      'build.tag':'步骤 02','build.h2':'选择您的房屋套餐','build.sub':'从我们精心挑选的高质量房屋设计中选择，每个设计都由经批准的承包商小组支持。','build.p1.type':'入门系列','build.p1.name':'现代住宅 A','build.p1.beds':'🛏 2间卧室 · 🛁 1间浴室','build.p1.size':'📐 建筑面积800平方英尺','build.p1.f1':'单层设计','build.p1.f2':'开放式客厅及餐厅','build.p1.f3':'现代厨房布局','build.p1.f4':'有盖车廊','build.p1.f5':'12个月缺陷责任期','build.p1.btn':'查看详情','build.p2.badge':'⭐ 最受欢迎','build.p2.type':'家庭系列','build.p2.name':'家庭住宅 B','build.p2.beds':'🛏 3间卧室 · 🛁 2间浴室','build.p2.size':'📐 建筑面积1,200平方英尺','build.p2.f1':'单层或双层','build.p2.f2':'主卧带独立浴室','build.p2.f3':'宽敞家庭厅','build.p2.f4':'2个车廊','build.p2.f5':'18个月缺陷责任期','build.p2.btn':'查看详情','build.p3.type':'高级系列','build.p3.name':'高级住宅 C','build.p3.beds':'🛏 4间卧室 · 🛁 3间浴室','build.p3.size':'📐 建筑面积1,800平方英尺','build.p3.f1':'双层带工具室','build.p3.f2':'全套高档装修','build.p3.f3':'大型阳台及露台','build.p3.f4':'3个车廊+大门','build.p3.f5':'24个月缺陷责任期','build.p3.btn':'查看详情','build.c.tag':'可信合作伙伴','build.c.h2':'已批准承包商','build.c.sub':'所有承包商均经过审核、持有执照并获得KODC批准。您的项目受到保护。','build.c1.tag':'高端建造商','build.c1.exp':'25年经验 · 340个已完工项目','build.c1.btn':'查看资料','build.c2.tag':'实惠套餐','build.c2.exp':'15年经验 · 210个已完工项目','build.c2.btn':'查看资料','build.c3.tag':'品质专家','build.c3.exp':'20年经验 · 290个已完工项目','build.c3.btn':'查看资料','pkg.onwards':'起',
+      'fin.tag':'步骤 03','fin.h2':'选择您的融资合作伙伴','fin.sub':'通过合作社谈判获得的独家融资选项，利率更优惠，资格审查更容易。','fin.f1.name':'人民合作银行','fin.f1.type':'传统住房贷款','fin.f1.desc':'具有竞争力的固定利率住房贷款，融资比例高达90%。适合首次购房者，还款期最长35年。','fin.f1.btn':'了解更多','fin.f2.name':'Amanah 伊斯兰融资','fin.f2.type':'伊斯兰住房融资（Tawarruq）','fin.f2.desc':'符合伊斯兰教法的住房融资，合作社会员享有低利润率和政府担保。','fin.f2.btn':'了解更多','fin.f3.name':'政府住房计划','fin.f3.type':'政府住房计划','fin.f3.desc':'专为符合资格的合作社会员设立的特别政府住房计划，公务员享有额外回扣。','fin.f3.btn':'了解更多','fin.per_annum':'每年','fin.tools.tag':'智能房产工具','fin.tools.h2':'规划您的投资','fin.tools.sub':'使用我们的计算器在做出承诺之前估算您的资格、月供和总预算。','fin.c1.title':'贷款资格检查器','fin.c1.sub':'估算您的最高贷款额','fin.c1.l1':'每月税前收入（RM）','fin.c1.l2':'每月总负债（RM）','fin.c1.l3':'贷款年限（年）','fin.c1.result':'预估最高融资额','fin.c1.btn':'立即计算','fin.c2.title':'每月分期付款','fin.c2.sub':'查看预估月供','fin.c2.l1':'房产价格（RM）','fin.c2.l2':'首期付款（%）','fin.c2.l3':'年利率（%）','fin.c2.result':'预估每月付款','fin.c2.btn':'立即计算','fin.c3.title':'建造预算规划器','fin.c3.sub':'规划您的总项目成本','fin.c3.l1':'房屋套餐价格（RM）','fin.c3.l2':'额外工程预算（RM）','fin.c3.l3':'家具与装置（RM）','fin.c3.result':'预估总预算','fin.c3.btn':'立即计算',
+      'jrn.tag':'会员旅程','jrn.h2':'您通向拥有房产的完整路径','jrn.sub':'从您登上我们的平台到施工开始——我们全程引导您。','jrn.1h':'进入平台','jrn.1p':'通过合作社或网络搜索发现KODC','jrn.2h':'注册项目','jrn.2p':'安全提交您的土地和开发详情','jrn.3h':'探索套餐','jrn.3p':'浏览房屋设计并比较选项','jrn.4h':'选择承包商','jrn.4p':'从经批准的可信建造商小组中选择','jrn.5h':'使用智能工具','jrn.5p':'自信地检查资格并规划预算','jrn.6h':'选择融资','jrn.6p':'通过合作社申请享受专属利率','jrn.7h':'预约咨询','jrn.7p':'与我们的团队会面以最终确定计划','jrn.8h':'合作社审核','jrn.8p':'您的申请被审核和批准','jrn.9h':'合作伙伴联系','jrn.9p':'承包商和融资合作伙伴被正式联系','jrn.10h':'施工开始','jrn.10p':'您的梦想家园正在建造中！',
+      'appt.tag':'咨询','appt.h2':'预约免费咨询','appt.p':'与我们的住房官员交谈，无论是土地、房屋套餐还是融资——我们随时为您提供帮助。','appt.i1h':'KODC总部','appt.i1p':'Menara Koperasi，吉隆坡<br>周一至周五，上午8:30至下午5:00','appt.i2h':'热线电话','appt.i3h':'电子邮件查询','appt.i4h':'AI助手','appt.i4p':'通过聊天按钮全天候24/7提供服务','appt.form.title':'📅 预约咨询','appt.form.sub':'我们将在24小时内确认','appt.f.name':'全名','appt.f.name.ph':'您的姓名','appt.f.phone':'电话号码','appt.f.email':'电子邮件','appt.f.date':'首选日期','appt.f.time':'首选时间','appt.f.time.ph':'选择时间','appt.f.purpose':'咨询目的','appt.r1':'🏠 房屋套餐讨论','appt.r2':'👷 承包商会议','appt.r3':'💰 融资咨询','appt.r4':'💬 一般查询','appt.btn':'确认预约 ✓',
+      'ai.name':'合作社助手','ai.status':'在线 • 随时为您服务','ai.msg':'👋 您好！欢迎来到<strong>合作社一站式中心</strong>。<br><br>我可以帮助您：<br>• 注册您的项目<br>• 推荐房屋套餐<br>• 解释融资选项<br>• 预约咨询','ai.q1':'🏠 注册我的项目','ai.q2':'🏗 探索房屋套餐','ai.q3':'💰 融资选项','ai.q4':'📅 预约咨询','ai.ph':'输入您的问题...',
+      'footer.copy':'© 2025 KODC — 合作社一站式发展中心。版权所有。'
+    },
+    ta: {
+      'nav.how':'எப்படி செயல்படுகிறது','nav.register':'பதிவு','nav.build':'கட்டுமானம்','nav.finance':'நிதி','nav.book':'முன்பதிவு','nav.cta':'இப்போதே பதிவு செய்','nav.admin':'⚙ நிர்வாகி',
+      'hero.badge':'அதிகாரப்பூர்வ கூட்டுறவு வீட்டுவசதி தளம்','hero.h1a':'நிலம் உரிமையில் இருந்து','hero.h1b':'உங்கள் ','hero.h1c':'கனவு வீட்டிற்கு.','hero.p':'நம்பகமான கூட்டாளிகள் மூலம் கூட்டுறவு உறுப்பினர்கள் வீடுகளை பாதுகாப்பாக கட்டுவதற்கான அதிகாரப்பூர்வ ஒரே இடம். பதிவு, கட்டு மற்றும் நிதியுதவி — எல்லாம் ஒரே இடத்தில்.','hero.btn1':'🏡 என் திட்டத்தை பதிவு செய்','hero.btn2':'🏠 தொகுப்புகளை ஆராய்','hero.stat1':'பதிவு செய்த உறுப்பினர்கள்','hero.stat2':'தெளிவான படிகள்','hero.stat3':'நம்பகமான கூட்டாளிகள்','hero.card':'உங்கள் பயணம்','hero.step1h':'பதிவு','hero.step1p':'நில & திட்ட விவரங்களை சமர்ப்பிக்கவும்','hero.step2h':'கட்டுமானம்','hero.step2p':'தொகுப்பு & ஒப்பந்தகாரர் தேர்ந்தெடுக்கவும்','hero.step3h':'நிதி','hero.step3p':'வீட்டு கடனுக்கு விண்ணப்பிக்கவும்',
+      'how.tag':'எளிய செயல்முறை','how.h2a':'மூன்று படிகள்.','how.h2b':'ஒரு தளம்.','how.sub':'ஒவ்வொரு கூட்டுறவு உறுப்பினரும் வெற்றிபெற முழு வீடு கட்டும் பயணத்தை மூன்று தெளிவான படிகளாக எளிமையாக்கியுள்ளோம்.','how.s1.badge':'படி 01','how.s1.h':'பதிவு','how.s1.p':'எங்கள் பாதுகாப்பான உறுப்பினர் போர்டலில் உங்கள் நில விவரங்களை சமர்ப்பிக்கவும்.','how.s1.c1':'உறுப்பினர் சரிபார்ப்பு','how.s1.c2':'நிலம் தகவல்','how.s1.c3':'மேம்பாட்டு கோரிக்கை','how.s2.badge':'படி 02','how.s2.h':'கட்டுமானம்','how.s2.p':'கவனமாக தேர்ந்தெடுக்கப்பட்ட வீட்டு வடிவமைப்புகளை உலாவி அங்கீகரிக்கப்பட்ட ஒப்பந்தகாரர்களுடன் இணைந்து கொள்ளுங்கள்.','how.s2.c1':'வீட்டு வடிவமைப்புகள்','how.s2.c2':'தொகுப்புகளை ஒப்பிடுக','how.s2.c3':'அங்கீகரிக்கப்பட்ட ஒப்பந்தகாரர்கள்','how.s3.badge':'படி 03','how.s3.h':'நிதி','how.s3.p':'நம்பிக்கையுடன் முதலீட்டை திட்டமிட பிரத்யேக நிதி விருப்பங்கள் மற்றும் சிறந்த கருவிகளை அணுகுங்கள்.','how.s3.c1':'நிதி கூட்டாளிகள்','how.s3.c2':'தகுதி சரிபார்ப்பு','how.s3.c3':'கூட்டுறவு மூலம் விண்ணப்பிக்கவும்',
+      'reg.tag':'படி 01','reg.h2':'உங்கள் மேம்பாட்டு திட்டத்தை பதிவு செய்யுங்கள்','reg.sub':'கீழே உங்கள் விவரங்களை பூர்த்தி செய்யுங்கள், எங்கள் குழு 2 வேலை நாட்களில் மதிப்பாய்வு செய்யும்.','reg.form.title':'🏡 திட்ட பதிவு','reg.form.sub':'* குறியிடப்பட்ட அனைத்து புலங்களும் கட்டாயம்','reg.f.name':'உறுப்பினர் பெயர்','reg.f.name.ph':'அடையாள அட்டையில் உள்ள முழு பெயர்','reg.f.memno':'உறுப்பினர் எண்','reg.f.memno.ph':'எ.கா. KOP-2024-001','reg.f.lot':'நில எண்','reg.f.lot.ph':'எ.கா. PTD 12345','reg.f.phone':'தொலைபேசி எண்','reg.f.phone.ph':'+60 12-345 6789','reg.f.email':'மின்னஞ்சல்','reg.f.email.ph':'your@email.com','reg.f.location':'நில இடம்','reg.f.location.ph':'எ.கா. Mukim Senai, ஜோகோர்','reg.f.notes':'கூடுதல் குறிப்புகள்','reg.f.notes.ph':'ஏதேனும் சிறப்பு தேவைகள்...','reg.f.doc':'நில பட்டா ஆவணம்','reg.f.doc.opt':'(விரும்பினால்)','reg.upload.click':'பதிவேற்ற கிளிக் செய்யுங்கள்','reg.upload.drop':' அல்லது இழுத்து விடுங்கள்','reg.upload.type':'PDF, JPG, PNG - 10MB வரை','reg.btn':'கட்டுமான கட்டத்திற்கு தொடரவும் →','reg.aside.h':'அடுத்து என்ன நடக்கும்?','reg.aside.1h':'விண்ணப்ப மதிப்பாய்வு','reg.aside.1p':'எங்கள் குழு 2 வேலை நாட்களில் உங்கள் உறுப்பினர் மற்றும் நில விவரங்களை சரிபார்க்கும்.','reg.aside.2h':'ஆலோசனை அழைப்பு','reg.aside.2p':'உங்கள் மேம்பாட்டு திட்டங்களை விவாதிக்க ஒரு அர்ப்பணிப்புள்ள அதிகாரி தொடர்பு கொள்வார்.','reg.aside.3h':'தொகுப்பு பொருத்தம்','reg.aside.3p':'உங்கள் நிலம் மற்றும் பட்ஜெட்டிற்கு ஏற்ற சிறந்த வீட்டு தொகுப்புகளை பரிந்துரைப்போம்.','reg.aside.4h':'முழு ஒருங்கிணைப்பு','reg.aside.4p':'KODC உங்கள் சார்பாக ஒப்பந்தகாரர், கட்டிடக் கலைஞர் மற்றும் நிதியை ஒருங்கிணைக்கும்.','reg.ai.h':'கூட்டுறவு உதவியாளர்','reg.ai.p':'AI ஆதரவு • 24/7 ஆன்லைன்','reg.ai.msg':'வணக்கம்! நான் உங்கள் கூட்டுறவு டிஜிட்டல் உதவியாளர். பதிவு படிவம் நிரப்ப உதவி வேண்டுமா?','reg.ai.btn':'💬 உதவியாளருடன் அரட்டை',
+      'build.tag':'படி 02','build.h2':'உங்கள் வீட்டு தொகுப்பை தேர்ந்தெடுங்கள்','build.sub':'எங்கள் அங்கீகரிக்கப்பட்ட ஒப்பந்தகாரர்களால் ஆதரிக்கப்படும் தரமான வீட்டு வடிவமைப்புகளிலிருந்து தேர்ந்தெடுங்கள்.','build.p1.type':'தொடக்க தொடர்','build.p1.name':'நவீன வீடு A','build.p1.beds':'🛏 2 படுக்கையறைகள் · 🛁 1 குளியலறை','build.p1.size':'📐 800 சதுர அடி','build.p1.f1':'ஒற்றை தளம் வடிவமைப்பு','build.p1.f2':'திறந்த வாழ்க்கை & உணவு அறை','build.p1.f3':'நவீன சமையலறை','build.p1.f4':'கூரை கார் நிறுத்தம்','build.p1.f5':'12 மாத குறைபாடு பொறுப்பு','build.p1.btn':'விவரங்கள் காண்க','build.p2.badge':'⭐ மிகவும் பிரபலமானது','build.p2.type':'குடும்ப தொடர்','build.p2.name':'குடும்ப வீடு B','build.p2.beds':'🛏 3 படுக்கையறைகள் · 🛁 2 குளியலறைகள்','build.p2.size':'📐 1,200 சதுர அடி','build.p2.f1':'ஒற்றை அல்லது இரட்டை தளம்','build.p2.f2':'தனியான குளியலறையுடன் தலைமை படுக்கையறை','build.p2.f3':'குடும்ப ஹால்','build.p2.f4':'2 கார் நிறுத்தம்','build.p2.f5':'18 மாத குறைபாடு பொறுப்பு','build.p2.btn':'விவரங்கள் காண்க','build.p3.type':'பிரீமியம் தொடர்','build.p3.name':'பிரீமியம் வீடு C','build.p3.beds':'🛏 4 படுக்கையறைகள் · 🛁 3 குளியலறைகள்','build.p3.size':'📐 1,800 சதுர அடி','build.p3.f1':'பயன்பாட்டு அறையுடன் இரட்டை தளம்','build.p3.f2':'முழு பிரீமியம் அலங்காரம்','build.p3.f3':'பெரிய பால்கனி & தாராசம்','build.p3.f4':'3 கார் நிறுத்தம் + கேட்','build.p3.f5':'24 மாத குறைபாடு பொறுப்பு','build.p3.btn':'விவரங்கள் காண்க','build.c.tag':'நம்பகமான கூட்டாளிகள்','build.c.h2':'அங்கீகரிக்கப்பட்ட ஒப்பந்தகாரர்கள்','build.c.sub':'அனைத்து ஒப்பந்தகாரர்களும் KODC ஆல் அங்கீகரிக்கப்பட்டவர்கள். உங்கள் திட்டம் பாதுகாக்கப்படுகிறது.','build.c1.tag':'பிரீமியம் கட்டிடக்காரர்','build.c1.exp':'25 ஆண்டுகள் அனுபவம் · 340 திட்டங்கள்','build.c1.btn':'சுயவிவரம் காண்க','build.c2.tag':'மலிவான தொகுப்பு','build.c2.exp':'15 ஆண்டுகள் அனுபவம் · 210 திட்டங்கள்','build.c2.btn':'சுயவிவரம் காண்க','build.c3.tag':'தர நிபுணர்','build.c3.exp':'20 ஆண்டுகள் அனுபவம் · 290 திட்டங்கள்','build.c3.btn':'சுயவிவரம் காண்க','pkg.onwards':'முதல்',
+      'fin.tag':'படி 03','fin.h2':'உங்கள் நிதி கூட்டாளியை தேர்ந்தெடுங்கள்','fin.sub':'சிறந்த விகிதங்கள் மற்றும் எளிதான தகுதிக்கு கூட்டுறவு மூலம் பேச்சுவார்த்தை நடத்தப்பட்ட பிரத்யேக நிதி விருப்பங்கள்.','fin.f1.name':'Bank Kerjasama Rakyat','fin.f1.type':'வழக்கமான வீட்டு கடன்','fin.f1.desc':'90% வரை நிதி வரம்புடன் நிலையான வட்டி விகித வீட்டு கடன். 35 ஆண்டுகள் வரை நெகிழ்வான திரும்பச்செலுத்துதல்.','fin.f1.btn':'மேலும் அறிய','fin.f2.name':'Amanah இஸ்லாமிய நிதி','fin.f2.type':'இஸ்லாமிய வீட்டு நிதி (Tawarruq)','fin.f2.desc':'Tawarruq கருத்தின் கீழ் ஷரியா இணக்கமான வீட்டு நிதி. கூட்டுறவு உறுப்பினர்களுக்கு அரசு உத்தரவாதம்.','fin.f2.btn':'மேலும் அறிய','fin.f3.name':'அரசு வீட்டுவசதி திட்டம்','fin.f3.type':'அரசு வீட்டுவசதி திட்டம்','fin.f3.desc':'தகுதியான கூட்டுறவு உறுப்பினர்களுக்காக சிறப்பு அரசு வீட்டுவசதி திட்டம். அரசு ஊழியர்களுக்கு கூடுதல் தள்ளுபடி.','fin.f3.btn':'மேலும் அறிய','fin.per_annum':'ஆண்டிற்கு','fin.tools.tag':'சிறந்த சொத்து கருவிகள்','fin.tools.h2':'உங்கள் முதலீட்டை திட்டமிடுங்கள்','fin.tools.sub':'உறுதிமொழி எடுப்பதற்கு முன் தகுதி, மாதாந்திர கொடுப்பனவு மற்றும் மொத்த பட்ஜெட்டை மதிப்பிட எங்கள் கால்குலேட்டர்களை பயன்படுத்துங்கள்.','fin.c1.title':'கடன் தகுதி சரிபார்ப்பு','fin.c1.sub':'அதிகபட்ச கடன் தொகையை மதிப்பிடுங்கள்','fin.c1.l1':'மாதாந்திர மொத்த சம்பளம் (RM)','fin.c1.l2':'மொத்த மாதாந்திர கடமைகள் (RM)','fin.c1.l3':'கடன் காலம் (ஆண்டுகள்)','fin.c1.result':'மதிப்பிடப்பட்ட அதிகபட்ச நிதி','fin.c1.btn':'இப்போது கணக்கிடுங்கள்','fin.c2.title':'மாதாந்திர தவணை','fin.c2.sub':'மதிப்பிடப்பட்ட மாதாந்திர கொடுப்பனவை காணுங்கள்','fin.c2.l1':'சொத்து விலை (RM)','fin.c2.l2':'முன் கட்டணம் (%)','fin.c2.l3':'வட்டி விகிதம் (% ஆண்டிற்கு)','fin.c2.result':'மதிப்பிடப்பட்ட மாதாந்திர கொடுப்பனவு','fin.c2.btn':'இப்போது கணக்கிடுங்கள்','fin.c3.title':'கட்டுமான பட்ஜெட் திட்டமிடுபவர்','fin.c3.sub':'மொத்த திட்ட செலவை திட்டமிடுங்கள்','fin.c3.l1':'வீட்டு தொகுப்பு விலை (RM)','fin.c3.l2':'கூடுதல் வேலைகள் பட்ஜெட் (RM)','fin.c3.l3':'தளவாடங்கள் & பொருட்கள் (RM)','fin.c3.result':'மதிப்பிடப்பட்ட மொத்த பட்ஜெட்','fin.c3.btn':'இப்போது கணக்கிடுங்கள்',
+      'jrn.tag':'உறுப்பினர் பயணம்','jrn.h2':'வீட்டு உரிமைக்கான உங்கள் முழுமையான பாதை','jrn.sub':'நீங்கள் எங்கள் தளத்தில் வந்த தருணம் முதல் கட்டுமானம் தொடங்கும் நாள் வரை — ஒவ்வொரு படியிலும் நாங்கள் வழிகாட்டுகிறோம்.','jrn.1h':'தளத்தில் வருகை','jrn.1p':'உங்கள் கூட்டுறவு அல்லது ஆன்லைன் தேடல் மூலம் KODC ஐ கண்டறியுங்கள்','jrn.2h':'திட்டம் பதிவு','jrn.2p':'உங்கள் நில மற்றும் மேம்பாட்டு விவரங்களை பாதுகாப்பாக சமர்ப்பிக்கவும்','jrn.3h':'தொகுப்புகள் ஆராய்க','jrn.3p':'வீட்டு வடிவமைப்புகளை உலாவி விருப்பங்களை ஒப்பிடுங்கள்','jrn.4h':'ஒப்பந்தகாரர் தேர்ந்தெடுங்கள்','jrn.4p':'அங்கீகரிக்கப்பட்ட, நம்பகமான கட்டிடக்காரர்கள் குழுவிலிருந்து தேர்ந்தெடுங்கள்','jrn.5h':'சிறந்த கருவிகள் பயன்படுத்துங்கள்','jrn.5p':'நம்பிக்கையுடன் தகுதியை சரிபார்த்து பட்ஜெட்டை திட்டமிடுங்கள்','jrn.6h':'நிதி தேர்ந்தெடுங்கள்','jrn.6p':'பிரத்யேக விகிதங்களுக்கு கூட்டுறவு மூலம் விண்ணப்பிக்கவும்','jrn.7h':'ஆலோசனை முன்பதிவு','jrn.7p':'உங்கள் திட்டங்களை இறுதி செய்ய எங்கள் குழுவை சந்திக்கவும்','jrn.8h':'கூட்டுறவு மதிப்பாய்வு','jrn.8p':'உங்கள் விண்ணப்பம் மதிப்பாய்வு செய்யப்பட்டு அங்கீகரிக்கப்படும்','jrn.9h':'கூட்டாளிகள் தொடர்பு','jrn.9p':'ஒப்பந்தகாரர் மற்றும் நிதி கூட்டாளி அதிகாரப்பூர்வமாக தொடர்பு கொள்ளப்படுவார்','jrn.10h':'கட்டுமானம் தொடங்குகிறது','jrn.10p':'உங்கள் கனவு வீடு இப்போது கட்டப்படுகிறது!',
+      'appt.tag':'ஆலோசனை','appt.h2':'இலவச ஆலோசனை முன்பதிவு','appt.p':'எங்கள் வீட்டுவசதி அதிகாரிகளில் ஒருவரிடம் பேசுங்கள். நிலம், வீட்டு தொகுப்பு அல்லது நிதி பற்றியதாக இருந்தாலும் — நாங்கள் உதவ இங்கே இருக்கிறோம்.','appt.i1h':'KODC தலைமை அலுவலகம்','appt.i1p':'Menara Koperasi, குவாலா லம்பூர்<br>திங்கள் – வெள்ளி, காலை 8:30 – மாலை 5:00','appt.i2h':'ஹாட்லைன்','appt.i3h':'மின்னஞ்சல் விசாரணை','appt.i4h':'AI உதவியாளர்','appt.i4p':'அரட்டை பொத்தான் மூலம் 24/7 கிடைக்கும்','appt.form.title':'📅 ஆலோசனை முன்பதிவு','appt.form.sub':'24 மணி நேரத்தில் உறுதிப்படுத்துவோம்','appt.f.name':'முழு பெயர்','appt.f.name.ph':'உங்கள் பெயர்','appt.f.phone':'தொலைபேசி எண்','appt.f.email':'மின்னஞ்சல்','appt.f.date':'விரும்பிய தேதி','appt.f.time':'விரும்பிய நேரம்','appt.f.time.ph':'நேரம் தேர்ந்தெடுங்கள்','appt.f.purpose':'ஆலோசனையின் நோக்கம்','appt.r1':'🏠 வீட்டு தொகுப்பு விவாதம்','appt.r2':'👷 ஒப்பந்தகாரர் கூட்டம்','appt.r3':'💰 நிதி ஆலோசனை','appt.r4':'💬 பொது விசாரணை','appt.btn':'முன்பதிவு உறுதிப்படுத்துங்கள் ✓',
+      'ai.name':'கூட்டுறவு உதவியாளர்','ai.status':'ஆன்லைன் • உதவ தயார்','ai.msg':'👋 வணக்கம்! <strong>கூட்டுறவு ஒரே இடம்</strong> மையத்திற்கு வரவேற்கிறோம்.<br><br>நான் உங்களுக்கு உதவ முடியும்:<br>• உங்கள் திட்டத்தை பதிவு செய்ய<br>• வீட்டு தொகுப்பை பரிந்துரைக்க<br>• நிதி விருப்பங்களை விளக்க<br>• ஆலோசனை முன்பதிவு செய்ய','ai.q1':'🏠 என் திட்டத்தை பதிவு செய்','ai.q2':'🏗 வீட்டு தொகுப்புகளை ஆராய்','ai.q3':'💰 நிதி விருப்பங்கள்','ai.q4':'📅 ஆலோசனை முன்பதிவு','ai.ph':'உங்கள் கேள்வியை தட்டச்சு செய்யுங்கள்...',
+      'footer.copy':'© 2025 KODC — கூட்டுறவு ஒரே இடம் மேம்பாட்டு மையம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.'
+    }
+  };
+
+  let currentLang = 'en';
+
+  function applyLang(lang) {
+    const d = T[lang];
+    if(!d) return;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.getAttribute('data-i18n');
+      if(d[k] !== undefined) el.textContent = d[k];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const k = el.getAttribute('data-i18n-html');
+      if(d[k] !== undefined) el.innerHTML = d[k];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const k = el.getAttribute('data-i18n-ph');
+      if(d[k] !== undefined) el.placeholder = d[k];
+    });
+  }
+
+  function setLang(lang) {
+    currentLang = lang;
+    applyLang(lang);
+    // update button label
+    const labels = { en:'🇬🇧 EN', bm:'🇲🇾 BM', zh:'🇨🇳 中文', ta:'🇮🇳 தமிழ்' };
+    document.getElementById('langBtn').innerHTML = `${labels[lang]} <svg width="10" height="6" viewBox="0 0 10 6"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`;
+    // update active state
+    ['en','bm','zh','ta'].forEach(l => {
+      const el = document.getElementById('opt-'+l);
+      if(el) el.classList.toggle('active', l === lang);
+    });
+    closeLangMenu();
+  }
+
+  function toggleLangMenu() { document.getElementById('langDropdown').classList.toggle('open'); }
+  function closeLangMenu()  { document.getElementById('langDropdown').classList.remove('open'); }
+
+  document.addEventListener('click', e => {
+    if(!document.getElementById('langSwitcher').contains(e.target)) closeLangMenu();
+  });
+
   // ─ INIT ─
   document.addEventListener('DOMContentLoaded', () => {
-    // Hide page sections by default
     pages.forEach(p => {
       const el = document.getElementById(p);
       if(el) el.style.display = 'none';

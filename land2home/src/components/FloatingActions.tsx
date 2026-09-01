@@ -1,18 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Icon } from '@/components/ui';
 import { useI18n } from '@/i18n';
 import { cn } from '@/lib/cn';
 
-/* WhatsApp number for the programme desk. Displayed in Malaysian local
-   format, dialled in international format. */
+/* WhatsApp number for the programme desk: shown in Malaysian local format,
+   dialled in international format. */
 const WA_LOCAL = '011-2846 5813';
 const WA_INTL = '601128465813';
-const WA_MESSAGE = 'Hi! I am a KPSM Bau member and I would like to ask about Land2Home. #Land2Home';
+const WA_MESSAGE =
+  'Hi! I am a KPSM Bau member and I would like to ask about Land2Home. #Land2Home';
+const WA_HREF = `https://wa.me/${WA_INTL}?text=${encodeURIComponent(WA_MESSAGE)}`;
 
 /* Common questions, answered in the same plain language the portal uses.
-   This is deliberately a small helper, not a chatbot: it answers what can
-   be answered without knowing anything about a specific project, and hands
-   anything personal to a human. */
+   Deliberately a small helper, not a chatbot: it answers what can be
+   answered without knowing a specific project, and hands anything personal
+   to a human. */
 const FAQ: { q: string; a: string }[] = [
   {
     q: 'Who actually builds my house?',
@@ -25,6 +27,10 @@ const FAQ: { q: string; a: string }[] = [
   {
     q: 'How is my money protected?',
     a: 'KPSM holds the funds and releases them in four stages. EGMH is only paid for work that has been completed and checked, and every release is authorised by a named KPSM officer, never automatically.',
+  },
+  {
+    q: 'How long does a house take to build?',
+    a: 'EGMH publishes a four-step path: choose your land, have the ground confirmed by their engineers, construction starts within 30 days, and keys are handed over in 90 days after a CIDB quality inspection.',
   },
   {
     q: 'Why does it ask for my identity card and land title?',
@@ -44,7 +50,6 @@ export function FloatingActions() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<number | null>(0);
-  const panel = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -61,7 +66,6 @@ export function FloatingActions() {
       <div className="fixed bottom-4 left-4 z-toast sm:bottom-6 sm:left-6">
         {open && (
           <div
-            ref={panel}
             role="dialog"
             aria-label={t('help.title')}
             className="mb-3 flex max-h-[70vh] w-[min(23rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-line bg-raised shadow-high animate-fade-up"
@@ -115,7 +119,7 @@ export function FloatingActions() {
             </ul>
 
             <a
-              href={`https://wa.me/${WA_INTL}?text=${encodeURIComponent(WA_MESSAGE)}`}
+              href={WA_HREF}
               target="_blank"
               rel="noreferrer noopener"
               className="flex items-center justify-center gap-2 border-t border-line bg-forest-50 px-5 py-3.5 text-sm font-semibold text-forest-800 transition-colors hover:bg-forest-100"
@@ -126,36 +130,42 @@ export function FloatingActions() {
           </div>
         )}
 
+        {/* Circle plus a separate pill label, so the two read as one pair. */}
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={t('help.title')}
-          className="flex h-12 w-12 items-center justify-center gap-2.5 rounded-full bg-forest-900 text-forest-50 shadow-high transition-[background-color,transform] duration-150 ease-out4 hover:bg-forest-800 active:translate-y-px sm:w-auto sm:justify-start sm:pl-3.5 sm:pr-4"
+          className="group flex items-center gap-2.5"
         >
-          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gold-500 text-onyx">
-            <Icon name={open ? 'close' : 'sparkle'} size={16} />
+          <span className="relative grid h-12 w-12 shrink-0 place-items-center rounded-full bg-forest-900 text-forest-50 shadow-high transition-[background-color,transform] duration-150 ease-out4 group-hover:bg-forest-800 group-active:translate-y-px">
+            <Icon name={open ? 'close' : 'assistant'} size={22} />
+            {!open && (
+              <span
+                aria-hidden
+                className="absolute right-0.5 top-0.5 h-3 w-3 rounded-full border-2 border-forest-900 bg-[#25D366]"
+              />
+            )}
           </span>
-          <span className="hidden text-sm font-semibold sm:inline">{t('help.title')}</span>
+          <span className="hidden rounded-full border border-line bg-raised px-3.5 py-2 text-[0.8125rem] font-semibold text-ink shadow-mid transition-colors group-hover:border-forest-600 sm:inline-block">
+            {t('help.pill')}
+          </span>
         </button>
       </div>
 
       {/* ── Right: WhatsApp ───────────────────────────────────────── */}
       <a
-        href={`https://wa.me/${WA_INTL}?text=${encodeURIComponent(WA_MESSAGE)}`}
+        href={WA_HREF}
         target="_blank"
         rel="noreferrer noopener"
-        aria-label={`${t('wa.title')} ${WA_LOCAL} — ${t('wa.sub')}`}
-        className="group fixed bottom-4 right-4 z-toast flex h-12 w-12 items-center justify-center gap-2.5 rounded-full bg-[#25D366] text-[#07301c] shadow-high transition-[background-color,transform] duration-150 ease-out4 hover:bg-[#1fbe5a] active:translate-y-px sm:bottom-6 sm:right-6 sm:w-auto sm:justify-start sm:pl-3 sm:pr-4"
+        aria-label={`${t('wa.title')} ${WA_LOCAL}`}
+        className="group fixed bottom-4 right-4 z-toast flex items-center gap-2.5 sm:bottom-6 sm:right-6"
       >
-        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/25">
-          <WhatsAppGlyph />
+        <span className="hidden rounded-full border border-line bg-raised px-3.5 py-2 text-[0.8125rem] font-semibold text-ink shadow-mid transition-colors group-hover:border-[#25D366] sm:inline-block">
+          {t('wa.pill')}
         </span>
-        <span className="hidden flex-col leading-none sm:flex">
-          <span className="tnum text-sm font-bold">{WA_LOCAL}</span>
-          <span className="mt-0.5 text-[0.6875rem] font-semibold opacity-80">
-            {t('wa.sub')} · #Land2Home
-          </span>
+        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#25D366] text-white shadow-high transition-[background-color,transform] duration-150 ease-out4 group-hover:bg-[#1fbe5a] group-active:translate-y-px">
+          <WhatsAppGlyph />
         </span>
       </a>
     </>
@@ -164,7 +174,7 @@ export function FloatingActions() {
 
 function WhatsAppGlyph() {
   return (
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.23 8.23 0 0 1 0 16.47Zm4.52-6.16c-.25-.13-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.71-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.41.09-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.16 0-.43.06-.65.31-.22.24-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.62 4.15 3.67.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29Z" />
     </svg>
   );

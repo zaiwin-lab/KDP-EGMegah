@@ -118,6 +118,44 @@
   }
 }
 
+/* Credit-bar link: a gold sheen sweeps across the wordmark on hover.
+   Gradient-on-text is used here only as a transient hover effect, never as
+   the resting state, so the link stays a solid readable colour by default. */
+.kobis-link:hover,
+.kobis-link:focus-visible {
+  background-image: linear-gradient(
+    100deg,
+    oklch(var(--gold-200)) 0%,
+    oklch(var(--gold-500)) 22%,
+    oklch(0.99 0.02 92) 42%,
+    oklch(var(--gold-500)) 62%,
+    oklch(var(--gold-200)) 100%
+  );
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: kobis-sheen 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: forwards;
+}
+@keyframes kobis-sheen {
+  from { background-position: 100% 0; }
+  to { background-position: 0% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kobis-link:hover,
+  .kobis-link:focus-visible {
+    animation: none;
+    background-image: none;
+    background-clip: border-box;
+    -webkit-background-clip: border-box;
+    -webkit-text-fill-color: oklch(var(--gold-500));
+    color: oklch(var(--gold-500));
+  }
+}
+
 /* The journey rail draws its own connector so stages read as one
    continuous path rather than a row of disconnected chips. */
 .rail-step:not(:last-child)::after {

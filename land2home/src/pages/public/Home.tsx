@@ -392,6 +392,7 @@ export default function Home() {
       </section>
 
       <PublicFooter />
+      <Signature />
     </div>
   );
 }
@@ -430,7 +431,7 @@ export function PublicNav() {
 export function PublicFooter() {
   const { t } = useI18n();
   return (
-    <footer className="bg-onyx pb-8 pt-12 text-forest-50/70">
+    <footer className="bg-onyx pb-12 pt-12 text-forest-50/70">
       <div className="shell grid gap-8 sm:grid-cols-[1.4fr_1fr]">
         <div>
           <Wordmark tone="light" showPartners />
@@ -453,9 +454,6 @@ export function PublicFooter() {
         </div>
       </div>
 
-      <div className="shell mt-10 border-t border-forest-50/12 pt-7">
-        <Signature />
-      </div>
     </footer>
   );
 }

@@ -279,6 +279,7 @@ const PATHS: Record<string, ReactNode> = {
   menu: <path d="M3.5 6h13M3.5 10h13M3.5 14h13" />,
   close: <path d="m5.5 5.5 9 9m0-9-9 9" />,
   sparkle: <path d="M10 3.4 11.5 8 16 9.5 11.5 11 10 15.6 8.5 11 4 9.5 8.5 8 10 3.4Z" />,
+  assistant: <><rect x="3.4" y="6.4" width="13.2" height="9.6" rx="3" /><path d="M10 3.2v3.2" /><circle cx="7.4" cy="11" r="1.05" fill="currentColor" stroke="none" /><circle cx="12.6" cy="11" r="1.05" fill="currentColor" stroke="none" /><path d="M8.2 13.6h3.6" /></>,
   logout: <><path d="M12 6.2V4.6a1.6 1.6 0 0 0-1.6-1.6H5.2a1.6 1.6 0 0 0-1.6 1.6v10.8a1.6 1.6 0 0 0 1.6 1.6h5.2a1.6 1.6 0 0 0 1.6-1.6v-1.6" /><path d="M8.4 10h8m-2.6-2.6L16.4 10l-2.6 2.6" /></>,
 };
 

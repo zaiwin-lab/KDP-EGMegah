@@ -17,6 +17,10 @@ export type Lang = (typeof LANGUAGES)[number]['code'];
 type Dict = Record<string, string>;
 
 const en: Dict = {
+  'credit.line':
+    'This Digital Experience is Part of the {brand} Innovation Ecosystem',
+  'help.pill': 'Ask anything · 24/7',
+  'wa.pill': 'WhatsApp 011-2846 5813',
   'homes.note':
     'Floor areas and prices are as published by EG Megah Holdings and are indicative. Final figures depend on land conditions, finishes and specification at the time of construction.',
   'tech.eyebrow': 'Teknologi EG Megah',
@@ -114,6 +118,10 @@ const en: Dict = {
 };
 
 const bm: Dict = {
+  'credit.line':
+    'Pengalaman Digital Ini Sebahagian daripada Ekosistem Inovasi {brand}',
+  'help.pill': 'Tanya apa sahaja · 24/7',
+  'wa.pill': 'WhatsApp 011-2846 5813',
   'homes.note':
     'Keluasan lantai dan harga adalah seperti yang diterbitkan oleh EG Megah Holdings dan merupakan anggaran. Angka muktamad bergantung kepada keadaan tanah, kemasan dan spesifikasi pada masa pembinaan.',
   'tech.eyebrow': 'Teknologi EG Megah',
@@ -211,6 +219,9 @@ const bm: Dict = {
 };
 
 const zh: Dict = {
+  'credit.line': '此数字体验是 {brand} 创新生态系统的一部分',
+  'help.pill': '随时提问 · 全天候',
+  'wa.pill': 'WhatsApp 011-2846 5813',
   'homes.note': '建筑面积与价格均依 EG Megah Holdings 公布为准，仅供参考。最终数字取决于土地状况、装修与施工时的规格。',
   'tech.eyebrow': 'EG Megah 技术',
   'tech.title': '差别，就在墙体之内。',
@@ -305,6 +316,10 @@ const zh: Dict = {
 };
 
 const ta: Dict = {
+  'credit.line':
+    'இந்த டிஜிட்டல் அனுபவம் {brand} கண்டுபிடிப்பு சூழலின் ஒரு பகுதி',
+  'help.pill': 'எதுவும் கேளுங்கள் · 24/7',
+  'wa.pill': 'WhatsApp 011-2846 5813',
   'homes.note':
     'தளப் பரப்பும் விலைகளும் EG Megah Holdings வெளியிட்டபடி; இவை தோராயமானவை. இறுதி எண்கள் நிலத்தின் நிலை, பூச்சு மற்றும் கட்டுமான நேரத்து விவரக்குறிப்பைப் பொறுத்தது.',
   'tech.eyebrow': 'EG Megah தொழில்நுட்பம்',

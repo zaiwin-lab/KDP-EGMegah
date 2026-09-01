@@ -62,7 +62,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="min-h-dvh bg-paper">
+    <div className="flex min-h-dvh flex-col bg-paper">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-toast focus:rounded-lg focus:bg-forest-900 focus:px-4 focus:py-2 focus:text-forest-50"
@@ -123,7 +123,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <div className="mx-auto flex w-full max-w-[86rem] gap-8 px-4 sm:px-6">
+      <div className="mx-auto flex w-full max-w-[86rem] flex-1 gap-8 px-4 sm:px-6">
         <nav
           id="app-nav"
           className={cn(
@@ -160,11 +160,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         <main id="main" className="min-w-0 flex-1 py-6 sm:py-8">
           {children}
-          <div className="mt-12 border-t border-line pt-7 pb-4">
-            <Signature tone="dark" />
-          </div>
         </main>
       </div>
+
+      <Signature />
     </div>
   );
 }

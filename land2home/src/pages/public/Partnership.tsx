@@ -1,6 +1,7 @@
 import { ButtonLink, Icon } from '@/components/ui';
 import { PartnerLockup } from '@/components/layout/Wordmark';
 import { PublicFooter, PublicNav } from './Home';
+import { Signature } from '@/components/Signature';
 import { ORG } from '@/data/demoSeed';
 
 /* The trust page. Every credential here comes from the organisation's own
@@ -213,6 +214,7 @@ export default function Partnership() {
       </section>
 
       <PublicFooter />
+      <Signature />
     </div>
   );
 }

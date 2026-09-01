@@ -45,6 +45,17 @@ export default function Dashboard() {
 
   return (
     <>
+      <div className="mb-1.5 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[0.8125rem]">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-gold-100 px-2.5 py-1 font-semibold text-gold-700">
+          <Icon name="key" size={13} />
+          KPSM Bau member
+        </span>
+        <span className="tnum text-ink-2">{profile.membership_no}</span>
+        {profile.membership_verified_at && (
+          <span className="text-ink-3">· a member with us since {shortDate(profile.membership_verified_at)}</span>
+        )}
+      </div>
+
       <PageHead
         title={`Good to see you, ${firstName}`}
         lead={`${project.house_name} on ${project.site_label}, ${project.district}, ${project.state}.`}
@@ -154,6 +165,7 @@ export default function Dashboard() {
           {/* Your named person, not a support queue */}
           <Panel className="p-5">
             <p className="text-[0.8125rem] font-semibold uppercase tracking-wide text-ink-3">Your journey coordinator</p>
+            <p className="mt-1 text-sm text-ink-2">Looking after your build personally, not a call queue.</p>
             <p className="mt-2 font-display text-xl text-ink">{project.coordinator_name}</p>
             <p className="text-sm text-ink-2">{project.coordinator_role}</p>
             <div className="mt-4 flex flex-wrap gap-2">

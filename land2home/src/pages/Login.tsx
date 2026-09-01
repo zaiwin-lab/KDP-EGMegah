@@ -3,7 +3,6 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { usePortal } from '@/state/portal';
 import { Button, FieldShell, Icon, Input, Panel } from '@/components/ui';
 import { Wordmark } from '@/components/layout/Wordmark';
-import { HeroScene } from '@/components/art/HeroScene';
 
 const DEMO_ACCOUNTS = [
   { email: 'amir@demo.land2home.my', label: 'Amir bin Rahman', role: 'Member building in Bau, Sarawak' },
@@ -46,9 +45,14 @@ export default function Login() {
         </Link>
 
         <div className="mx-auto flex w-full max-w-[24rem] flex-1 flex-col justify-center py-12">
-          <h1 className="font-display text-[2rem] leading-tight tracking-[-0.015em] text-ink">Welcome back</h1>
+          <p className="inline-flex items-center gap-2 rounded-full bg-gold-100 px-3 py-1.5 text-[0.8125rem] font-semibold text-gold-700">
+            <Icon name="key" size={14} />
+            KPSM Bau members
+          </p>
+          <h1 className="mt-3 font-display text-[2rem] leading-tight tracking-[-0.015em] text-ink">Welcome back</h1>
           <p className="mt-2 leading-relaxed text-ink-2">
             Sign in to see where your house is, what has been done, and whether anything needs you.
+            Your details are already here, so there is nothing to fill in twice.
           </p>
 
           <form onSubmit={submit} className="mt-8 space-y-5" noValidate>
@@ -119,12 +123,16 @@ export default function Login() {
         </div>
       </div>
 
-      <div className="relative hidden overflow-hidden bg-forest-900 lg:block">
-        <HeroScene className="h-full w-full" />
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-forest-950 via-forest-950/80 to-transparent px-10 pb-10 pt-24">
+      <div className="relative hidden overflow-hidden bg-onyx lg:block">
+        <img
+          src="/egmh/harmoni.jpg"
+          alt="The Harmoni, a contemporary EGMH family home with a dark pitched roof and a deep covered porch."
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-onyx via-onyx/85 to-transparent px-10 pb-10 pt-28">
           <p className="font-display text-2xl italic text-gold-200">From Land. To Vision. To Home.</p>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-forest-50/75">
-            Land2Home Concierge is operated by KOBIS Berhad for KPSM members building with EGMH.
+            Built by EG Megah Holdings. Operated by KOBIS Berhad. Payments governed by KPSM Bau.
           </p>
         </div>
       </div>

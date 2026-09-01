@@ -10,20 +10,26 @@
    Values are OKLCH components so Tailwind can apply alpha.
    ───────────────────────────────────────────────────────────── */
 :root {
-  --forest-950: 0.185 0.032 156;
-  --forest-900: 0.248 0.045 156;
-  --forest-800: 0.315 0.055 156;
-  --forest-700: 0.415 0.070 156;
-  --forest-600: 0.505 0.078 156;
+  /* Deepened for the v2 premium register: the darkest greens now carry
+     whole sections the way the partnership deck does, and gold is richer
+     so it holds its own against them. */
+  --forest-950: 0.155 0.028 158;
+  --forest-900: 0.212 0.040 157;
+  --forest-800: 0.288 0.052 156;
+  --forest-700: 0.398 0.070 156;
+  --forest-600: 0.495 0.080 156;
   --forest-300: 0.782 0.052 156;
   --forest-100: 0.928 0.026 156;
   --forest-50:  0.966 0.014 156;
 
-  --gold-700: 0.505 0.082 79;
-  --gold-600: 0.598 0.098 80;
-  --gold-500: 0.712 0.108 82;
-  --gold-200: 0.898 0.048 84;
-  --gold-100: 0.952 0.026 85;
+  /* Near-black with a green cast, for the deepest bands and the app bar. */
+  --onyx: 0.118 0.018 158;
+
+  --gold-700: 0.498 0.090 76;
+  --gold-600: 0.605 0.108 78;
+  --gold-500: 0.742 0.126 82;
+  --gold-200: 0.902 0.056 84;
+  --gold-100: 0.955 0.028 85;
 
   --paper:   0.977 0.008 88;
   --surface: 0.995 0.003 88;

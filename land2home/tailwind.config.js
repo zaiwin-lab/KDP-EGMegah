@@ -23,6 +23,7 @@ export default {
           200: c('--gold-200'),
           100: c('--gold-100'),
         },
+        onyx: c('--onyx'),
         paper: c('--paper'),
         surface: c('--surface'),
         raised: c('--raised'),

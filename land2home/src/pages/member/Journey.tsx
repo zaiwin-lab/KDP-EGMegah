@@ -73,6 +73,12 @@ export default function Journey() {
           />
           {chosen ? (
             <>
+              <div className="relative aspect-[16/9] w-full overflow-hidden bg-forest-100">
+                <img src={chosen.image} alt={chosen.image_alt} className="h-full w-full object-cover" />
+                <span className="absolute left-4 top-4 rounded-full bg-onyx/75 px-3 py-1 text-2xs font-semibold uppercase tracking-[0.12em] text-gold-200 backdrop-blur-sm">
+                  {chosen.series}
+                </span>
+              </div>
               <div className="px-5 py-5 sm:px-6">
                 <p className="font-display text-2xl text-ink">{chosen.name}</p>
                 <p className="mt-1.5 leading-relaxed text-ink-2">{chosen.tagline}</p>

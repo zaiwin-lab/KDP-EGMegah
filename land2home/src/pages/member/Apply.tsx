@@ -288,25 +288,33 @@ export default function Apply() {
                       type="button"
                       onClick={() => setApp('house_type', house.key as HouseTypeKey)}
                       className={cn(
-                        'rounded-2xl border p-5 text-left transition-[border-color,box-shadow]',
+                        'overflow-hidden rounded-2xl border text-left transition-[border-color,box-shadow]',
                         selected ? 'border-forest-700 shadow-mid ring-1 ring-forest-700' : 'border-line hover:border-forest-600',
                       )}
                       aria-pressed={selected}
                     >
-                      <span className="flex items-start justify-between gap-2">
-                        <span className="font-display text-xl text-ink">{house.name}</span>
-                        {selected ? (
-                          <Badge tone="ok"><Icon name="check" size={13} /> Chosen</Badge>
-                        ) : suggested ? (
-                          <Badge tone="gold">Suggested</Badge>
-                        ) : null}
+                      <span className="relative block aspect-[16/10] overflow-hidden">
+                        <img src={house.image} alt={house.image_alt} loading="lazy" className="h-full w-full object-cover" />
+                        <span className="absolute left-3 top-3 rounded-full bg-onyx/75 px-2.5 py-1 text-2xs font-semibold uppercase tracking-[0.12em] text-gold-200 backdrop-blur-sm">
+                          {house.series}
+                        </span>
                       </span>
-                      <span className="mt-1.5 block text-sm leading-relaxed text-ink-2">{house.tagline}</span>
-                      <span className="mt-3 block text-sm text-ink-2">
-                        {house.built_up_sq_ft ? `${sqft(house.built_up_sq_ft)} · ${house.bedrooms} bedrooms` : 'Sized around your plan'}
-                      </span>
-                      <span className="mt-1 block tnum font-semibold text-forest-800">
-                        {house.indicative_price ? `from ${myr(house.indicative_price)}` : 'Priced after the site visit'}
+                      <span className="block p-5">
+                        <span className="flex items-start justify-between gap-2">
+                          <span className="font-display text-xl text-ink">{house.name}</span>
+                          {selected ? (
+                            <Badge tone="ok"><Icon name="check" size={13} /> Chosen</Badge>
+                          ) : suggested ? (
+                            <Badge tone="gold">Suggested</Badge>
+                          ) : null}
+                        </span>
+                        <span className="mt-1.5 block text-sm leading-relaxed text-ink-2">{house.tagline}</span>
+                        <span className="mt-3 block text-sm text-ink-2">
+                          {house.built_up_sq_ft ? `${sqft(house.built_up_sq_ft)} · ${house.bedrooms} bedrooms` : 'Sized around your plan'}
+                        </span>
+                        <span className="mt-1 block tnum font-semibold text-forest-800">
+                          {house.indicative_price ? `from ${myr(house.indicative_price)}` : 'Priced after the site visit'}
+                        </span>
                       </span>
                     </button>
                   );

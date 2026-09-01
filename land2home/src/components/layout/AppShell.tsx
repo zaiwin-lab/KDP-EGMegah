@@ -69,7 +69,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         Skip to content
       </a>
 
-      <header className="sticky top-0 z-sticky border-b border-forest-800/40 bg-forest-900 text-forest-50">
+      <header className="sticky top-0 z-sticky border-b border-forest-50/10 bg-onyx text-forest-50">
         <div className="mx-auto flex h-16 w-full max-w-[86rem] items-center gap-3 px-4 sm:px-6">
           <button
             type="button"
@@ -83,7 +83,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </button>
 
           <Link to={role === 'member' ? '/app' : role === 'egmh' ? '/egmh' : '/admin'} className="flex items-center gap-2.5">
-            <Wordmark tone="light" />
+            <Wordmark tone="light" showPartners />
           </Link>
 
           <div className="ml-auto flex items-center gap-2 sm:gap-3">

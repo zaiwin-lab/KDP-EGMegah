@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui';
 import type { Role } from '@/lib/types';
 
 import Home from '@/pages/public/Home';
+import Partnership from '@/pages/public/Partnership';
 import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
 
@@ -33,6 +34,7 @@ export default function App() {
     <PortalProvider>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/partnership" element={<Partnership />} />
         <Route path="/login" element={<Login />} />
 
         <Route path="/app" element={<Guard roles={['member']} />}>

@@ -1,11 +1,18 @@
-# Land2Home Concierge
+# Land2Home — EGMH × KOBIS
 
 **Member Home-Building Journey Portal** — *From Land. To Vision. To Home.*
 
-A guided home-building portal for KPSM members building with EGMH, built and
-operated by KOBIS Berhad. It is a digital concierge, not a construction ERP:
-it tells a member where their house is, what has been done, what happens next,
-whether anything is needed from them, and where their money has reached.
+A guided home-building platform for members of **KPSM Bau Berhad**. Homes are
+designed and built by **EG Megah Holdings (EGMH)**, the platform is built and
+operated by **KOBIS Berhad**, and the staged payments are governed by **KPSM**.
+
+It is a digital concierge, not a construction ERP: it tells a member where
+their house is, what has been done, what happens next, whether anything is
+needed from them, and where their money has reached.
+
+The platform is owned and run by EGMH and KOBIS, but it is written for the
+member. `/partnership` introduces all three organisations and sets out exactly
+where each decision is made.
 
 > **This is a demonstration build.** Amir, Hana, the land title, the prices and
 > the payment records are invented. Nothing here describes a real member,
@@ -17,10 +24,16 @@ whether anything is needed from them, and where their money has reached.
 
 | Party | Responsibility |
 |---|---|
-| **KPSM** | Member verification, payment governance, staged-payment authorisation |
-| **KOBIS Berhad** | Portal owner, journey coordination, records, communication, service monitoring |
-| **EGMH** | Site assessment, design, quotation, construction, progress, quality, handover, warranty |
-| **Buyer / member** | Selects the home, provides information once, monitors progress, gives the approvals that are theirs |
+| **EGMH** — EG Megah Holdings Sdn Bhd | Site assessment, design, quotation, construction, progress, quality, handover, warranty. PKPM member (PKPM-0113). |
+| **KOBIS Berhad** — Koperasi Pro Belia Inovatif Sarawak Berhad (Q40891) | Builds and runs the platform, coordinates the journey, records, communication, technical verification |
+| **KPSM Bau** — Koperasi Penanam Sawit Mampan Daerah Bau Berhad | Member verification, payment governance, staged-payment authorisation |
+| **The member** | Selects the home, provides information once, monitors progress, gives the approvals that are theirs |
+
+Partner details live in `ORG.partners` (`src/data/demoSeed.ts`) and render on
+`/partnership`, the homepage and the footer. Every credential there comes from
+the organisation's own published material. **Verify each one against a primary
+source before this goes to production** — in particular the KPSM Top-100
+placing, which came from social media rather than an official register.
 
 ## The six stages
 
@@ -190,17 +203,28 @@ rebuild.
 
 ---
 
-## Replacing the artwork
+## Imagery
 
-The hero scene (`src/components/art/HeroScene.tsx`) and the site photographs
-(`src/components/art/SitePhoto.tsx`) are hand-built SVG, not stock photography.
-They render identically everywhere, need no network request, and cannot ship as
-broken images. Each `SitePhoto` plate depicts the construction stage it is
-captioned with.
+**House renders** in `public/egmh/` are EGMH's own catalogue images, used on the
+homepage, the sign-in panel, the application wizard and the journey page. They
+are referenced from `HOUSE_TYPES` (`src/lib/houseTypes.ts`), so swapping a
+render or adding a path is a one-line change:
 
-For production, replace `SitePhoto` with an `<img>` pointing at the photograph
-in Supabase storage (`PhotoRef.path` already carries the storage path), and the
-hero with a real photograph of a member's site.
+| Path | Series | Render |
+|---|---|---|
+| The Serena | Essential | `serena-sunset.jpg` |
+| The Harmoni | Family | `harmoni.jpg` |
+| The Artisan | Signature | `artisan.jpg` |
+| Private Collection | Bespoke | `signature.jpg` |
+
+The internal keys stay `A` / `B` / `C` / `CUSTOM`, so existing applications and
+projects keep resolving no matter how the catalogue is renamed.
+
+**Construction progress photographs** (`src/components/art/SitePhoto.tsx`) are
+still hand-built SVG, one plate per construction stage. They need no network
+request and cannot ship as broken images. For production, replace `SitePhoto`
+with an `<img>` pointing at the real photograph in Supabase storage;
+`PhotoRef.path` already carries the storage path.
 
 ---
 

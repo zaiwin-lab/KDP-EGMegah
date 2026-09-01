@@ -9,6 +9,18 @@ export type StageKey = 'land' | 'home' | 'plan' | 'build' | 'inspection' | 'keys
 
 export type StageStatus = 'locked' | 'active' | 'in_review' | 'complete';
 
+export interface Partner {
+  code: string;
+  name: string;
+  legal_name: string;
+  role: string;
+  registration?: string;
+  established?: string;
+  credentials: string[];
+  responsibilities: string[];
+  website?: string;
+}
+
 export interface Org {
   id: string;
   name: string;
@@ -16,6 +28,8 @@ export interface Org {
   cooperative: string;
   builder: string;
   operator: string;
+  /* Platform owners first, then the cooperative whose members it serves. */
+  partners: Partner[];
 }
 
 export interface UserAccount {
@@ -82,7 +96,13 @@ export type HouseTypeKey = 'A' | 'B' | 'C' | 'CUSTOM';
 export interface HouseType {
   key: HouseTypeKey;
   name: string;
+  /* EGMH's own catalogue language: series, character line, and the render
+     used wherever the path is shown. */
+  series: string;
+  character: string;
   tagline: string;
+  image: string;
+  image_alt: string;
   built_up_sq_ft: number | null;
   bedrooms: number | null;
   bathrooms: number | null;

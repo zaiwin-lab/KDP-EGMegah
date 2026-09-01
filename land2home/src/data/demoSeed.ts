@@ -7,13 +7,72 @@ import type {
 /* Demonstration data only. No real member, land title or payment record.
    Every name, number and reference below is invented for the demo. */
 
+/* Partner details are drawn from each organisation's own published
+   material. Nothing here is inferred: where a credential is not published,
+   it is simply absent rather than estimated. */
 export const ORG: Org = {
-  id: 'org_kpsm',
-  name: 'KPSM × EGMH Home Programme',
-  short_name: 'KPSM',
-  cooperative: 'KPSM',
+  id: 'org_bau',
+  name: 'Land2Home — EGMH × KOBIS',
+  short_name: 'Land2Home',
+  cooperative: 'KPSM Bau',
   builder: 'EGMH',
   operator: 'KOBIS Berhad',
+  partners: [
+    {
+      code: 'EGMH',
+      name: 'EG Megah Holdings',
+      legal_name: 'EG Megah Holdings Sdn Bhd',
+      role: 'Design and build',
+      credentials: [
+        'Member, Persatuan Kontraktor Perumahan Malaysia (PKPM) — Sarawak',
+        'PKPM member reference PKPM-0113',
+        'Design-and-build contractor for homes on privately held land',
+      ],
+      responsibilities: [
+        'Site assessment and design',
+        'Quotation and specification',
+        'Construction and quality control',
+        'Progress reporting, handover and warranty',
+      ],
+    },
+    {
+      code: 'KOBIS',
+      name: 'KOBIS Berhad',
+      legal_name: 'Koperasi Pro Belia Inovatif Sarawak Berhad',
+      role: 'Platform and programme orchestration',
+      registration: 'Reg. No. Q40891',
+      established: 'Established 2013',
+      credentials: [
+        'Top 50 Koperasi Terbaik Sarawak, recognised by Suruhanjaya Koperasi Malaysia (SKM)',
+        'Shariah Advisory structure',
+        'Six offices: Kuching, Kuala Lumpur, Miri, Sibu, Bintulu and Mukah',
+        'Aligned to Sarawak’s PCDS2030 agenda',
+      ],
+      responsibilities: [
+        'Builds and runs this platform',
+        'Coordinates the member journey end to end',
+        'Records, communication and service monitoring',
+        'Technical verification before payment authorisation',
+      ],
+      website: 'https://www.kobisberhad.com',
+    },
+    {
+      code: 'KPSM',
+      name: 'KPSM Bau',
+      legal_name: 'Koperasi Penanam Sawit Mampan Daerah Bau Berhad',
+      role: 'Member cooperative and payment governance',
+      credentials: [
+        'Registered cooperative serving members in the Bau district, Sarawak',
+        'Named in Malaysia’s Top 100 cooperatives for four consecutive years, 2023 to 2026',
+      ],
+      responsibilities: [
+        'Verifies member standing and eligibility',
+        'Governs the staged payment facility',
+        'Authorises each payment release to EGMH',
+        'Represents members’ interests throughout',
+      ],
+    },
+  ],
 };
 
 const ORG_ID = ORG.id;
@@ -101,7 +160,7 @@ export const PROJECT: Project = {
   application_id: APPLICATION.id,
   reference: 'EGMH-BAU-0417',
   house_type: 'B',
-  house_name: 'Type B — Family',
+  house_name: 'The Harmoni',
   built_up_sq_ft: 1280,
   site_label: 'Lot 2214, Kampung Skibang',
   district: 'Bau',
@@ -269,7 +328,7 @@ export const DOCUMENTS: DocumentRecord[] = [
   { id: 'doc_mem', org_id: ORG_ID, profile_id: PROFILE.id, kind: 'membership_card', title: 'KPSM membership record', file_name: 'kpsm-membership.pdf', size_kb: 208, uploaded_at: '2026-03-01T10:24:00+08:00', uploaded_by: 'Amir bin Rahman', status: 'verified', verified_by: 'KPSM registry', verified_at: '2026-03-02T09:15:00+08:00', valid_until: '2027-12-31' },
   { id: 'doc_title', org_id: ORG_ID, profile_id: PROFILE.id, kind: 'land_title', title: 'Land title — Lot 2214', file_name: 'land-title-2214.pdf', size_kb: 1840, uploaded_at: '2026-03-04T21:02:00+08:00', uploaded_by: 'Amir bin Rahman', status: 'verified', verified_by: 'Nurul Aisyah (KOBIS)', verified_at: '2026-03-09T11:40:00+08:00' },
   { id: 'doc_income', org_id: ORG_ID, profile_id: PROFILE.id, kind: 'income_proof', title: 'Income confirmation', file_name: 'payslip-jan-mar.pdf', size_kb: 622, uploaded_at: '2026-03-05T08:40:00+08:00', uploaded_by: 'Amir bin Rahman', status: 'verified', verified_by: 'KPSM credit desk', verified_at: '2026-03-12T10:05:00+08:00', valid_until: '2026-09-30' },
-  { id: 'doc_quote', org_id: ORG_ID, profile_id: PROFILE.id, project_id: PROJECT.id, kind: 'quotation', title: 'EGMH quotation — Type B', file_name: 'quotation-0417.pdf', size_kb: 940, uploaded_at: '2026-03-28T15:10:00+08:00', uploaded_by: 'Sim Chee Hong (EGMH)', status: 'reference' },
+  { id: 'doc_quote', org_id: ORG_ID, profile_id: PROFILE.id, project_id: PROJECT.id, kind: 'quotation', title: 'EGMH quotation — The Harmoni', file_name: 'quotation-0417.pdf', size_kb: 940, uploaded_at: '2026-03-28T15:10:00+08:00', uploaded_by: 'Sim Chee Hong (EGMH)', status: 'reference' },
   { id: 'doc_assess', org_id: ORG_ID, profile_id: PROFILE.id, project_id: PROJECT.id, kind: 'site_assessment', title: 'Site assessment report', file_name: 'site-assessment-2214.pdf', size_kb: 1320, uploaded_at: '2026-03-22T17:30:00+08:00', uploaded_by: 'Sim Chee Hong (EGMH)', status: 'reference' },
   { id: 'doc_contract', org_id: ORG_ID, profile_id: PROFILE.id, project_id: PROJECT.id, kind: 'contract', title: 'Building contract (signed)', file_name: 'contract-0417-signed.pdf', size_kb: 2210, uploaded_at: '2026-04-08T12:00:00+08:00', uploaded_by: 'Nurul Aisyah (KOBIS)', status: 'reference' },
   { id: 'doc_pay1', org_id: ORG_ID, profile_id: PROFILE.id, project_id: PROJECT.id, kind: 'payment_record', title: 'Payment record — Release 1', file_name: 'payment-release-1.pdf', size_kb: 180, uploaded_at: '2026-04-25T16:40:00+08:00', uploaded_by: 'KPSM finance', status: 'reference' },
@@ -325,7 +384,7 @@ export const AUDIT: AuditRecord[] = [
   { id: 'au_6', org_id: ORG_ID, at: '2026-04-25T16:30:00+08:00', actor_name: 'KPSM finance', actor_role: 'kpsm', action: 'Payment recorded', entity: 'payment_stage', entity_ref: 'CLM-0417-01', detail: 'RM 35,700 paid to EGMH. Reference KPSM/TT/26/00812.', human_authorised: true },
   { id: 'au_5', org_id: ORG_ID, at: '2026-04-24T11:05:00+08:00', actor_name: 'Hj. Zulkifli Awang', actor_role: 'kpsm', action: 'Payment authorised', entity: 'payment_stage', entity_ref: 'CLM-0417-01', detail: 'Release 1 authorised after verification of the signed contract and mobilisation record.', human_authorised: true },
   { id: 'au_4', org_id: ORG_ID, at: '2026-04-08T10:00:00+08:00', actor_name: 'Nurul Aisyah', actor_role: 'kobis', action: 'Contract recorded as signed', entity: 'project', entity_ref: 'EGMH-BAU-0417', detail: 'Building contract signed by the member and EGMH, witnessed by KOBIS.', human_authorised: true },
-  { id: 'au_3', org_id: ORG_ID, at: '2026-03-14T16:05:00+08:00', actor_name: 'Amir bin Rahman', actor_role: 'member', action: 'Application submitted', entity: 'application', entity_ref: 'L2H-2026-0417', detail: 'Type B — Family selected. Six sections completed.', human_authorised: true },
+  { id: 'au_3', org_id: ORG_ID, at: '2026-03-14T16:05:00+08:00', actor_name: 'Amir bin Rahman', actor_role: 'member', action: 'Application submitted', entity: 'application', entity_ref: 'L2H-2026-0417', detail: 'The Harmoni (Family Series) selected. Six sections completed.', human_authorised: true },
   { id: 'au_2', org_id: ORG_ID, at: '2026-03-09T11:40:00+08:00', actor_name: 'Nurul Aisyah', actor_role: 'kobis', action: 'Land verified', entity: 'land', entity_ref: 'BAU/NT/22-1148', detail: 'Title and boundary confirmed against the land office extract.', human_authorised: true },
   { id: 'au_1', org_id: ORG_ID, at: '2026-03-02T09:15:00+08:00', actor_name: 'KPSM registry', actor_role: 'kpsm', action: 'Membership verified', entity: 'member_profile', entity_ref: 'KPSM-04127', detail: 'Membership number and standing confirmed against the KPSM register.', human_authorised: true },
 ];

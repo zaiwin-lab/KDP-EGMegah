@@ -2,6 +2,7 @@ import type {
   Application, Defect, DocumentRecord, Handover, Inspection, JourneyStage, LandParcel,
   MemberAction, MemberProfile, Milestone, PaymentStage, PaymentStageStatus, Project, StageKey,
 } from './types';
+import { houseType } from './houseTypes';
 
 export const STAGE_ORDER: StageKey[] = ['land', 'home', 'plan', 'build', 'inspection', 'keys'];
 
@@ -51,8 +52,8 @@ export function buildJourney(input: JourneyInput): JourneyStage[] {
         ? 'Your land details are with KOBIS for checking.'
         : 'Tell us about your membership and the land you want to build on.',
     home: homeDone
-      ? `You chose ${application?.house_type === 'CUSTOM' ? 'a custom plan' : `Type ${application?.house_type}`}.`
-      : 'Compare Type A, Type B, Type C or a custom plan.',
+      ? `You chose ${houseType(application?.house_type)?.name ?? 'a plan'}.`
+      : 'Compare The Serena, The Harmoni, The Artisan or a bespoke plan.',
     plan: planDone
       ? `Contract signed and the price is fixed at the agreed contract sum.`
       : application?.status === 'quotation_issued'

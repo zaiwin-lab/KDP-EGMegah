@@ -203,30 +203,66 @@ rebuild.
 
 ---
 
+## The home catalogue
+
+Package names, prices, floor areas and room counts come from EG Megah
+Holdings' official brochures and are reproduced **exactly as published**.
+Do not adjust them without a newer brochure.
+
+| Package | Beds | Baths | Floor area | From |
+|---|---|---|---|---|
+| The Serena 02 | 3 | 2 | 690 sqf | RM 158,000 |
+| The Artisan | 3 | 2 | 836 sqf | RM 193,800 |
+| The Harmoni | 4 | 3 | 1,216 sqf | RM 243,000 |
+| Private Collection | — | — | bespoke | after site assessment |
+
+Per the brochures, prices are *harga bermula dari* (starting from) and remain
+subject to land conditions, finishes and specification at the time of
+construction. That note renders under the catalogue in all four languages.
+
+Everything lives in `HOUSE_TYPES` (`src/lib/houseTypes.ts`), alongside
+`EGMH_BUILD_SYSTEM` (aircrete specs and certifications) and `EGMH_STEPS`
+(the published four-step path to ownership). The internal keys stay
+`A` / `C` / `B` / `CUSTOM`, so existing applications and projects keep
+resolving no matter how the catalogue is presented.
+
+The demonstration project is a Harmoni, so its contract sum (RM 243,000) and
+built-up area (1,216 sqf) match the brochure, and the four payment releases
+are 15 / 30 / 35 / 20 percent of that sum.
+
 ## Imagery
 
-**House renders** in `public/egmh/` are EGMH's own catalogue images, used on the
-homepage, the sign-in panel, the application wizard and the journey page. They
-are referenced from `HOUSE_TYPES` (`src/lib/houseTypes.ts`), so swapping a
-render or adding a path is a one-line change:
+House renders in `public/egmh/` are extracted from the EGMH brochures at
+full resolution, then resized and re-encoded as progressive JPEGs:
+`serena.jpg`, `artisan.jpg`, `harmoni.jpg`, plus the Harmoni floor plan
+(`harmoni-floorplan.jpg`). `signature.jpg` carries the bespoke Private
+Collection path, which has no brochure of its own.
 
-| Path | Series | Render |
-|---|---|---|
-| The Serena | Essential | `serena-sunset.jpg` |
-| The Harmoni | Family | `harmoni.jpg` |
-| The Artisan | Signature | `artisan.jpg` |
-| Private Collection | Bespoke | `signature.jpg` |
+**Construction progress photographs** (`src/components/art/SitePhoto.tsx`)
+are still hand-built SVG, one plate per construction stage. They need no
+network request and cannot ship as broken images. For production, replace
+`SitePhoto` with an `<img>` pointing at the real photograph in Supabase
+storage; `PhotoRef.path` already carries the storage path.
 
-The internal keys stay `A` / `B` / `C` / `CUSTOM`, so existing applications and
-projects keep resolving no matter how the catalogue is renamed.
+## Languages
 
-**Construction progress photographs** (`src/components/art/SitePhoto.tsx`) are
-still hand-built SVG, one plate per construction stage. They need no network
-request and cannot ship as broken images. For production, replace `SitePhoto`
-with an `<img>` pointing at the real photograph in Supabase storage;
-`PhotoRef.path` already carries the storage path.
+Four languages (EN / BM / ZH / TA) via `src/i18n/`. The public pages are
+translated; the authenticated portal stays in English for now. A missing key
+falls back to English rather than showing an identifier, and the choice
+persists in `localStorage`. **BM, ZH and TA copy should be reviewed by a
+native speaker before production.**
 
----
+## Standing elements
+
+- **Language panel** in the public nav (`LanguageSwitcher`)
+- **AI Help · 24/7** bubble, bottom left: a small FAQ panel, deliberately not
+  a chatbot. It answers only what can be answered without knowing a specific
+  project, and hands anything personal to a human.
+- **WhatsApp 011-2846 5813** bubble, bottom right, prefilled with #Land2Home
+- **Signature** on every page, linking to www.kobisberhad.com
+
+Both bubbles collapse to icon-only circles below the `sm` breakpoint so they
+do not collide on a phone.
 
 ## Deliberately not built
 

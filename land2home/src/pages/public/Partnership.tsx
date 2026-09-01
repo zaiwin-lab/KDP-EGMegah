@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
 import { ButtonLink, Icon } from '@/components/ui';
-import { PartnerLockup, Wordmark } from '@/components/layout/Wordmark';
-import { PublicFooter } from './Home';
+import { PartnerLockup } from '@/components/layout/Wordmark';
+import { PublicFooter, PublicNav } from './Home';
 import { ORG } from '@/data/demoSeed';
 
 /* The trust page. Every credential here comes from the organisation's own
@@ -10,16 +9,7 @@ import { ORG } from '@/data/demoSeed';
 export default function Partnership() {
   return (
     <div className="bg-paper">
-      <div className="sticky top-0 z-sticky border-b border-forest-50/10 bg-onyx/95 backdrop-blur">
-        <div className="shell flex h-16 items-center justify-between gap-4">
-          <Link to="/" className="flex items-center">
-            <Wordmark tone="light" showPartners />
-          </Link>
-          <ButtonLink to="/login" size="sm" className="bg-gold-500 text-onyx hover:bg-gold-200 focus-visible:ring-gold-500/30">
-            Sign in
-          </ButtonLink>
-        </div>
-      </div>
+      <PublicNav />
 
       <header className="border-b border-line bg-onyx py-16 text-forest-50 sm:py-20">
         <div className="shell">
@@ -59,6 +49,38 @@ export default function Partnership() {
                     <div className="flex gap-2">
                       <dt className="text-ink-3">Since</dt>
                       <dd className="font-semibold text-ink">{partner.established}</dd>
+                    </div>
+                  )}
+                  {partner.address && (
+                    <div className="flex gap-2">
+                      <dt className="shrink-0 text-ink-3">Office</dt>
+                      <dd className="text-ink">{partner.address}</dd>
+                    </div>
+                  )}
+                  {partner.phone && (
+                    <div className="flex gap-2">
+                      <dt className="text-ink-3">Phone</dt>
+                      <dd>
+                        <a
+                          href={`tel:${partner.phone.replace(/[^\d+]/g, '')}`}
+                          className="tnum font-semibold text-forest-800 underline decoration-forest-600/30 underline-offset-4 hover:decoration-forest-600"
+                        >
+                          {partner.phone}
+                        </a>
+                      </dd>
+                    </div>
+                  )}
+                  {partner.email && (
+                    <div className="flex gap-2">
+                      <dt className="text-ink-3">Email</dt>
+                      <dd>
+                        <a
+                          href={`mailto:${partner.email}`}
+                          className="font-semibold text-forest-800 underline decoration-forest-600/30 underline-offset-4 hover:decoration-forest-600"
+                        >
+                          {partner.email}
+                        </a>
+                      </dd>
                     </div>
                   )}
                 </dl>

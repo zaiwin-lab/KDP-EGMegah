@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { usePortal } from '@/state/portal';
 import { Badge, Button, Icon } from '@/components/ui';
 import { Wordmark } from './Wordmark';
+import { Signature } from '@/components/Signature';
 import { cn } from '@/lib/cn';
 import type { Role } from '@/lib/types';
 
@@ -159,6 +160,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         <main id="main" className="min-w-0 flex-1 py-6 sm:py-8">
           {children}
+          <div className="mt-12 border-t border-line pt-7 pb-4">
+            <Signature tone="dark" />
+          </div>
         </main>
       </div>
     </div>

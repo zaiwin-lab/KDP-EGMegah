@@ -1,71 +1,79 @@
 import type { HouseType } from './types';
 
-/* The four EGMH delivery paths. The keys stay A/B/C/CUSTOM so existing
-   projects, applications and demo data keep resolving; only the presented
-   identity changed when the catalogue moved to EGMH's own design language. */
+/* EG Megah Holdings' standard models, taken from the official brochures.
+   Names, prices, floor areas and room counts are reproduced exactly as
+   published; do not adjust them here. Prices are "harga bermula dari"
+   (starting from) and, per the brochures, remain subject to land
+   conditions, finishes and specification at the time of construction.
+
+   Keys stay A/B/C/CUSTOM so existing projects and applications keep
+   resolving regardless of how the catalogue is presented. */
 
 export const HOUSE_TYPES: HouseType[] = [
   {
     key: 'A',
-    name: 'The Serena',
-    series: 'Essential Series',
-    character: 'Essential modern living',
-    tagline: 'A confident starter home, designed for repeatable delivery.',
-    image: '/egmh/serena-sunset.jpg',
+    name: 'The Serena 02',
+    series: 'Model Standard',
+    character: 'Kejuruteraan Pintar. Ketenangan Abadi.',
+    tagline:
+      'Smart engineering, lasting calm. A complete starter home built with lightweight aircrete and a modular formwork system.',
+    image: '/egmh/serena.jpg',
     image_alt:
-      'The Serena at dusk: a single-storey contemporary home with a flat roofline, stone feature wall and a warmly lit timber entrance.',
-    built_up_sq_ft: 1050,
+      'The Serena 02: a compact single-storey home with a dark hipped metal roof, a brick feature column and a timber-louvred entrance door.',
+    built_up_sq_ft: 690,
     bedrooms: 3,
     bathrooms: 2,
-    indicative_price: 198000,
-    suits: 'First builds, younger families, and members who want a complete home now.',
-    min_land_sq_ft: 3500,
+    indicative_price: 158000,
+    suits: 'A first home, a younger family, or a well-built house on a modest lot.',
+    min_land_sq_ft: 3000,
     highlights: [
       'Three bedrooms and two bathrooms on one level',
-      'Covered entrance porch and a rear service yard',
-      'Structure sized so a fourth room can be added later',
-    ],
-  },
-  {
-    key: 'B',
-    name: 'The Harmoni',
-    series: 'Family Series',
-    character: 'Contemporary family home',
-    tagline: 'Warm, practical architecture for cooperative families who expect more.',
-    image: '/egmh/harmoni.jpg',
-    image_alt:
-      'The Harmoni: a contemporary family home with a dark pitched metal roof, brick detailing and a deep covered porch.',
-    built_up_sq_ft: 1280,
-    bedrooms: 4,
-    bathrooms: 3,
-    indicative_price: 238000,
-    suits: 'Households of four to six who want the whole house finished in one build.',
-    min_land_sq_ft: 4000,
-    highlights: [
-      'Four bedrooms with a separate family living area',
-      'Covered porch, utility yard and generous storage',
-      'Wiring and plumbing run ready for an upstairs addition',
+      'Aircrete walls: 4-hour fire resistance with no toxic gas',
+      'Thermal insulation of 0.259 W/mK and 51 dB sound reduction',
     ],
   },
   {
     key: 'C',
     name: 'The Artisan',
-    series: 'Signature Series',
-    character: 'Signature resort character',
-    tagline: 'A distinctive profile for escapade, resort and custom-living demand.',
+    series: 'Model Standard',
+    character: 'Kejuruteraan pintar, untuk masa depan.',
+    tagline:
+      'Smart engineering for the future. A distinctive single-storey profile with a covered carport and a sheltered entrance.',
     image: '/egmh/artisan.jpg',
     image_alt:
-      'The Artisan: a signature residence with a steep gable roof, timber soffits and a sheltered double carport.',
-    built_up_sq_ft: 1850,
+      'The Artisan: a single-storey home with a steep dark gable roof, a brick feature wall, timber screening and a covered carport.',
+    built_up_sq_ft: 836,
+    bedrooms: 3,
+    bathrooms: 2,
+    indicative_price: 193800,
+    suits: 'Families who want a covered carport and a little more room than the Serena.',
+    min_land_sq_ft: 3500,
+    highlights: [
+      'Three bedrooms, two bathrooms and a covered carport',
+      'Living and dining of 17ft × 18ft, main bedroom 10ft × 12ft',
+      'Around 30% saved on electricity through aircrete insulation',
+    ],
+  },
+  {
+    key: 'B',
+    name: 'The Harmoni',
+    series: 'Model Standard',
+    character: 'Kejuruteraan Pintar. Ketenangan Abadi.',
+    tagline:
+      'The largest standard model. Four bedrooms and three bathrooms for a household that wants the whole house finished in one build.',
+    image: '/egmh/harmoni.jpg',
+    image_alt:
+      'The Harmoni: the entrance of a contemporary single-storey home, with a flat roofline, vertical timber screening, a stone feature wall and a timber double door.',
+    built_up_sq_ft: 1216,
     bedrooms: 4,
     bathrooms: 3,
-    indicative_price: 352000,
-    suits: 'Multi-generation households, homestay income, or a statement family home.',
-    min_land_sq_ft: 5500,
+    indicative_price: 243000,
+    suits: 'Larger or multi-generation households, on a plot of 38ft × 32ft or more.',
+    min_land_sq_ft: 4000,
     highlights: [
-      'Ground-floor bedroom with its own bathroom',
-      'Two living areas so households can share comfortably',
-      'Double carport and a wider frontage',
+      'Four bedrooms and three bathrooms across 38ft × 32ft',
+      'Living and dining of 5.5m × 6.0m, main bedroom 3.5m × 4.0m',
+      'Same aircrete structure: fire, damp and sound resistant',
     ],
   },
   {
@@ -93,3 +101,29 @@ export const HOUSE_TYPES: HouseType[] = [
 
 export const houseType = (key: string | undefined) =>
   HOUSE_TYPES.find((h) => h.key === key);
+
+/* Shared across every standard model, from the brochures. */
+export const EGMH_BUILD_SYSTEM = {
+  headline: 'Dinding aircrete cast in-situ, dengan sistem acuan modular',
+  summary:
+    'Lightweight aircrete poured on site into high-precision modular formwork, giving a monolithic wall with millions of micro air pockets.',
+  specs: [
+    { value: '4 jam', label: 'Fire resistance, with no toxic gas' },
+    { value: '0.259 W/mK', label: 'Thermal insulation' },
+    { value: '51 dB', label: 'Sound reduction' },
+    { value: '±30%', label: 'Saved on the electricity bill' },
+  ],
+  certifications: ['SIRIM', 'Jabatan Bomba', 'CIDB', 'SMETA ethical audit'],
+  sustainability: [
+    'Zero plywood waste',
+    'Formwork from 50% recycled plastic, reusable more than 200 times',
+  ],
+};
+
+/* The four steps EGMH publishes in every brochure. */
+export const EGMH_STEPS = [
+  { n: '01', title: 'Pilih lot tanah anda', en: 'Choose your land. EGMH can build on any suitable lot.' },
+  { n: '02', title: 'Ukur & sahkan asas tapak', en: 'Engineers visit and confirm the ground conditions.' },
+  { n: '03', title: 'Pembinaan bermula dalam 30 hari', en: 'Construction starts within 30 days.' },
+  { n: '04', title: 'Kunci diserahkan dalam 90 hari', en: 'Keys handed over in 90 days, after CIDB quality inspection.' },
+];

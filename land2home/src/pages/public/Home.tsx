@@ -1,16 +1,20 @@
 import { Link } from 'react-router-dom';
 import { ButtonLink, Icon } from '@/components/ui';
 import { PartnerLockup, Wordmark } from '@/components/layout/Wordmark';
-import { HOUSE_TYPES } from '@/lib/houseTypes';
+import { EGMH_BUILD_SYSTEM, EGMH_STEPS, HOUSE_TYPES } from '@/lib/houseTypes';
 import { STAGE_META, STAGE_ORDER } from '@/lib/journey';
 import { ORG } from '@/data/demoSeed';
 import { myr, sqft } from '@/lib/format';
+import { useI18n } from '@/i18n';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { Signature } from '@/components/Signature';
 
 const STAGE_ICON: Record<string, string> = {
   land: 'land', home: 'home', plan: 'plan', build: 'build', inspection: 'search', keys: 'key',
 };
 
 export default function Home() {
+  const { t } = useI18n();
   return (
     <div className="bg-paper">
       <PublicNav />
@@ -18,7 +22,7 @@ export default function Home() {
       {/* ── Hero: a real EGMH home carries the fold ────────────────── */}
       <header className="relative isolate overflow-hidden bg-onyx text-forest-50">
         <img
-          src="/egmh/serena-sunset.jpg"
+          src="/egmh/serena.jpg"
           alt=""
           aria-hidden
           className="absolute inset-0 h-full w-full object-cover opacity-45"
@@ -31,37 +35,34 @@ export default function Home() {
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2.5 rounded-full border border-gold-500/40 bg-gold-500/10 px-4 py-1.5 text-[0.8125rem] font-semibold tracking-wide text-gold-200">
               <Icon name="key" size={15} />
-              Made for members of KPSM Bau Berhad
+              {t('hero.badge')}
             </p>
             <h1 className="mt-6 font-display text-[2.7rem] leading-[1.04] tracking-[-0.02em] sm:text-[3.6rem] lg:text-[4.1rem]">
-              Your land already holds a vision.
+              {t('hero.title')}
             </h1>
             <p className="mt-6 max-w-prose text-[1.0625rem] leading-relaxed text-forest-50/85 sm:text-lg">
-              A guided home-building journey for KPSM members, from land verification and home selection
-              to construction updates and key handover. Your cooperative built this with EGMH and KOBIS
-              so that you never have to chase anyone for an answer about your own house.
+              {t('hero.lead')}
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <ButtonLink to="/login" size="lg" className="bg-gold-500 text-onyx hover:bg-gold-200 focus-visible:ring-gold-500/30">
-                Enter the member portal
+                {t('hero.cta')}
                 <Icon name="arrow" size={18} />
               </ButtonLink>
               <ButtonLink
                 to="/partnership"
                 size="lg"
-                variant="secondary"
-                className="border-forest-50/55 bg-forest-50/5 text-forest-50 hover:border-forest-50 hover:bg-forest-50/10 hover:text-forest-50 focus-visible:ring-forest-50/25"
+                variant="onDark"
               >
-                Who is behind this
+                {t('hero.cta2')}
               </ButtonLink>
             </div>
 
             <dl className="mt-12 grid max-w-xl grid-cols-2 gap-x-8 gap-y-5 border-t border-forest-50/15 pt-8 sm:grid-cols-3">
               {[
-                ['EGMH', 'Designs and builds'],
-                ['KOBIS Berhad', 'Runs the platform'],
-                ['KPSM Bau', 'Governs the payments'],
+                ['EGMH', t('hero.egmh')],
+                ['KOBIS Berhad', t('hero.kobis')],
+                ['KPSM Bau', t('hero.kpsm')],
               ].map(([who, what]) => (
                 <div key={who}>
                   <dt className="font-display text-lg text-gold-200">{who}</dt>
@@ -78,12 +79,10 @@ export default function Home() {
         <div className="shell">
           <div className="max-w-prose">
             <h2 className="font-display text-[2rem] leading-tight tracking-[-0.015em] text-ink sm:text-[2.6rem]">
-              Four paths. One delivery standard.
+              {t('homes.title')}
             </h2>
             <p className="mt-4 leading-relaxed text-ink-2">
-              EGMH's own catalogue, configured for the member profiles, lot conditions and financing
-              reality in Bau. Prices are indicative. The real figure is fixed only after EGMH visits your
-              land and issues a written quotation, so nothing here commits you to anything.
+              {t('homes.lead')}
             </p>
           </div>
 
@@ -115,22 +114,22 @@ export default function Home() {
                   <div className="mt-5 flex flex-wrap items-end justify-between gap-4 border-t border-line pt-4">
                     <dl className="flex flex-wrap gap-x-7 gap-y-2 text-sm">
                       <div>
-                        <dt className="text-ink-3">Built-up</dt>
+                        <dt className="text-ink-3">{t('homes.builtup')}</dt>
                         <dd className="tnum font-semibold text-ink">
-                          {house.built_up_sq_ft ? sqft(house.built_up_sq_ft) : 'You decide'}
+                          {house.built_up_sq_ft ? sqft(house.built_up_sq_ft) : t('homes.youdecide')}
                         </dd>
                       </div>
                       <div>
-                        <dt className="text-ink-3">Bedrooms</dt>
+                        <dt className="text-ink-3">{t('homes.bedrooms')}</dt>
                         <dd className="tnum font-semibold text-ink">{house.bedrooms ?? '—'}</dd>
                       </div>
                       <div>
-                        <dt className="text-ink-3">Bathrooms</dt>
+                        <dt className="text-ink-3">{t('homes.bathrooms')}</dt>
                         <dd className="tnum font-semibold text-ink">{house.bathrooms ?? '—'}</dd>
                       </div>
                     </dl>
                     <p className="tnum font-display text-lg text-forest-800">
-                      {house.indicative_price ? `from ${myr(house.indicative_price)}` : 'Priced after the site visit'}
+                      {house.indicative_price ? `${t('homes.from')} ${myr(house.indicative_price)}` : t('homes.priced')}
                     </p>
                   </div>
 
@@ -149,34 +148,88 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── How EGMH actually builds ───────────────────────────────── */}
+      <section className="border-b border-line bg-onyx py-16 text-forest-50 sm:py-24">
+        <div className="shell">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+            <div className="max-w-prose">
+              <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.14em] text-gold-200">
+                {t('tech.eyebrow')}
+              </p>
+              <h2 className="mt-3 font-display text-[2rem] leading-tight tracking-[-0.015em] sm:text-[2.6rem]">
+                {t('tech.title')}
+              </h2>
+              <p className="mt-5 leading-relaxed text-forest-50/80">{t('tech.lead')}</p>
+
+              <p className="mt-8 text-[0.8125rem] font-semibold uppercase tracking-[0.12em] text-forest-50/50">
+                {t('tech.certs')}
+              </p>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {EGMH_BUILD_SYSTEM.certifications.map((c) => (
+                  <li
+                    key={c}
+                    className="rounded-full border border-forest-50/25 px-3 py-1.5 text-[0.8125rem] font-semibold text-forest-50/85"
+                  >
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-forest-50/12">
+                {EGMH_BUILD_SYSTEM.specs.map((spec) => (
+                  <div key={spec.label} className="bg-onyx p-5 sm:p-6">
+                    <dt className="tnum font-display text-2xl text-gold-200 sm:text-3xl">{spec.value}</dt>
+                    <dd className="mt-1.5 text-sm leading-relaxed text-forest-50/75">{spec.label}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <p className="mt-8 text-[0.8125rem] font-semibold uppercase tracking-[0.12em] text-forest-50/50">
+                {t('tech.steps')}
+              </p>
+              <ol className="mt-3 space-y-2.5">
+                {EGMH_STEPS.map((step) => (
+                  <li key={step.n} className="flex gap-3.5">
+                    <span className="tnum shrink-0 font-display text-sm text-gold-200">{step.n}</span>
+                    <span className="min-w-0">
+                      <span className="block text-sm font-semibold text-forest-50">{step.title}</span>
+                      <span className="mt-0.5 block text-sm text-forest-50/65">{step.en}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Why this is the members' own platform ──────────────────── */}
       <section className="border-b border-line bg-forest-50 py-16 sm:py-24">
         <div className="shell">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
             <div className="max-w-prose">
               <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.14em] text-gold-700">
-                Members of KPSM Bau
+                {t('members.eyebrow')}
               </p>
               <h2 className="mt-3 font-display text-[2rem] leading-tight tracking-[-0.015em] text-ink sm:text-[2.6rem]">
-                This is not open to the public. It was built for you.
+                {t('members.title')}
               </h2>
               <p className="mt-5 leading-relaxed text-ink-2">
-                Your cooperative negotiated this on your behalf. Everything here, from the price of the
-                house to the way the money is released, exists because you are a KPSM Bau member and not
-                a walk-in customer.
+                {t('members.p1')}
               </p>
               <p className="mt-4 leading-relaxed text-ink-2">
-                Your neighbours are building through the same programme, on the same terms, with the same
-                people answering the phone.
+                {t('members.p2')}
               </p>
             </div>
 
             <ul className="grid gap-4 sm:grid-cols-2">
               {[
-                ['key', 'Member pricing', 'A cooperative rate negotiated for the whole programme, not quoted to you alone at the gate.'],
-                ['money', 'Your money stays governed', 'KPSM holds and releases the staged payments. EGMH is paid for work that has been checked, not in advance.'],
-                ['person', 'A named person, not a hotline', 'One coordinator who knows your project, reachable by phone, from the first form to your keys.'],
-                ['doc', 'Asked once, never again', 'Your membership, identity and land details are captured once and reused across every form.'],
+                ['key', t('members.b1t'), t('members.b1b')],
+                ['money', t('members.b2t'), t('members.b2b')],
+                ['person', t('members.b3t'), t('members.b3b')],
+                ['doc', t('members.b4t'), t('members.b4b')],
               ].map(([icon, title, body]) => (
                 <li key={title} className="rounded-2xl border border-line bg-surface p-5">
                   <span className="grid h-10 w-10 place-items-center rounded-xl bg-forest-100 text-forest-800">
@@ -198,19 +251,17 @@ export default function Home() {
             <div>
               <PartnerLockup className="text-2xl" />
               <h2 className="mt-6 font-display text-[2rem] leading-tight tracking-[-0.015em] sm:text-[2.6rem]">
-                Three organisations, each doing what it is accountable for.
+                {t('partners.title')}
               </h2>
               <p className="mt-5 max-w-prose leading-relaxed text-forest-50/80">
-                A house is built by one party, financed through another and lived in by a third. This
-                platform is the shared record all three work from, so you never have to take a step on
-                trust alone, or repeat yourself to anyone.
+                {t('partners.lead')}
               </p>
               <ButtonLink
                 to="/partnership"
-                variant="secondary"
-                className="mt-8 border-forest-50/30 bg-transparent text-forest-50 hover:border-forest-50/70 hover:text-forest-50 focus-visible:ring-forest-50/25"
+                variant="onDark"
+                className="mt-8"
               >
-                Read the full introduction
+                {t('partners.cta')}
                 <Icon name="arrow" size={17} />
               </ButtonLink>
             </div>
@@ -248,12 +299,10 @@ export default function Home() {
         <div className="shell">
           <div className="max-w-prose">
             <h2 className="font-display text-[2rem] leading-tight tracking-[-0.015em] text-ink sm:text-[2.6rem]">
-              Six stages, and you always know which one you are in.
+              {t('journey.title')}
             </h2>
             <p className="mt-4 leading-relaxed text-ink-2">
-              Building a house involves a cooperative, a builder and a lot of paperwork. The portal keeps
-              all of it in one place, in plain language, and tells you when something is genuinely needed
-              from you.
+              {t('journey.lead')}
             </p>
           </div>
 
@@ -281,25 +330,22 @@ export default function Home() {
         <div className="shell grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           <div className="max-w-prose">
             <h2 className="font-display text-[2rem] leading-tight tracking-[-0.015em] text-ink sm:text-[2.6rem]">
-              Money moves in four releases, and never without a person signing for it.
+              {t('pay.title')}
             </h2>
             <p className="mt-4 leading-relaxed text-ink-2">
-              KPSM manages the staged payments to EGMH on your behalf. Each release follows the same
-              visible route, and you can see exactly where it has reached.
+              {t('pay.p1')}
             </p>
             <p className="mt-4 leading-relaxed text-ink-2">
-              The platform can read your documents and draft your updates. It cannot approve a payment,
-              certify construction work, or make a decision about your contract. Those stay with named
-              people at KPSM, KOBIS and EGMH, and each one leaves an audit record.
+              {t('pay.p2')}
             </p>
           </div>
 
           <ol className="space-y-3">
             {[
-              ['Mobilisation and contract commencement', 'The contract is signed and EGMH moves onto your land.'],
-              ['Foundation and structural milestone', 'The foundation and main structure are complete and checked.'],
-              ['Roofing, enclosure, services and finishes', 'The roof is on, the house is closed up, wiring and water are in.'],
-              ['Completion, inspection, rectification and handover', 'After the joint inspection, any repairs, and your keys.'],
+              [t('pay.r1t'), t('pay.r1b')],
+              [t('pay.r2t'), t('pay.r2b')],
+              [t('pay.r3t'), t('pay.r3b')],
+              [t('pay.r4t'), t('pay.r4b')],
             ].map(([title, detail], i) => (
               <li key={title} className="flex gap-4 rounded-2xl border border-line bg-paper p-5">
                 <span className="tnum grid h-8 w-8 shrink-0 place-items-center rounded-full bg-forest-800 text-sm font-bold text-forest-50">
@@ -319,14 +365,14 @@ export default function Home() {
       <section className="border-b border-line py-16 sm:py-24">
         <div className="shell">
           <h2 className="max-w-prose font-display text-[2rem] leading-tight tracking-[-0.015em] text-ink sm:text-[2.6rem]">
-            Everyone works from your record. You are the one it belongs to.
+            {t('aud.title')}
           </h2>
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ['You, the member', 'One place that answers where your house is, what is done, what is next, and whether anything is needed from you.'],
-              ['KPSM Bau', 'Membership standing, a governed payment facility, and an audit record behind every authorisation.'],
-              ['KOBIS Berhad', 'Coordination, records and service monitoring, without chasing four parties for the same information.'],
-              ['EGMH', 'Qualified demand, productised delivery, and progress reported once instead of repeated on the phone.'],
+              [t('aud.a1t'), t('aud.a1b')],
+              [t('aud.a2t'), t('aud.a2b')],
+              [t('aud.a3t'), t('aud.a3b')],
+              [t('aud.a4t'), t('aud.a4b')],
             ].map(([who, what]) => (
               <div key={who} className="border-t-2 border-gold-500/60 pt-5">
                 <h3 className="font-display text-xl text-ink">{who}</h3>
@@ -337,12 +383,10 @@ export default function Home() {
 
           <div className="mt-14 flex flex-wrap items-center gap-4 border-t border-line pt-10">
             <ButtonLink to="/login" size="lg">
-              Enter the member portal
+              {t('hero.cta')}
               <Icon name="arrow" size={18} />
             </ButtonLink>
-            <p className="text-sm text-ink-2">
-              Not a KPSM member yet? Speak to your cooperative office first.
-            </p>
+            <p className="text-sm text-ink-2">{t('aud.note')}</p>
           </div>
         </div>
       </section>
@@ -352,7 +396,8 @@ export default function Home() {
   );
 }
 
-function PublicNav() {
+export function PublicNav() {
+  const { t } = useI18n();
   return (
     <div className="sticky top-0 z-sticky border-b border-forest-50/10 bg-onyx/95 backdrop-blur">
       <div className="shell flex h-16 items-center justify-between gap-4">
@@ -361,19 +406,20 @@ function PublicNav() {
         </Link>
         <div className="flex items-center gap-1 sm:gap-2">
           <a
-            href="#homes"
+            href="/#homes"
             className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-forest-50/80 transition-colors hover:bg-forest-800 hover:text-forest-50 sm:block"
           >
-            The homes
+            {t('nav.homes')}
           </a>
           <Link
             to="/partnership"
             className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-forest-50/80 transition-colors hover:bg-forest-800 hover:text-forest-50 sm:block"
           >
-            Partnership
+            {t('nav.partnership')}
           </Link>
+          <LanguageSwitcher />
           <ButtonLink to="/login" size="sm" className="bg-gold-500 text-onyx hover:bg-gold-200 focus-visible:ring-gold-500/30">
-            Sign in
+            {t('nav.signin')}
           </ButtonLink>
         </div>
       </div>
@@ -382,32 +428,33 @@ function PublicNav() {
 }
 
 export function PublicFooter() {
+  const { t } = useI18n();
   return (
-    <footer className="bg-onyx py-12 text-forest-50/70">
+    <footer className="bg-onyx pb-8 pt-12 text-forest-50/70">
       <div className="shell grid gap-8 sm:grid-cols-[1.4fr_1fr]">
         <div>
           <Wordmark tone="light" showPartners />
-          <p className="mt-5 max-w-md text-sm leading-relaxed">
-            A demonstration platform for the KPSM Bau member home-building programme. The members, land
-            titles, prices and payment records shown are illustrative and do not describe a real project.
-          </p>
+          <p className="mt-5 max-w-md text-sm leading-relaxed">{t('footer.disclaimer')}</p>
         </div>
         <div className="sm:justify-self-end">
           <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.12em] text-forest-50/50">
-            Operated by
+            {t('footer.operated')}
           </p>
+          {/* Names only: listing a registration for one partner and not the
+              others read as though the rest were less established. */}
           <ul className="mt-3 space-y-2 text-sm">
             {ORG.partners.map((p) => (
-              <li key={p.code}>
-                <span className="text-forest-50">{p.legal_name}</span>
-                {p.registration && <span className="block text-forest-50/55">{p.registration}</span>}
-              </li>
+              <li key={p.code} className="text-forest-50">{p.legal_name}</li>
             ))}
           </ul>
           <Link to="/partnership" className="mt-4 inline-block text-sm font-semibold text-gold-200 underline underline-offset-4">
-            About the partnership
+            {t('footer.about')}
           </Link>
         </div>
+      </div>
+
+      <div className="shell mt-10 border-t border-forest-50/12 pt-7">
+        <Signature />
       </div>
     </footer>
   );

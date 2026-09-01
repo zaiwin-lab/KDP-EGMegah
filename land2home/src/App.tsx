@@ -1,5 +1,7 @@
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { PortalProvider, usePortal } from '@/state/portal';
+import { I18nProvider } from '@/i18n';
+import { FloatingActions } from '@/components/FloatingActions';
 import { AppShell } from '@/components/layout/AppShell';
 import { Skeleton } from '@/components/ui';
 import type { Role } from '@/lib/types';
@@ -31,8 +33,9 @@ import EgmhRectification from '@/pages/egmh/EgmhRectification';
 
 export default function App() {
   return (
-    <PortalProvider>
-      <Routes>
+    <I18nProvider>
+      <PortalProvider>
+        <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/partnership" element={<Partnership />} />
         <Route path="/login" element={<Login />} />
@@ -63,9 +66,11 @@ export default function App() {
           <Route path="rectification" element={<EgmhRectification />} />
         </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </PortalProvider>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <FloatingActions />
+      </PortalProvider>
+    </I18nProvider>
   );
 }
 

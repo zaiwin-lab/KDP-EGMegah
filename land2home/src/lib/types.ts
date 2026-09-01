@@ -16,6 +16,9 @@ export interface Partner {
   role: string;
   registration?: string;
   established?: string;
+  address?: string;
+  phone?: string;
+  email?: string;
   credentials: string[];
   responsibilities: string[];
   website?: string;

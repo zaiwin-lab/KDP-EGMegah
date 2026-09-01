@@ -7,7 +7,7 @@ import { cn } from '@/lib/cn';
    and behave the same in the member portal, the KPSM view and the EGMH
    view, so nothing reads as a different control doing the same job. */
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
+type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'onDark';
 type Size = 'sm' | 'md' | 'lg';
 
 const BASE =
@@ -27,6 +27,10 @@ const VARIANTS: Record<Variant, string> = {
     'text-forest-800 hover:bg-forest-100/70 focus-visible:ring-forest-600/20',
   danger:
     'border border-alert/35 bg-alert-bg text-alert hover:border-alert/60 focus-visible:ring-alert/20',
+  /* Outlined, for use on the onyx and forest bands. */
+  onDark:
+    'border border-forest-50/45 bg-transparent text-forest-50 hover:border-forest-50 hover:bg-forest-50/10 ' +
+    'focus-visible:ring-forest-50/30',
 };
 
 const SIZES: Record<Size, string> = {

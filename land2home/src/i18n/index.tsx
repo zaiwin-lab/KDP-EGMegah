@@ -31,6 +31,8 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(readStored);
 
   useEffect(() => {
+    /* BM maps to the ISO code for Malay; 'en', 'zh' and 'iba' (Iban) are
+       already valid language subtags on their own. */
     document.documentElement.lang = lang === 'bm' ? 'ms' : lang;
   }, [lang]);
 

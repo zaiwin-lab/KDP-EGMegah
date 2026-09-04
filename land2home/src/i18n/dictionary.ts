@@ -2,14 +2,16 @@
    nouns in every language. Anything without a translation falls back to
    English rather than showing a key.
 
-   NOTE: BM, ZH and TA copy should be reviewed by a native speaker before
-   this goes to production. */
+   NOTE: BM, ZH and Iban copy should be reviewed by a native speaker before
+   this goes to production. The fourth language is Iban (jaku Iban), the
+   language most widely spoken alongside Malay in Bau and the rest of
+   Sarawak, so it carries the Malaysian flag like Bahasa Malaysia does. */
 
 export const LANGUAGES = [
   { code: 'en', flag: '🇬🇧', name: 'English', short: 'EN' },
   { code: 'bm', flag: '🇲🇾', name: 'Bahasa Malaysia', short: 'BM' },
   { code: 'zh', flag: '🇨🇳', name: '中文', short: 'ZH' },
-  { code: 'ta', flag: '🇮🇳', name: 'தமிழ்', short: 'TA' },
+  { code: 'iba', flag: '🇲🇾', name: 'Jaku Iban', short: 'IBA' },
 ] as const;
 
 export type Lang = (typeof LANGUAGES)[number]['code'];
@@ -315,105 +317,104 @@ const zh: Dict = {
   'wa.sub': '随时为您服务',
 };
 
-const ta: Dict = {
-  'credit.line':
-    'இந்த டிஜிட்டல் அனுபவம் {brand} கண்டுபிடிப்பு சூழலின் ஒரு பகுதி',
-  'help.pill': 'எதுவும் கேளுங்கள் · 24/7',
+const iba: Dict = {
+  'credit.line': 'Pengalaman Digital Tu Sebagi ari Ekosistem Inovasi {brand}',
+  'help.pill': 'Tanya sebarang utai · 24/7',
   'wa.pill': 'WhatsApp 011-2846 5813',
   'homes.note':
-    'தளப் பரப்பும் விலைகளும் EG Megah Holdings வெளியிட்டபடி; இவை தோராயமானவை. இறுதி எண்கள் நிலத்தின் நிலை, பூச்சு மற்றும் கட்டுமான நேரத்து விவரக்குறிப்பைப் பொறுத்தது.',
-  'tech.eyebrow': 'EG Megah தொழில்நுட்பம்',
-  'tech.title': 'வித்தியாசம் சுவருக்குள் இருக்கிறது.',
+    'Luas rumah enggau rega nya ke udah dipansutka EG Megah Holdings, lalu semina nunjukka kira-kira. Angka ti amat begantung ba pekara tanah, penyudi enggau spesifikasi ba maya rumah digaga.',
+  'tech.eyebrow': 'Teknologi EG Megah',
+  'tech.title': 'Penyerakup iya bisi dalam dinding.',
   'tech.lead':
-    'ஒவ்வொரு நிலையான மாதிரியும் இடத்திலேயே ஊற்றப்படும் இலகுரக aircrete கான்கிரீட்டால், உயர் துல்லிய மட்டு வார்ப்புருவில் கட்டப்படுகிறது. இது நுண் காற்றுத் துளைகள் நிறைந்த ஒற்றைச் சுவரை உருவாக்குகிறது — கீழுள்ள எண்களுக்கு இதுவே காரணம்.',
-  'tech.certs': 'சான்றளித்தவர்கள்',
-  'tech.steps': 'இதை எப்படிச் சொந்தமாக்குவது',
-  'nav.homes': 'வீடுகள்',
-  'nav.partnership': 'கூட்டாண்மை',
-  'nav.signin': 'உள்நுழைக',
+    'Genap model standard digaga ngena aircrete ti lempung, dituang ba tanah nuan empu dalam acuan modular ti amat tepat. Nya ngasuh dinding nya nyadi siti ngerembai ti penuh enggau lubang angin ti mit, lalu nya meh ngasuh angka ba baruh tu pegai.',
+  'tech.certs': 'Disahka ulih',
+  'tech.steps': 'Baka ni nuan bempu siti',
+  'nav.homes': 'Rumah kami',
+  'nav.partnership': 'Pekaban',
+  'nav.signin': 'Tama',
 
-  'hero.badge': 'KPSM Bau Berhad உறுப்பினர்களுக்காக உருவாக்கப்பட்டது',
-  'hero.title': 'உங்கள் நிலம் ஏற்கெனவே ஒரு கனவைச் சுமக்கிறது.',
+  'hero.badge': 'Digaga ke ahli KPSM Bau Berhad',
+  'hero.title': 'Tanah nuan udah bisi mimpi ba dalam.',
   'hero.lead':
-    'KPSM உறுப்பினர்களுக்கான வழிகாட்டப்பட்ட வீடு கட்டும் பயணம் — நில சரிபார்ப்பு, வீடு தேர்வு முதல் கட்டுமான முன்னேற்றம் மற்றும் சாவி ஒப்படைப்பு வரை. உங்கள் வீட்டைப் பற்றிய பதிலுக்காக நீங்கள் யாரையும் துரத்த வேண்டியதில்லை என்பதற்காக, உங்கள் கூட்டுறவு சங்கம் EGMH மற்றும் KOBIS உடன் இணைந்து இதை உருவாக்கியது.',
-  'hero.cta': 'உறுப்பினர் தளத்தில் நுழைக',
-  'hero.cta2': 'இதன் பின்னால் யார்',
-  'hero.egmh': 'வடிவமைத்து கட்டுகிறது',
-  'hero.kobis': 'தளத்தை இயக்குகிறது',
-  'hero.kpsm': 'கட்டணங்களை நிர்வகிக்கிறது',
+    'Pejalai ngaga rumah ti dipandu ke ahli KPSM, berengkah ari pengesahan tanah enggau milih rumah, nyentuk ngagai berita pengawa ngaga enggau nyerahka kunci. Koperasi nuan ngaga tu enggau EGMH lalu KOBIS, ngambika nuan nadai kala patut nguber orang minta saut pasal rumah nuan empu.',
+  'hero.cta': 'Tama ngagai portal ahli',
+  'hero.cta2': 'Sapa ba belakang tu',
+  'hero.egmh': 'Nyipta lalu ngaga',
+  'hero.kobis': 'Ngintu platform',
+  'hero.kpsm': 'Ngatur bayaran',
 
-  'homes.title': 'நான்கு வழிகள். ஒரே தரம்.',
+  'homes.title': 'Empat jalai. Siti standard penyerah.',
   'homes.lead':
-    'EGMH-இன் சொந்த வீட்டுத் தொகுப்பு, Bau பகுதி உறுப்பினர்கள், நிலப் பரப்பு மற்றும் நிதி நிலைமைக்கு ஏற்ப அமைக்கப்பட்டது. விலைகள் தோராயமானவை. EGMH உங்கள் நிலத்தைப் பார்வையிட்டு எழுத்துப்பூர்வ மதிப்பீடு வழங்கிய பின்னரே உண்மையான தொகை நிர்ணயிக்கப்படும்; எனவே இங்குள்ள எதுவும் உங்களைக் கட்டுப்படுத்தாது.',
-  'homes.builtup': 'கட்டிட பரப்பு',
-  'homes.bedrooms': 'படுக்கையறைகள்',
-  'homes.bathrooms': 'குளியலறைகள்',
-  'homes.from': 'இருந்து',
-  'homes.priced': 'இட ஆய்வுக்குப் பின் விலை',
-  'homes.youdecide': 'நீங்கள் முடிவு செய்யுங்கள்',
+    'Katalog EGMH empu, ti diatur nitihka pekara ahli, gaya lot enggau chara pinjam duit di Bau. Rega nya semina kira-kira. Angka ti amat semina ditetapka udah EGMH datai ninjau tanah nuan lalu meri sebut rega ba surat, nya alai nadai utai ditu ti ngikat nuan.',
+  'homes.builtup': 'Luas rumah',
+  'homes.bedrooms': 'Bilik tinduk',
+  'homes.bathrooms': 'Bilik mandi',
+  'homes.from': 'ari',
+  'homes.priced': 'Rega ditetapka udah ninjau tanah',
+  'homes.youdecide': 'Nuan ke mutuska',
 
-  'members.eyebrow': 'KPSM Bau உறுப்பினர்கள்',
-  'members.title': 'இது பொதுமக்களுக்கானது அல்ல. இது உங்களுக்காகவே கட்டப்பட்டது.',
+  'members.eyebrow': 'Ahli KPSM Bau',
+  'members.title': 'Tu ukai dibuka ngagai orang mayuh. Tu digaga ke nuan.',
   'members.p1':
-    'உங்கள் கூட்டுறவு சங்கம் உங்கள் சார்பாக இதைப் பேசி முடித்தது. வீட்டின் விலை முதல் பணம் விடுவிக்கப்படும் முறை வரை இங்குள்ள அனைத்தும், நீங்கள் ஒரு KPSM Bau உறுப்பினர் என்பதாலேயே உள்ளன — வெளியில் இருந்து வரும் வாடிக்கையாளர் அல்ல.',
+    'Koperasi nuan berandau pasal tu ke penguntung nuan. Semua utai ditu, berengkah ari rega rumah nyentuk ngagai chara duit dilepaska, bisi laban nuan tu ahli KPSM Bau, ukai pembeli ti semina tama ari pintu.',
   'members.p2':
-    'உங்கள் அண்டை வீட்டாரும் இதே திட்டத்தின் கீழ், இதே நிபந்தனைகளில், தொலைபேசியில் பதிலளிக்கும் இதே நபர்களுடன் வீடு கட்டுகிறார்கள்.',
-  'members.b1t': 'உறுப்பினர் விலை',
-  'members.b1b': 'முழு திட்டத்திற்கும் பேசி முடிக்கப்பட்ட கூட்டுறவு விலை — உங்களுக்கு மட்டும் தனியாகச் சொல்லப்பட்ட விலை அல்ல.',
-  'members.b2t': 'உங்கள் பணம் கண்காணிப்பில் இருக்கும்',
-  'members.b2b': 'KPSM நிலைவாரியான கட்டணங்களை வைத்திருந்து விடுவிக்கிறது. சரிபார்க்கப்பட்ட வேலைக்கு மட்டுமே EGMH-க்குப் பணம் வழங்கப்படும், முன்கூட்டியே அல்ல.',
-  'members.b3t': 'பெயர் தெரிந்த ஒருவர், அழைப்பு மையம் அல்ல',
-  'members.b3b': 'உங்கள் திட்டத்தை அறிந்த ஒரு ஒருங்கிணைப்பாளர், முதல் படிவம் முதல் சாவி வரை தொலைபேசியில் கிடைப்பார்.',
-  'members.b4t': 'ஒரு முறை கேட்டால் போதும்',
-  'members.b4b': 'உங்கள் உறுப்பினர், அடையாள மற்றும் நில விவரங்கள் ஒரு முறை பெறப்பட்டு ஒவ்வொரு படிவத்திலும் மீண்டும் பயன்படுத்தப்படும்.',
+    'Bala jerani nuan mega ngaga rumah nengah program ti sama, ngena sarat ti sama, enggau orang ti sama nyaut talipun.',
+  'members.b1t': 'Rega ahli',
+  'members.b1b': 'Rega koperasi ti dirandau ke satu program, ukai disebut ngagai nuan siku-siku ba pintu.',
+  'members.b2t': 'Duit nuan tetap dijaga',
+  'members.b2b': 'KPSM megai lalu nglepaska bayaran tikas-tikas. EGMH dibayar ke pengawa ti udah dipeda, ukai dulu ari nya.',
+  'members.b3t': 'Siku orang ti bisi nama, ukai talipun am',
+  'members.b3b': 'Siku penyelaras ti nemu projek nuan, ulih ditalipun, ari borang ti keterubah nyentuk ngagai kunci nuan.',
+  'members.b4t': 'Ditanya sekali, nadai agi diulang',
+  'members.b4b': 'Pekara keahlian, diri empu enggau tanah nuan diambi sekali aja lalu dikena baru ba genap borang.',
 
-  'partners.title': 'மூன்று நிறுவனங்கள், ஒவ்வொன்றும் தன் பொறுப்பை நிறைவேற்றுகிறது.',
+  'partners.title': 'Tiga buah pekunsi, genap iku ngintu pengawa iya empu.',
   'partners.lead':
-    'ஒரு வீட்டை ஒருவர் கட்டுகிறார், இன்னொருவர் மூலம் நிதி வருகிறது, மூன்றாமவர் அதில் வாழ்கிறார். இந்தத் தளம் மூவரும் பயன்படுத்தும் ஒரே பதிவு; எனவே நீங்கள் நம்பிக்கையை மட்டும் நம்பி எந்த அடியும் எடுக்க வேண்டியதில்லை, யாரிடமும் மீண்டும் விளக்க வேண்டியதில்லை.',
-  'partners.cta': 'முழு அறிமுகத்தைப் படிக்க',
+    'Rumah digaga siku, dibayar nengah siku bukai, lalu diau siku ti ketiga. Platform tu nyadi rekod ti dikunsi sida ke tiga, ngambika nuan nadai patut bejalai ngena pengarap aja, tauka ngulang jaku ngagai orang.',
+  'partners.cta': 'Bacha penerang ti penuh',
 
-  'journey.title': 'ஆறு நிலைகள் — நீங்கள் எங்கே இருக்கிறீர்கள் என்பது எப்போதும் தெரியும்.',
+  'journey.title': 'Nam tikas, lalu nuan seruran nemu ba ni nuan diatu.',
   'journey.lead':
-    'ஒரு வீடு கட்டுவதில் கூட்டுறவு சங்கம், கட்டுநர் மற்றும் ஏராளமான ஆவணங்கள் சம்பந்தப்படுகின்றன. இந்தத் தளம் அனைத்தையும் ஒரே இடத்தில், எளிய மொழியில் வைத்திருக்கிறது; உங்களிடமிருந்து உண்மையிலேயே ஏதேனும் தேவைப்படும்போது மட்டும் தெரிவிக்கிறது.',
+    'Ngaga rumah nyakup koperasi, tukang ngaga enggau mayuh surat. Portal tu nyimpan semua nya ba siti endur, ngena jaku ti mudah, lalu madah ngagai nuan lebuh bisi utai ti amat diguna ari nuan.',
 
-  'pay.title': 'பணம் நான்கு தவணைகளில் நகரும் — ஒருவர் கையொப்பமிடாமல் ஒருபோதும் இல்லை.',
+  'pay.title': 'Duit bejalai dalam empat pelepas, lalu nadai kala nadai orang ti nandatangan.',
   'pay.p1':
-    'உங்கள் சார்பாக EGMH-க்கான நிலைவாரியான கட்டணங்களை KPSM நிர்வகிக்கிறது. ஒவ்வொரு தவணையும் ஒரே தெளிவான வழியைப் பின்பற்றுகிறது; அது எங்கே சென்றுள்ளது என்பதை நீங்கள் துல்லியமாகப் பார்க்கலாம்.',
+    'KPSM ngintu bayaran tikas-tikas ngagai EGMH ke penguntung nuan. Genap pelepas nitihka jalai ti sama sereta ulih dipeda, lalu nuan ulih meda ba ni iya udah datai.',
   'pay.p2':
-    'இந்தத் தளம் உங்கள் ஆவணங்களைப் படித்து முன்னேற்றக் குறிப்புகளை வரையலாம். ஆனால் அது கட்டணத்தை அங்கீகரிக்கவோ, கட்டுமான வேலையைச் சான்றளிக்கவோ, உங்கள் ஒப்பந்தம் குறித்து முடிவெடுக்கவோ முடியாது. அவை KPSM, KOBIS மற்றும் EGMH-இல் பெயர் குறிப்பிடப்பட்ட நபர்களிடமே இருக்கும்; ஒவ்வொன்றும் தணிக்கைப் பதிவை விட்டுச் செல்லும்.',
-  'pay.r1t': 'பணி தொடக்கம் மற்றும் ஒப்பந்தம்',
-  'pay.r1b': 'ஒப்பந்தம் கையெழுத்தாகி EGMH உங்கள் நிலத்தில் பணியைத் தொடங்குகிறது.',
-  'pay.r2t': 'அடித்தளம் மற்றும் கட்டமைப்பு நிலை',
-  'pay.r2b': 'அடித்தளமும் முக்கியக் கட்டமைப்பும் முடிந்து சரிபார்க்கப்பட்டன.',
-  'pay.r3t': 'கூரை, மூடல், சேவைகள் மற்றும் பூச்சு',
-  'pay.r3b': 'கூரை அமைந்து, வீடு மூடப்பட்டு, மின்சாரமும் நீரும் பொருத்தப்பட்டன.',
-  'pay.r4t': 'நிறைவு, ஆய்வு, திருத்தம் மற்றும் ஒப்படைப்பு',
-  'pay.r4b': 'கூட்டு ஆய்வு, தேவையான திருத்தங்கள், பின்னர் உங்கள் சாவி.',
+    'Platform tu ulih macha surat nuan lalu ngaga draf berita nuan. Iya enda ulih nerima bayaran, nyahka pengawa ngaga, tauka mutuska pekara kontrak nuan. Nya semua tetap ba orang ti bisi nama ba KPSM, KOBIS enggau EGMH, lalu genap siti ninggalka rekod audit.',
+  'pay.r1t': 'Berengkah kereja enggau kontrak bekuasa',
+  'pay.r1b': 'Kontrak udah ditandatangan lalu EGMH tama ngagai tanah nuan.',
+  'pay.r2t': 'Pemesai enggau tikas struktur',
+  'pay.r2b': 'Pemesai enggau struktur besai udah tembu lalu udah dipeda.',
+  'pay.r3t': 'Atap, dinding, servis enggau penyudi',
+  'pay.r3b': 'Atap udah tepasang, rumah udah tertutup, wayar enggau ai udah tama.',
+  'pay.r4t': 'Penembu, pemeda, pembetul enggau nyerahka kunci',
+  'pay.r4b': 'Udah pemeda sama-sama, sebarang pembetul, lalu kunci nuan.',
 
-  'aud.title': 'அனைவரும் உங்கள் பதிவிலிருந்தே செயல்படுகிறார்கள். அது உங்களுடையது.',
-  'aud.a1t': 'நீங்கள், உறுப்பினர்',
-  'aud.a1b': 'உங்கள் வீடு எங்கே, என்ன முடிந்தது, அடுத்தது என்ன, உங்களிடமிருந்து ஏதேனும் தேவையா — அனைத்திற்கும் ஒரே இடத்தில் பதில்.',
+  'aud.title': 'Semua orang bekereja ari rekod nuan. Nuan ke bempu iya.',
+  'aud.a1t': 'Nuan, ahli nya',
+  'aud.a1b': 'Siti endur ti nyaut ba ni rumah nuan, nama ti udah tembu, nama ti datai ila, enggau kati bisi utai diguna ari nuan.',
   'aud.a2t': 'KPSM Bau',
-  'aud.a2b': 'உறுப்பினர் நிலை, நிர்வகிக்கப்பட்ட கட்டண வசதி, ஒவ்வொரு அங்கீகாரத்தின் பின்னும் தணிக்கைப் பதிவு.',
+  'aud.a2b': 'Pekara keahlian, kemudahan bayaran ti diintu, enggau rekod audit ba belakang genap kuasa ti diberi.',
   'aud.a3t': 'KOBIS Berhad',
-  'aud.a3b': 'ஒருங்கிணைப்பு, பதிவுகள் மற்றும் சேவைக் கண்காணிப்பு — ஒரே தகவலுக்காக நான்கு தரப்பினரைத் துரத்தாமல்.',
+  'aud.a3b': 'Penyelaras, rekod enggau pemeda servis, nadai patut nguber empat pihak minta berita ti sama.',
   'aud.a4t': 'EGMH',
-  'aud.a4b': 'தகுதியான தேவை, தொகுப்பாக்கப்பட்ட வழங்கல், முன்னேற்றம் ஒரு முறை பதிவாகும் — தொலைபேசியில் மீண்டும் சொல்ல வேண்டியதில்லை.',
-  'aud.note': 'இன்னும் KPSM உறுப்பினர் அல்லவா? முதலில் உங்கள் கூட்டுறவு அலுவலகத்தைத் தொடர்பு கொள்ளுங்கள்.',
+  'aud.a4b': 'Peminta ti ngena, penyerah ti berpakej, enggau pemansang ti dipadah sekali, ukai diulang ba talipun.',
+  'aud.note': 'Apin nyadi ahli KPSM? Bejaku enggau opis koperasi nuan dulu.',
 
   'footer.disclaimer':
-    'KPSM Bau உறுப்பினர் வீடு கட்டும் திட்டத்திற்கான ஒரு விளக்கத் தளம். இங்கு காட்டப்படும் உறுப்பினர்கள், நிலப் பத்திரங்கள், விலைகள் மற்றும் கட்டணப் பதிவுகள் எடுத்துக்காட்டுகள் மட்டுமே; உண்மையான திட்டத்தை விவரிக்கவில்லை.',
-  'footer.operated': 'இயக்குபவர்கள்',
-  'footer.about': 'கூட்டாண்மை பற்றி',
+    'Platform demonstrasi ke program ngaga rumah ahli KPSM Bau. Ahli, surat tanah, rega enggau rekod bayaran ti dipandangka ditu semina chunto lalu ukai nunjukka projek ti amat.',
+  'footer.operated': 'Diintu ulih',
+  'footer.about': 'Pasal pekaban tu',
 
-  'help.title': 'AI உதவி · 24/7',
-  'help.sub': 'எந்நேரமும் எளிய மொழியில் பதில்',
-  'help.intro': 'பொதுவான கேள்விகள், எளிய பதில்கள். உங்கள் சொந்தத் திட்டம் குறித்த எதற்கும் உங்கள் ஒருங்கிணைப்பாளரே விரைவான வழி.',
-  'help.close': 'மூடு',
-  'help.talk': 'ஒரு நபருடன் பேச',
+  'help.title': 'Tulung AI · 24/7',
+  'help.sub': 'Saut ngena jaku ti mudah, sebilang maya',
+  'help.intro': 'Tanya ti suah ditanya, disaut ngena jaku ti mudah. Ke sebarang utai pasal projek nuan empu, penyelaras nuan meh jalai ti pantas.',
+  'help.close': 'Tutup',
+  'help.talk': 'Bejaku enggau orang',
 
   'wa.title': 'WhatsApp',
-  'wa.sub': 'உதவ தயார்',
+  'wa.sub': 'Sedia nulung',
 };
 
-export const DICTIONARIES: Record<Lang, Dict> = { en, bm, zh, ta };
+export const DICTIONARIES: Record<Lang, Dict> = { en, bm, zh, iba };
